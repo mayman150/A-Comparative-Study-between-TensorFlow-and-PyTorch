@@ -2,6 +2,8 @@ import ast
 from itertools import combinations
 import argparse
 from pathlib import Path
+import re
+
 
 def get_if_blocks(block: ast.If, syntax_blocks: set):
     syntax_blocks.add(block)
@@ -14,13 +16,29 @@ def get_if_blocks(block: ast.If, syntax_blocks: set):
             get_if_blocks(b, syntax_blocks)
 
 
+def camel_case_split(identifier):
+    matches = re.finditer('.+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)', identifier)
+    return [m.group(0).lower() for m in matches]
+
+
+def add_to_vocabs(token: str, vocabs: set):
+    uscore_token_list = str(token).split('_')
+
+    # next, split by camel case
+    while len(uscore_token_list) > 0:
+        uscore_token = uscore_token_list.pop()
+        camel_tokens = camel_case_split(uscore_token)
+        for c in camel_tokens:
+            vocabs.add(c)
+
+
 def get_call_name(func: ast.expr, vocabs: set):
     if isinstance(func, ast.Name):
-        vocabs.add(str(func.id))
+        add_to_vocabs(str(func.id), vocabs)
     elif isinstance(func, ast.Attribute):
-        vocabs.add(str(func.attr))
+        add_to_vocabs(str(func.attr), vocabs)
     elif isinstance(func, ast.Constant):
-        vocabs.add(str(func.value))
+        add_to_vocabs(str(func.value), vocabs)
     elif isinstance(func, ast.Compare):
         get_call_name(func.left, vocabs)
         for c in func.comparators:
@@ -71,7 +89,16 @@ def compute_textual_coherence(code_snippet):
         vocab_list.append(vocabs)
 
     print(vocab_list)
+    vocab_overlap = []
+    for pair in combinations(vocab_list,2):
+        vocab_overlap.append(len(pair[0].intersection(pair[1])) / len(pair[0].union(pair[1])))
     
+    tc_max = max(vocab_overlap)
+    tc_min = min(vocab_overlap)
+    tc_avg = sum(vocab_overlap)/len(vocab_overlap)
+
+    return tc_max, tc_min, tc_avg
+
 # Example usage with the provided code snippet in python having if conditions
 def main():
     parser = argparse.ArgumentParser(prog="ITID calculator")
@@ -79,8 +106,10 @@ def main():
 
     args = parser.parse_args()
     code_file = Path(args.filename).read_text()
-    compute_textual_coherence(code_file)
-
+    tc_mn, tc_mx, tc_avg = compute_textual_coherence(code_file)
+    print("TC Min: ",tc_mn)
+    print("TC Max: ", tc_mx)
+    print("TC avg: ", tc_avg)
 
 if __name__ == "__main__":
     try:
