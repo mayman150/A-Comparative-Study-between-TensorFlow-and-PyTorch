@@ -7,6 +7,8 @@ from nltk.stem import WordNetLemmatizer
 from collections import namedtuple
 from typing import Set, List
 import argparse
+import math
+
 
 nltk.download("words")
 nltk.download('wordnet')
@@ -47,7 +49,7 @@ def get_ITID(id: str):
     # Identifier Terms in Dictionary Score in page 7 of paper
     # tokenize id, support camel case and underscore
     # first split by underscore
-    uscore_token_list = id.split('_')
+    uscore_token_list = str(id).split('_')
     
     # next, split by camel case
     token_set: Set[str] = set()
@@ -85,9 +87,56 @@ def get_call_name(func: ast.expr):
         return func.id
     elif isinstance(func, ast.Attribute):
         return func.attr
+    elif isinstance(func, ast.Subscript):
+        return get_call_name(func.value)
+    elif isinstance(func, ast.Call):
+        return get_call_name(func.func)
     else:
-        raise ValueError()
+        raise ValueError(ast.dump(func))
         
+def get_itid_score(itid: ITID):
+    if itid.total_terms <= 0:
+        return float("nan")
+    
+    score = itid.terms_in_dict / itid.total_terms
+    return score
+
+def itid_max(itid_scores: List[ITID]):
+    max_score = float("-inf")
+    for itid in itid_scores:
+        score = get_itid_score(itid)
+        if score > max_score:
+            max_score = score
+    
+    return max_score
+
+def itid_min(itid_scores: List[ITID]):
+    min_score = float("inf")
+    for itid in itid_scores:
+        score = get_itid_score(itid)
+        if score < min_score:
+            min_score = score
+    
+    return min_score
+
+def itid_macro_avg(itid_scores: List[ITID]):
+    score_list = []
+    for itid in itid_scores:
+        score = get_itid_score(itid)
+        if not math.isnan(score):
+            score_list.append(score)
+    
+    return sum(score_list) / len(score_list)
+
+
+def itid_micro_avg(itid_scores: List[ITID]):
+    num = 0
+    den = 0
+    for itid in itid_scores:
+        num += itid.terms_in_dict
+        den += itid.total_terms
+    
+    return num / den
 
 def get_ast(code: str):
     tree = ast.parse(code)
@@ -126,7 +175,10 @@ def get_ast(code: str):
     for m_name in library_module_names:
         itid_scores.append(get_ITID(m_name))
     
-    print(itid_scores)
+    print("Min ITID Score:", itid_min(itid_scores))
+    print("Max Score:", itid_max(itid_scores))
+    print("Macro Avg:", itid_macro_avg(itid_scores))
+    print("Micro Avg:", itid_micro_avg(itid_scores))
 
 def main():
     parser = argparse.ArgumentParser(prog="ITID calculator")
