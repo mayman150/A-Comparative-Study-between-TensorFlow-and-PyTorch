@@ -14,6 +14,7 @@ def __init__(self, parties):
     runTest()
     self.cond = threading.Condition(threading.Lock())
     test = runTest(self.cond, indent=2)
+    test2 = self.pleaseRun()
     self.parties = parties
     # Indicates the number of waiting parties.
     self.waiting = 0
@@ -24,5 +25,9 @@ def __init__(self, parties):
 
     if runTest():
         print("we can run test")
+    elif self.cond:
+        print("elif")
+    else:
+        print("haha no")
     
     return self.broken
