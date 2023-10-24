@@ -176,12 +176,25 @@ def get_ast(code: str):
     print("Macro Avg:", itid_macro_avg(itid_scores))
     print("Micro Avg:", itid_micro_avg(itid_scores))
 
+
+def get_file_weight(filename: str):
+    non_blank_line_count = 0
+
+    with open(filename) as f:
+        for line in f:
+            if not string_is_none_or_whitespace(line):
+                non_blank_line_count += 1
+    
+    return 1 / non_blank_line_count
+
+
 def main():
     parser = argparse.ArgumentParser(prog="ITID calculator")
     parser.add_argument("filename")
 
     args = parser.parse_args()
     code_file = Path(args.filename).read_text()
+    print("file weight", get_file_weight(args.filename))
     get_ast(code_file)
 
 

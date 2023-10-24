@@ -77,9 +77,9 @@ def compute_textual_coherence(code_snippet):
         if isinstance(node, ast.If):
             get_if_blocks(node, syntactic_blocks)
        
-    for b in syntactic_blocks:
-        print(ast.dump(b, indent=2))
-        print("----------------")
+    # for b in syntactic_blocks:
+    #     print(ast.dump(b, indent=2))
+    #     print("----------------")
     
     # get vocabs
     vocab_list = list()
@@ -88,7 +88,7 @@ def compute_textual_coherence(code_snippet):
         get_vocabs(block, vocabs)
         vocab_list.append(vocabs)
 
-    print(vocab_list)
+    # print(vocab_list)
     vocab_overlap = []
     for pair in combinations(vocab_list,2):
         vocab_overlap.append(len(pair[0].intersection(pair[1])) / len(pair[0].union(pair[1])))
@@ -99,6 +99,16 @@ def compute_textual_coherence(code_snippet):
 
     return tc_max, tc_min, tc_avg
 
+def get_file_weight(filename: str):
+    non_blank_line_count = 0
+
+    with open(filename) as f:
+        for line in f:
+            if line.strip():
+                non_blank_line_count += 1
+    
+    return 1 / non_blank_line_count
+
 # Example usage with the provided code snippet in python having if conditions
 def main():
     parser = argparse.ArgumentParser(prog="ITID calculator")
@@ -107,6 +117,7 @@ def main():
     args = parser.parse_args()
     code_file = Path(args.filename).read_text()
     tc_mn, tc_mx, tc_avg = compute_textual_coherence(code_file)
+    print("file weight", get_file_weight(args.filename))
     print("TC Min: ",tc_mn)
     print("TC Max: ", tc_mx)
     print("TC avg: ", tc_avg)
