@@ -30,44 +30,44 @@ def writing_in_file(issues, file_name):
 
 
 
-def set_labels(issue):
-    """Set labels of an issue.
-    Args:
-        issue (Issue): Issue object.
-    Returns:
-        list: List of labels.
-    """
-    # label Classifications are ["Bug", "Critical", "Question", "Documentation", "critical", "enhancement", "Minor", "Other"]
-    labels = []
-    label_mapper = {"bug":"Bug",
-                    "critical":"Critical",
-                    "documentation":"Documentation",
-                    "enhancement":"enhancement",
-                    "feature": "enhancement",
-                    "enhanc": "enhancement",
-                    "question": "Question",
-                    "high priority": "Critical",
-                    "high-priority": "Critical",
-                    "vulnerab": "Critical",
-                    "low priority": "Minor",
-                    "low-priority": "Minor",
-                    "minor": "Minor",
-                    "segfault": "Bug",
-                    "error": "Bug",
-                    "crash": "Critical",
-                    }
+# def set_labels(issue):
+#     """Set labels of an issue.
+#     Args:
+#         issue (Issue): Issue object.
+#     Returns:
+#         list: List of labels.
+#     """
+#     # label Classifications are ["Bug", "Critical", "Question", "Documentation", "critical", "enhancement", "Minor", "Other"]
+#     labels = []
+#     label_mapper = {"bug":"Bug",
+#                     "critical":"Critical",
+#                     "documentation":"Documentation",
+#                     "enhancement":"enhancement",
+#                     "feature": "enhancement",
+#                     "enhanc": "enhancement",
+#                     "question": "Question",
+#                     "high priority": "Critical",
+#                     "high-priority": "Critical",
+#                     "vulnerab": "Critical",
+#                     "low priority": "Minor",
+#                     "low-priority": "Minor",
+#                     "minor": "Minor",
+#                     "segfault": "Bug",
+#                     "error": "Bug",
+#                     "crash": "Critical",
+#                     }
     
-    for label in issue.labels:
-        for key in label_mapper:
-            if key in label.name.lower() or key in issue.title.lower():
-                #Check if the label is already in the list
-                if label_mapper[key] not in labels:
-                    labels.append(label_mapper[key])
-    return labels
+#     for label in issue.labels:
+#         for key in label_mapper:
+#             if key in label.name.lower() or key in issue.title.lower():
+#                 #Check if the label is already in the list
+#                 if label_mapper[key] not in labels:
+#                     labels.append(label_mapper[key])
+#     return labels
 
 
 
-def get_issues(g, repo_name, state='closed', since=None):
+def get_issues(g, repo_name, state, since=None):
     """Get issues of a repository.
     Args:
         repo_name (str): Name of the repository.
@@ -79,7 +79,7 @@ def get_issues(g, repo_name, state='closed', since=None):
     while True: 
         try:
             repo = g.get_repo(repo_name)
-            issues = repo.get_issues(state=state, since=since)
+            issues = repo.get_issues(state=state)
             break
 
         #Handle if we exceed the rate limit
@@ -129,10 +129,10 @@ def write_issues_to_csv(g, issues, filename, fieldnames):
                 writer.writerow({'Issue Number': issue.number,
                                 'Issue Title': issue.title,
                                 'Issue Body': issue.body,
-                                'Time to Close': (issue.closed_at-issue.created_at).days,
-                                'Number of Assignees': len(issue.assignees),
-                                'Number of Comments': issue.comments,
-                                'Number of Labels': len(issue.labels),                                
+                                # 'Time to Close': (issue.closed_at-issue.created_at).days,
+                                # 'Number of Assignees': len(issue.assignees),
+                                # 'Number of Comments': issue.comments,
+                                # 'Number of Labels': len(issue.labels),                                
                                 })
             
             except StopIteration:
