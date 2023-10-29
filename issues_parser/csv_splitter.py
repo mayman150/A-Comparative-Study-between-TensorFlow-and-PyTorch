@@ -95,8 +95,8 @@ def split_csv(source_filepath, dest_path, result_filename_prefix, row_limit):
     if row_limit <= 0:
         raise Exception('row_limit must be > 0')
 
-    # line_count = max(pd.read_csv(source_filepath).shape)
-    line_count = 100000
+    line_count = max(pd.read_csv(source_filepath).shape)
+    
     with open(source_filepath, 'r', encoding="utf-8") as source:
         reader = csv.DictReader(x.replace('\0', '') for x in source)
 
@@ -114,8 +114,8 @@ def split_csv(source_filepath, dest_path, result_filename_prefix, row_limit):
 def main():
     parser = argparse.ArgumentParser(allow_abbrev=True)
 
-    parser.add_argument("-s", "--source_filepath", help="file path of the source csv", required=True)
-    parser.add_argument("-d", "--dest_folder", help="file path of the destination folder", required=True)
+    parser.add_argument("source_filepath", help="file path of the source csv")
+    parser.add_argument("dest_folder", help="file path of the destination folder")
     parser.add_argument("-f", "--filename_prefix", help="prefix of the generated csv file. Defaults to the original file name", required=False)
     parser.add_argument("-r", "--row_limit", help="number of rows per csv. Defaults to 1000", default=1000, type=int, required=False)
 
