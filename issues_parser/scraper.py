@@ -13,12 +13,12 @@ def __main__():
     #Pytorch
     issues = get_issues(g, 'pytorch/pytorch', state='all')
     # write issues to a CSV file
-    write_issues_to_csv(g, issues, 'PyTorch_issues.csv', ['Issue Number', 'Issue Title', 'Issue Body'])
+    write_issues_to_csv(g, issues, 'PyTorch_issues.csv', ['Issue Number', 'Issue Title', 'Issue Body', 'Time to Close', 'Number of Assignees', 'Number of Comments'])
 
     #Tensorflow
     issues = get_issues(g, 'tensorflow/tensorflow', state='all')
     # write issues to a CSV file
-    write_issues_to_csv(g,issues, 'Tensorflow_issues.csv', ['Issue Number', 'Issue Title', 'Issue Body'])
+    write_issues_to_csv(g,issues, 'Tensorflow_issues.csv', ['Issue Number', 'Issue Title', 'Issue Body', 'Time to Close', 'Number of Assignees', 'Number of Comments'])
 
 
 if __name__ == "__main__":

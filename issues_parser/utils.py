@@ -129,9 +129,9 @@ def write_issues_to_csv(g, issues, filename, fieldnames):
                 writer.writerow({'Issue Number': issue.number,
                                 'Issue Title': issue.title,
                                 'Issue Body': issue.body,
-                                # 'Time to Close': (issue.closed_at-issue.created_at).days,
-                                # 'Number of Assignees': len(issue.assignees),
-                                # 'Number of Comments': issue.comments,
+                                'Time to Close': issue.created_at,
+                                'Number of Assignees': len(issue.assignees),
+                                'Number of Comments': issue.comments,
                                 # 'Number of Labels': len(issue.labels),                                
                                 })
             
