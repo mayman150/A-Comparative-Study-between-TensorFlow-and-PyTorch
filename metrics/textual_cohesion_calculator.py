@@ -2,7 +2,9 @@ import ast
 from itertools import combinations
 import argparse
 from pathlib import Path
-import re
+from utils import *
+import os
+from glob import glob
 
 
 def get_if_blocks(block: ast.If, syntax_blocks: set):
@@ -16,11 +18,6 @@ def get_if_blocks(block: ast.If, syntax_blocks: set):
             get_if_blocks(b, syntax_blocks)
 
 
-def camel_case_split(identifier):
-    matches = re.finditer('.+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)', identifier)
-    return [m.group(0).lower() for m in matches]
-
-
 def add_to_vocabs(token: str, vocabs: set):
     uscore_token_list = str(token).split('_')
 
@@ -32,55 +29,25 @@ def add_to_vocabs(token: str, vocabs: set):
             vocabs.add(c)
 
 
-def get_call_name(func: ast.expr, vocabs: set):
-    if isinstance(func, ast.Name):
-        add_to_vocabs(str(func.id), vocabs)
-    elif isinstance(func, ast.Attribute):
-        add_to_vocabs(str(func.attr), vocabs)
-    elif isinstance(func, ast.Constant):
-        add_to_vocabs(str(func.value), vocabs)
-    elif isinstance(func, ast.Compare):
-        get_call_name(func.left, vocabs)
-        for c in func.comparators:
-            get_call_name(c, vocabs)
-    elif isinstance(func, ast.BoolOp):
-        for v in func.values:
-            get_call_name(v, vocabs)
-    elif isinstance(func, ast.Subscript) or isinstance(func, ast.Return) or isinstance(func, ast.Expr):
-        get_call_name(func.value, vocabs)
-    elif isinstance(func, ast.Call):
-        get_call_name(func.func, vocabs)
-    elif isinstance(func, ast.If):
-        get_vocabs(func, vocabs)
-    else:
-        print(func)
-        raise ValueError(ast.dump(func))
-
 def get_vocabs(block: ast.If, vocabs: set):
-    for b in block.body:
-        get_call_name(b, vocabs)
-    
-    for b in block.orelse:
-        get_call_name(b, vocabs)
-
-    get_call_name(block.test, vocabs)
-    
+    # dump ast and extract string block
+    tree_dump = ast.dump(block)
+    extracted_strings = re.findall(r'[\'"](.*?)[\'"]', tree_dump)
+    for string in extracted_strings:
+        str_list = str(string).split()
+        for substring in str_list:
+            add_to_vocabs(substring, vocabs)
 
 
 def compute_textual_coherence(code_snippet):
     # Parse the source code and build the Abstract Syntax Tree (AST)
     tree = ast.parse(code_snippet)
-    # print(ast.dump(tree, indent=2))
     # Extract all syntactic blocks (All branching statements)
     syntactic_blocks = set()
     for node in ast.walk(tree):
         if isinstance(node, ast.If):
             get_if_blocks(node, syntactic_blocks)
-       
-    # for b in syntactic_blocks:
-    #     print(ast.dump(b, indent=2))
-    #     print("----------------")
-    
+
     # get vocabs
     vocab_list = list()
     for block in syntactic_blocks:
@@ -93,11 +60,22 @@ def compute_textual_coherence(code_snippet):
     for pair in combinations(vocab_list,2):
         vocab_overlap.append(len(pair[0].intersection(pair[1])) / len(pair[0].union(pair[1])))
     
-    tc_max = max(vocab_overlap)
-    tc_min = min(vocab_overlap)
-    tc_avg = sum(vocab_overlap)/len(vocab_overlap)
+    if len(vocab_overlap) > 0:
+        tc_max = max(vocab_overlap)
+        tc_min = min(vocab_overlap)
+        tc_avg = sum(vocab_overlap)/len(vocab_overlap)
 
-    return tc_max, tc_min, tc_avg
+        return {
+            "tc_min": tc_min,
+            "tc_max": tc_max,
+            "tc_avg": tc_avg
+        }
+    else:
+        return {
+            "tc_min": 0,
+            "tc_max": 0,
+            "tc_avg": 0
+        }
 
 def get_file_weight(filename: str):
     non_blank_line_count = 0
@@ -109,18 +87,56 @@ def get_file_weight(filename: str):
     
     return 1 / non_blank_line_count
 
+
+def process_file(filename: str, output_filename: str):
+    code_file = sanitize_file(filename)
+    function_lines = get_function_def_lines(code_file, filename)
+    
+    weights: List[float] = list()
+    statistics: List[Dict[str, float]] = list()
+
+    no_of_functions = len(function_lines)
+    total_line_count = count_file_lines(code_file)
+
+    for code_snippet in extract_function_blocks(code_file, function_lines).values():
+        line_count = count_file_lines(code_snippet)
+        
+        weight = get_weight(no_of_functions, total_line_count, line_count)
+        stats = compute_textual_coherence(code_file)
+
+        weights.append(weight)
+        statistics.append(stats)
+    
+    w_avg = get_weighted_mean(weights, statistics)
+
+    write_to_csv(filename, output_filename, total_line_count, w_avg)
+
 # Example usage with the provided code snippet in python having if conditions
 def main():
-    parser = argparse.ArgumentParser(prog="ITID calculator")
-    parser.add_argument("filename")
+    parser = argparse.ArgumentParser(prog="TC calculator")
+    parser.add_argument("source", help="Input python file(s) to be parsed")
+    parser.add_argument("output", help="output csv file name")
 
     args = parser.parse_args()
-    code_file = Path(args.filename).read_text()
-    tc_mn, tc_mx, tc_avg = compute_textual_coherence(code_file)
-    print("file weight", get_file_weight(args.filename))
-    print("TC Min: ",tc_mn)
-    print("TC Max: ", tc_mx)
-    print("TC avg: ", tc_avg)
+
+    source = args.source
+    if os.path.isfile(source):
+        process_file(source, args.output)
+    elif os.path.isdir(source):
+        # glob python files recursively
+        if source[-1] != '/':
+            source += '/'
+        path = source + "**/*.py"
+        for file in glob(path, recursive=True):
+            filepath = Path(file)
+            print("Processing file: " + str(filepath)) 
+            try:
+                process_file(filepath, args.output)
+            except:
+                print("Unable to process file: " + str(filepath))
+    else:
+        raise FileNotFoundError()
+    
 
 if __name__ == "__main__":
     try:
