@@ -1,13 +1,14 @@
 import ast
-from pathlib import Path
 import nltk
-import re
 from nltk.corpus import words
 from nltk.stem import WordNetLemmatizer
 from collections import namedtuple
-from typing import Set, List
+from typing import Set, List, Dict
+from utils import *
 import argparse
 import math
+from glob import glob
+import os
 
 
 nltk.download("words")
@@ -17,23 +18,6 @@ lemmatizer = WordNetLemmatizer()
 lemmatizer_pos_list = ('n', 'v', 'a', 'r', 's')
 
 ITID = namedtuple("ITID", ["terms_in_dict", "total_terms"])
-
-def string_is_none_or_whitespace(string: str):
-    if string is None:
-        return True
-    
-    assert isinstance(string, str)
-
-    if string.strip() == "":
-        return True
-    else:
-        return False
-
-
-def camel_case_split(identifier):
-    matches = re.finditer('.+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)', identifier)
-    return [m.group(0).lower() for m in matches]
-
 
 def try_lemmatize_word(token: str):
     # try to lemmatize the word and see if it appears in dictionary
@@ -83,6 +67,7 @@ def get_node_alias_name(node: ast.Import | ast.ImportFrom, whitelist_set: set, r
 
 
 def get_call_name(func: ast.expr):
+    # get the name of a ast.expr functiongi
     if isinstance(func, ast.Name):
         return func.id
     elif isinstance(func, ast.Attribute):
@@ -92,8 +77,9 @@ def get_call_name(func: ast.expr):
     elif isinstance(func, ast.Call):
         return get_call_name(func.func)
     else:
-        raise ValueError(ast.dump(func))
-        
+        raise ValueError(ast.dump(func, indent=2))
+
+
 def get_itid_score(itid: ITID):
     if itid.total_terms <= 0:
         return float("nan")
@@ -102,7 +88,7 @@ def get_itid_score(itid: ITID):
     return score
 
 def itid_max(itid_scores: List[ITID]):
-    max_score = float("-inf")
+    max_score = 0
     for itid in itid_scores:
         score = get_itid_score(itid)
         if score > max_score:
@@ -111,7 +97,7 @@ def itid_max(itid_scores: List[ITID]):
     return max_score
 
 def itid_min(itid_scores: List[ITID]):
-    min_score = float("inf")
+    min_score = 1
     for itid in itid_scores:
         score = get_itid_score(itid)
         if score < min_score:
@@ -126,7 +112,10 @@ def itid_macro_avg(itid_scores: List[ITID]):
         if not math.isnan(score):
             score_list.append(score)
     
-    return sum(score_list) / len(score_list)
+    if len(score_list) > 0:
+        return sum(score_list) / len(score_list)
+    else:
+        return 0
 
 
 def itid_micro_avg(itid_scores: List[ITID]):
@@ -136,9 +125,12 @@ def itid_micro_avg(itid_scores: List[ITID]):
         num += itid.terms_in_dict
         den += itid.total_terms
     
-    return num / den
+    if den > 0:
+        return num / den
+    else:
+        return 0
 
-def get_ast(code: str):
+def get_itid_stats(code: str):
     tree = ast.parse(code)
     # print(ast.dump(tree, indent=2))
     library_names = set()
@@ -170,24 +162,73 @@ def get_ast(code: str):
                 itid = ITID(terms_in_dict=itid.terms_in_dict + kw_itid.terms_in_dict, total_terms=itid.total_terms + kw_itid.total_terms)
             
             itid_scores.append(itid)
+        elif isinstance(node, ast.Return):
+            if node.value is None:
+                continue
     
     # run ITID for library modules
     for m_name in library_module_names:
         itid_scores.append(get_ITID(m_name))
     
-    print("Min ITID Score:", itid_min(itid_scores))
-    print("Max Score:", itid_max(itid_scores))
-    print("Macro Avg:", itid_macro_avg(itid_scores))
-    print("Micro Avg:", itid_micro_avg(itid_scores))
+    return {
+        "itid_min": itid_min(itid_scores),
+        "itid_max": itid_max(itid_scores),
+        "itid_macro_avg": itid_macro_avg(itid_scores),
+        "itid_micro_avg": itid_micro_avg(itid_scores)
+    }
+
+def get_weight(no_of_functions, total_line_count, code_line_count):
+    return no_of_functions * (code_line_count / total_line_count)
+
+
+def process_file(filename: str, output_filename: str):
+    code_file = sanitize_file(filename)
+    function_line = get_function_def_lines(code_file, filename)
+
+    # weights and statistics for aggregating results
+    weights: List[float] = list()
+    statistics: List[Dict[str, float]] = list()
+
+    no_of_functions = len(function_line)
+    total_line_count = count_file_lines(code_file)
+    for code_snippet in extract_function_blocks(code_file, function_line).values():
+        line_count = count_file_lines(code_snippet)
+
+        weight = get_weight(no_of_functions, total_line_count, line_count)
+        stats = get_itid_stats(code_snippet)
+
+        weights.append(weight)
+        statistics.append(stats)
+
+    # get weighted average
+    w_avg = get_weighted_mean(weights, statistics)
+
+    write_to_csv(filename, output_filename, total_line_count, w_avg)
 
 def main():
     parser = argparse.ArgumentParser(prog="ITID calculator")
-    parser.add_argument("filename")
+    parser.add_argument("source", help="Input python file(s) to be parsed")
+    parser.add_argument("output", help="output csv file name")
 
     args = parser.parse_args()
-    code_file = Path(args.filename).read_text()
-    get_ast(code_file)
 
+    source = args.source
+    if os.path.isfile(source):
+        process_file(source, args.output)
+    elif os.path.isdir(source):
+        # glob python files recursively
+        if source[-1] != '/':
+            source += '/'
+        path = source + "**/*.py"
+        for file in glob(path, recursive=True):
+            filepath = Path(file)
+            print("Processing file: " + str(filepath)) 
+            try:
+                process_file(filepath, args.output)
+            except:
+                print("Unable to process file: " + str(filepath))
+    else:
+        raise FileNotFoundError()
 
 if __name__ == "__main__":
     try:
