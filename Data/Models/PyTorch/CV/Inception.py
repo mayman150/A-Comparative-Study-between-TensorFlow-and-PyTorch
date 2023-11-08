@@ -433,30 +433,6 @@ class Inception_V3_Weights(WeightsEnum):
 @register_model()
 @handle_legacy_interface(weights=("pretrained", Inception_V3_Weights.IMAGENET1K_V1))
 def inception_v3(*, weights: Optional[Inception_V3_Weights] = None, progress: bool = True, **kwargs: Any) -> Inception3:
-    """
-    Inception v3 model architecture from
-    `Rethinking the Inception Architecture for Computer Vision <http://arxiv.org/abs/1512.00567>`_.
-
-    .. note::
-        **Important**: In contrast to the other models the inception_v3 expects tensors with a size of
-        N x 3 x 299 x 299, so ensure your images are sized accordingly.
-
-    Args:
-        weights (:class:`~torchvision.models.Inception_V3_Weights`, optional): The
-            pretrained weights for the model. See
-            :class:`~torchvision.models.Inception_V3_Weights` below for
-            more details, and possible values. By default, no pre-trained
-            weights are used.
-        progress (bool, optional): If True, displays a progress bar of the
-            download to stderr. Default is True.
-        **kwargs: parameters passed to the ``torchvision.models.Inception3``
-            base class. Please refer to the `source code
-            <https://github.com/pytorch/vision/blob/main/torchvision/models/inception.py>`_
-            for more details about this class.
-
-    .. autoclass:: torchvision.models.Inception_V3_Weights
-        :members:
-    """
     weights = Inception_V3_Weights.verify(weights)
 
     original_aux_logits = kwargs.get("aux_logits", True)

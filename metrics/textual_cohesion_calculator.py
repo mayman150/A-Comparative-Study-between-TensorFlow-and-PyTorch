@@ -34,9 +34,9 @@ def get_vocabs(block: ast.If, vocabs: set):
     tree_dump = ast.dump(block)
     extracted_strings = re.findall(r'[\'"](.*?)[\'"]', tree_dump)
     for string in extracted_strings:
-        str_list = str(string).split()
-        for substring in str_list:
-            add_to_vocabs(substring, vocabs)
+        if ' ' in str(string):
+            continue
+        add_to_vocabs(string, vocabs)
 
 
 def compute_textual_coherence(code_snippet):
@@ -135,7 +135,7 @@ def main():
             except:
                 print("Unable to process file: " + str(filepath))
     else:
-        raise FileNotFoundError()
+        parser.error("Source must be a file or a directory")
     
 
 if __name__ == "__main__":

@@ -1,19 +1,3 @@
-# Copyright 2016 The TensorFlow Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
-"""Contains the definition for inception v3 classification network."""
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -33,63 +17,6 @@ def inception_v3_base(inputs,
                       min_depth=16,
                       depth_multiplier=1.0,
                       scope=None):
-  """Inception model from http://arxiv.org/abs/1512.00567.
-
-  Constructs an Inception v3 network from inputs to the given final endpoint.
-  This method can construct the network up to the final inception block
-  Mixed_7c.
-
-  Note that the names of the layers in the paper do not correspond to the names
-  of the endpoints registered by this function although they build the same
-  network.
-
-  Here is a mapping from the old_names to the new names:
-  Old name          | New name
-  =======================================
-  conv0             | Conv2d_1a_3x3
-  conv1             | Conv2d_2a_3x3
-  conv2             | Conv2d_2b_3x3
-  pool1             | MaxPool_3a_3x3
-  conv3             | Conv2d_3b_1x1
-  conv4             | Conv2d_4a_3x3
-  pool2             | MaxPool_5a_3x3
-  mixed_35x35x256a  | Mixed_5b
-  mixed_35x35x288a  | Mixed_5c
-  mixed_35x35x288b  | Mixed_5d
-  mixed_17x17x768a  | Mixed_6a
-  mixed_17x17x768b  | Mixed_6b
-  mixed_17x17x768c  | Mixed_6c
-  mixed_17x17x768d  | Mixed_6d
-  mixed_17x17x768e  | Mixed_6e
-  mixed_8x8x1280a   | Mixed_7a
-  mixed_8x8x2048a   | Mixed_7b
-  mixed_8x8x2048b   | Mixed_7c
-
-  Args:
-    inputs: a tensor of size [batch_size, height, width, channels].
-    final_endpoint: specifies the endpoint to construct the network up to. It
-      can be one of ['Conv2d_1a_3x3', 'Conv2d_2a_3x3', 'Conv2d_2b_3x3',
-      'MaxPool_3a_3x3', 'Conv2d_3b_1x1', 'Conv2d_4a_3x3', 'MaxPool_5a_3x3',
-      'Mixed_5b', 'Mixed_5c', 'Mixed_5d', 'Mixed_6a', 'Mixed_6b', 'Mixed_6c',
-      'Mixed_6d', 'Mixed_6e', 'Mixed_7a', 'Mixed_7b', 'Mixed_7c'].
-    min_depth: Minimum depth value (number of channels) for all convolution ops.
-      Enforced when depth_multiplier < 1, and not an active constraint when
-      depth_multiplier >= 1.
-    depth_multiplier: Float multiplier for the depth (number of channels)
-      for all convolution ops. The value must be greater than zero. Typical
-      usage will be to set this value in (0, 1) to reduce the number of
-      parameters or computation cost of the model.
-    scope: Optional variable_scope.
-
-  Returns:
-    tensor_out: output tensor corresponding to the final_endpoint.
-    end_points: a set of activations for external use, for example summaries or
-                losses.
-
-  Raises:
-    ValueError: if final_endpoint is not set to one of the predefined values,
-                or depth_multiplier <= 0
-  """
   # end_points will collect relevant activations for external use, for example
   # summaries or losses.
   end_points = {}
@@ -430,56 +357,6 @@ def inception_v3(inputs,
                  create_aux_logits=True,
                  scope='InceptionV3',
                  global_pool=False):
-  """Inception model from http://arxiv.org/abs/1512.00567.
-
-  "Rethinking the Inception Architecture for Computer Vision"
-
-  Christian Szegedy, Vincent Vanhoucke, Sergey Ioffe, Jonathon Shlens,
-  Zbigniew Wojna.
-
-  With the default arguments this method constructs the exact model defined in
-  the paper. However, one can experiment with variations of the inception_v3
-  network by changing arguments dropout_keep_prob, min_depth and
-  depth_multiplier.
-
-  The default image size used to train this network is 299x299.
-
-  Args:
-    inputs: a tensor of size [batch_size, height, width, channels].
-    num_classes: number of predicted classes. If 0 or None, the logits layer
-      is omitted and the input features to the logits layer (before dropout)
-      are returned instead.
-    is_training: whether is training or not.
-    dropout_keep_prob: the percentage of activation values that are retained.
-    min_depth: Minimum depth value (number of channels) for all convolution ops.
-      Enforced when depth_multiplier < 1, and not an active constraint when
-      depth_multiplier >= 1.
-    depth_multiplier: Float multiplier for the depth (number of channels)
-      for all convolution ops. The value must be greater than zero. Typical
-      usage will be to set this value in (0, 1) to reduce the number of
-      parameters or computation cost of the model.
-    prediction_fn: a function to get predictions out of logits.
-    spatial_squeeze: if True, logits is of shape [B, C], if false logits is of
-        shape [B, 1, 1, C], where B is batch_size and C is number of classes.
-    reuse: whether or not the network and its variables should be reused. To be
-      able to reuse 'scope' must be given.
-    create_aux_logits: Whether to create the auxiliary logits.
-    scope: Optional variable_scope.
-    global_pool: Optional boolean flag to control the avgpooling before the
-      logits layer. If false or unset, pooling is done with a fixed window
-      that reduces default-sized inputs to 1x1, while larger inputs lead to
-      larger outputs. If true, any input size is pooled down to 1x1.
-
-  Returns:
-    net: a Tensor with the logits (pre-softmax activations) if num_classes
-      is a non-zero integer, or the non-dropped-out input to the logits layer
-      if num_classes is 0 or None.
-    end_points: a dictionary from components of the network to the corresponding
-      activation.
-
-  Raises:
-    ValueError: if 'depth_multiplier' is less than or equal to zero.
-  """
   if depth_multiplier <= 0:
     raise ValueError('depth_multiplier is not greater than zero.')
   depth = lambda d: max(int(d * depth_multiplier), min_depth)
@@ -550,27 +427,6 @@ inception_v3.default_image_size = 299
 
 
 def _reduced_kernel_size_for_small_input(input_tensor, kernel_size):
-  """Define kernel size which is automatically reduced for small input.
-
-  If the shape of the input images is unknown at graph construction time this
-  function assumes that the input images are is large enough.
-
-  Args:
-    input_tensor: input tensor of size [batch_size, height, width, channels].
-    kernel_size: desired kernel size of length 2: [kernel_height, kernel_width]
-
-  Returns:
-    a tensor with the kernel size.
-
-  TODO(jrru): Make this function work with unknown shapes. Theoretically, this
-  can be done with the code below. Problems are two-fold: (1) If the shape was
-  known, it will be lost. (2) inception.slim.ops._two_element_tuple cannot
-  handle tensors that define the kernel size.
-      shape = tf.shape(input_tensor)
-      return = tf.stack([tf.minimum(shape[1], kernel_size[0]),
-                         tf.minimum(shape[2], kernel_size[1])])
-
-  """
   shape = input_tensor.get_shape().as_list()
   if shape[1] is None or shape[2] is None:
     kernel_size_out = kernel_size

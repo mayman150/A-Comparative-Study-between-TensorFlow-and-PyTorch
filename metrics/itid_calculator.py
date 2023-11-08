@@ -224,7 +224,7 @@ def main():
             except:
                 print("Unable to process file: " + str(filepath))
     else:
-        raise FileNotFoundError()
+        parser.error("Source must be a file or a directory")
 
 if __name__ == "__main__":
     try:
