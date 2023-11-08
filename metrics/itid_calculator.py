@@ -177,21 +177,17 @@ def get_itid_stats(code: str):
         "itid_micro_avg": itid_micro_avg(itid_scores)
     }
 
-def get_weight(no_of_functions, total_line_count, code_line_count):
-    return no_of_functions * (code_line_count / total_line_count)
-
-
 def process_file(filename: str, output_filename: str):
     code_file = sanitize_file(filename)
-    function_line = get_function_def_lines(code_file, filename)
+    function_lines = get_function_def_lines(code_file, filename)
 
     # weights and statistics for aggregating results
     weights: List[float] = list()
     statistics: List[Dict[str, float]] = list()
 
-    no_of_functions = len(function_line)
+    no_of_functions = len(function_lines)
     total_line_count = count_file_lines(code_file)
-    for code_snippet in extract_function_blocks(code_file, function_line).values():
+    for code_snippet in extract_function_blocks(code_file, function_lines).values():
         line_count = count_file_lines(code_snippet)
 
         weight = get_weight(no_of_functions, total_line_count, line_count)

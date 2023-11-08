@@ -14,6 +14,10 @@ def camel_case_split(identifier):
     return [m.group(0).lower() for m in matches]
 
 
+def get_weight(no_of_functions, total_line_count, code_line_count):
+    ''' Get the weight of the file for weighted average '''
+    return no_of_functions * (code_line_count / total_line_count)
+
 def get_function_def_lines(code_file: str, filename: str):
     ''' Get the line range for each function definition '''
     function_line = dict()
