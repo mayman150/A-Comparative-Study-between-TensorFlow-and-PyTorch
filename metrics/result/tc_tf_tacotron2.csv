@@ -1,0 +1,8 @@
+filename,line_count,tc_min,tc_max,tc_avg
+..\Data\Models\TensorFlow\SR\tacotron2\Architecture_wrappers.py,161,0.0,0.0,0.0
+..\Data\Models\TensorFlow\SR\tacotron2\attention.py,169,0.0,0.6428571428571429,0.13086831043352784
+..\Data\Models\TensorFlow\SR\tacotron2\custom_decoder.py,104,0.0,0.33333333333333337,0.1349673202614379
+..\Data\Models\TensorFlow\SR\tacotron2\helpers.py,103,0.0,0.9473684210526313,0.3570718930192614
+..\Data\Models\TensorFlow\SR\tacotron2\modules.py,346,0.0,1.0,0.13689209282862536
+..\Data\Models\TensorFlow\SR\tacotron2\tacotron.py,312,0.0,0.857142857142857,0.10945056822772174
+..\Data\Models\TensorFlow\SR\tacotron2\__init__.py,6,0.0,0.0,0.0

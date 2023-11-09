@@ -19,10 +19,12 @@ def main():
     args = parser.parse_args()
 
     result_table = pd.read_csv(args.result_csv)
-
+    result_output_line = list()
     total_lines: int = result_table["line_count"].sum()
     total_rows: int = len(result_table.index)
     
+    print("total_lines: " + str(total_lines))
+    result_output_line.append(str(total_lines))
     result_table["weights"] = result_table["line_count"].div(total_lines)
     weighted_column_names = list()
     for c in result_table.columns:
@@ -49,6 +51,9 @@ def main():
         result = np.exp(numerator / denominator)
 
         print("Geomean_" + orig_column_name + ": " + str(result))
+        result_output_line.append(str(result))
+    
+    print("CSV (Geomean): " + ','.join(result_output_line))
 
 if __name__ == "__main__":
     try:
