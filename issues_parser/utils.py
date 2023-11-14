@@ -132,7 +132,7 @@ def write_issues_to_csv(g, issues, filename, fieldnames):
                                 'Time to Close': issue.created_at,
                                 'Number of Assignees': len(issue.assignees),
                                 'Number of Comments': issue.comments,
-                                # 'Number of Labels': len(issue.labels),                                
+                                'Tags': issue.labels,                                
                                 })
             
             except StopIteration:
