@@ -1,13 +1,15 @@
-You have been provided with an issue title and issue body for TensorFlow or PyTorch Library. You have to predict the label/category of the issue. 
+You have been provided with an issue title, issue body and the tag for TensorFlow or PyTorch Library. You have to predict the label/category of the issue. 
 More specifically, you will give me whether this issue is related to a bug inside the implementation in the library itself or not. Bug means that there are error, flaw or fault in the design, development, or operation of the library that causes it to produce an incorrect or unexpected result,  or to behave in unintended ways
 Additionally, give us an explanation in 2 sentences why it is buggy or not. 
 
 Follow the format 
 
-Q: 
-    Issue Title: """Trying to process RBG images and use RandomContrast: LookupError: gradient registry has no entry for: AdjustContrastv2"""
-    Issue Body:  """    Issue type
-    Bug
+Q:
+Issue Title: """Trying to process RBG images and use RandomContrast: LookupError: gradient registry has no entry for: AdjustContrastv2"""
+Issue Body:
+"""
+Issue type
+Bug
 Have you reproduced the bug with TensorFlow Nightly?
 No
 
@@ -110,13 +112,18 @@ StagingError: in user code:
     File "/usr/local/lib/python3.10/dist-packages/keras/src/optimizers/optimizer.py", line 276, in compute_gradients
         grads = tape.gradient(loss, var_list)
 
-    LookupError: gradient registry has no entry for: AdjustContrastv2"""
+    LookupError: gradient registry has no entry for: AdjustContrastv2
+"""
+
 A: True 
 explanation: The error is due to the fact that the AdjustContrastv2 is not implemented in the tensorflow library, so it is unexpected behavior in the tensorflow, so it is a bug.
 
 
-Q: Issue Title: """Segmentation fault in torch.nn.functional.cosine_embedding_loss with empty tensors and mixed dtypes """
-   Issue Body: """🐛 Describe the bug
+Q: 
+Issue Title: """Segmentation fault in torch.nn.functional.cosine_embedding_loss with empty tensors and mixed dtypes """
+Issue Body: 
+"""
+🐛 Describe the bug
 When calling torch.nn.functional.cosine_embedding_loss with empty tensors and a mix of float16, int8, and float32 data types, a segmentation fault occurs. Additionally, a deprecation warning for the size_average and reduce arguments is triggered, which does not halt execution but indicates that these arguments will be deprecated.
 To reproduce
 
@@ -140,12 +147,16 @@ Error messages and stack trace
   warnings.warn(warning.format(ret))
 Segmentation fault (core dumped)
 """
+
 A: True 
 explanation: The error is due to the fact that the cosine_embedding_loss is not implemented in the pytorch library, so it is unexpected behavior in the pytorch, so it is a bug.
 
 
-Q: Issue Title: """Conda-forge doesn't have tensorflow 1.15 anymore?"""
-   Issue Body: """Issue type
+Q: 
+Issue Title: """Conda-forge doesn't have tensorflow 1.15 anymore?"""
+Issue Body: 
+"""
+Issue type
 Build/Install
 
 Have you reproduced the bug with TensorFlow Nightly?
@@ -199,11 +210,16 @@ Current channels:
   - https://conda.anaconda.org/conda-forge/win-64
   - https://conda.anaconda.org/conda-forge/noarch
 """
+
 A: False
 explanation: It is not an issue in the code itself, but rather an issue in the conda-forge library, so it is not a bug.
 
-Q: Issue Title: """[feature request] Support native ONNX export of FFT-related ops in opset17 (with inverse=True, it also includes inverse DFT)"""
-    Issue Body: """🚀 The feature
+
+Q: 
+Issue Title: """[feature request] Support native ONNX export of FFT-related ops in opset17 (with inverse=True, it also includes inverse DFT)"""
+Issue Body: 
+"""
+🚀 The feature
 Seems that more FFT-related ops are now supported by ONNX opset17 and onnxruntime:
 
 https://github.com/onnx/onnx/blob/main/docs/Operators.md#dft
