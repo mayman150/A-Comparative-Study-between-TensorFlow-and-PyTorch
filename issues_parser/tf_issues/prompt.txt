@@ -1,4 +1,4 @@
-You have been provided with an issue title, issue body and the tag for TensorFlow or PyTorch Library. You have to predict the label/category of the issue. 
+You have been provided with an issue title, issue body and issue tag for TensorFlow or PyTorch Library. You have to predict the label/category of the issue. 
 More specifically, you will give me whether this issue is related to a bug inside the implementation in the library itself or not. Bug means that there are error, flaw or fault in the design, development, or operation of the library that causes it to produce an incorrect or unexpected result,  or to behave in unintended ways
 Additionally, give us an explanation in 2 sentences why it is buggy or not. 
 
@@ -6,6 +6,7 @@ Follow the format
 
 Q:
 Issue Title: """Trying to process RBG images and use RandomContrast: LookupError: gradient registry has no entry for: AdjustContrastv2"""
+Issue Tag: """[Label(name=""stat:awaiting response""), Label(name=""type:bug""), Label(name=""stale""), Label(name=""comp:ops""), Label(name=""TF 2.13"")]"""
 Issue Body:
 """
 Issue type
@@ -116,11 +117,12 @@ StagingError: in user code:
 """
 
 A: True 
-explanation: The error is due to the fact that the AdjustContrastv2 is not implemented in the tensorflow library, so it is unexpected behavior in the tensorflow, so it is a bug.
+explanation: The error is due to the fact that the AdjustContrastv2 is not implemented in the tensorflow library, so it is unexpected behavior in the tensorflow. Also, the issue tag indicated that it is a type of bug. Therefore, it is a bug.
 
 
 Q: 
 Issue Title: """Segmentation fault in torch.nn.functional.cosine_embedding_loss with empty tensors and mixed dtypes """
+Issue Tag: """[Label(name=""high priority""), Label(name=""triage review""), Label(name=""module: crash""), Label(name=""module: nn""), Label(name=""actionable""), Label(name=""module: edge cases"")]"""
 Issue Body: 
 """
 🐛 Describe the bug
@@ -154,6 +156,7 @@ explanation: The error is due to the fact that the cosine_embedding_loss is not 
 
 Q: 
 Issue Title: """Conda-forge doesn't have tensorflow 1.15 anymore?"""
+Issue Tag: """[Label(name=""stat:awaiting response""), Label(name=""type:build/install""), Label(name=""type:support""), Label(name=""TF 1.15"")]"""
 Issue Body: 
 """
 Issue type
@@ -212,11 +215,12 @@ Current channels:
 """
 
 A: False
-explanation: It is not an issue in the code itself, but rather an issue in the conda-forge library, so it is not a bug.
+explanation: It is not an issue in the code itself, but rather an issue in the conda-forge library, so it is not a bug. Also, the tag indicated that it is related to build/install, instead of bug.
 
 
 Q: 
 Issue Title: """[feature request] Support native ONNX export of FFT-related ops in opset17 (with inverse=True, it also includes inverse DFT)"""
+Issue Tag: """[Label(name=""module: onnx""), Label(name=""triaged "")]"""
 Issue Body: 
 """
 🚀 The feature
