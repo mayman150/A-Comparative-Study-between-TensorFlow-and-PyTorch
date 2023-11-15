@@ -99,7 +99,10 @@ def training_loop(model, epochs=1500):
         history["acc"].append(accuracy(model(X_train), y_train))
         history["val_acc"].append(accuracy(model(X_test), y_test))
 
-
+#TODO: Just added other accuracies: F1-Score, IOU, Precision, Recall
+#TODO: Add the plot for the accuracies
+#TODO: Implement Naive Bayes
+#TODO: Having a function to gather all of them.
 # def predictionBasedChecker(Input, Output, Model):
 #     '''
 #     Input: IssueTitle, IssueBody, Tag
