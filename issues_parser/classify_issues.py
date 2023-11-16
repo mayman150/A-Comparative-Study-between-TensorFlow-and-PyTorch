@@ -4,14 +4,9 @@ import pandas as pd
 import argparse
 import re
 import inspect
+from typing import Dict
+import csv
 
-
-import datetime
-import json
-import os
-import sys
-
-from csv import DictReader
 from tqdm import tqdm
 from tenacity import (
     retry,
@@ -31,64 +26,100 @@ def setup():
     return client, initial_prompt
 
 @retry(wait=wait_random_exponential(min=5, max=60), stop=stop_after_attempt(10))
-def run_chatgpt(model, temp, meta_prompt, max_tokens):
+def run_chatgpt(client: OpenAI, model: str, prompt:str, temp: int):
     """
     Run the ChatGPT model on the input prompt.
     """
     # Define the parameters for the text generation
-    completions = OpenAI.Completion.create(
-        engine=model,
-        prompt=meta_prompt,
-        max_tokens=max_tokens,
+    completions = client.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": prompt,
+            }
+        ],
+        model=model,
         n=1,
-        stop=None,
-        temperature=temp,
+        temperature=temp
     )
-    gen_prompt = completions.choices[0].text.strip().lower()
-    # Print the generated text
-    print("The meta prompt is --> ", meta_prompt)
-    print("LLM output is --> ", gen_prompt)
+
+    gen_prompt = completions.choices[0].message.content
     return gen_prompt
 
 
 def generate_issue_prompts(csv_file: str, no_of_samples: int):
     data = pd.read_csv(csv_file)
 
-    samples = data.sample(no_of_samples)
+    # sample issues only when necessary
+    if no_of_samples == 0:
+        samples = data.copy()
+    else:
+        samples = data.sample(no_of_samples)
+
     samples.columns = map(str.lower, samples.columns)
 
-    prompts = list()
+    prompts = dict()
     for _, row in samples.iterrows():
-        tags = str(row.get("tags"))
-        title = str(row.get("issue title"))
-        body = inspect.cleandoc(str(row.get("issue body")))
+        tags = str(row["tags"])
+        title = str(row["issue title"])
+        body = inspect.cleandoc(str(row["issue body"]))
+        issue_no = str(row["issue number"])
         prompt = f'Q:\nIssue Title: """{title}"""\nIssue Tags: """{tags}"""\nIssue Body:\n"""\n{body}\n"""'
 
-        prompts.append(re.escape(inspect.cleandoc(prompt)))
+        prompts[issue_no] = re.escape(inspect.cleandoc(prompt))
 
     return prompts
+
+
+def generate_full_prompt(initial_prompt: str, issue_prompt: str):
+    initial_prompt = initial_prompt.strip()
+    issue_prompt = issue_prompt.strip()
+
+    return initial_prompt + "\n\nNow, consider the following " + issue_prompt + "\n\nWhat is the A? Just answer True or False\n"
+
+
+def classify_answer(answer: str):
+    if "true" in answer.lower():
+        return "true"
+    else:
+        return "false"
+
 
 def main():
     parser = argparse.ArgumentParser(allow_abbrev=True)
     client, initial_prompt = setup()
     parser.add_argument("csv_files", nargs="+", help="Locations of the csv files of issues.")
-    parser.add_argument("-n", "--no_of_samples", type=int, default=100, metavar="", help="Number of samples from each csv file. Default to 100")
+    parser.add_argument("-n", "--no_of_samples", type=int, default=0, metavar="", help="Number of samples from each csv file. Default will contain all data in csv (number 0)")
+    parser.add_argument("-o", "--output_file", metavar="", default="output.csv", help="Output csv file path")
     args = parser.parse_args()
 
-
-    issue_prompts = []
+    issue_prompts: Dict[str, str] = dict()
     for csv_file in args.csv_files:
         print("Generating prompt for file: " + csv_file)
-        issue_prompts += generate_issue_prompts(csv_file, args.no_of_samples)
+        issue_prompts |= generate_issue_prompts(csv_file, args.no_of_samples)
+
     gpt_name = "gpt-3.5-turbo-1106"
-    for issue_prompt in tqdm(issue_prompts):
-        full_prompt = initial_prompt + ' ' +issue_prompt
-        run_chatgpt(
+    output_data = list()
+    for issue_no, issue_prompt in tqdm(issue_prompts.items()):
+        full_prompt = generate_full_prompt(initial_prompt, issue_prompt)
+        answer = run_chatgpt(
             model=gpt_name,
             temp=0,
-            meta_prompt=full_prompt,
-            max_tokens=16000,
+            prompt=full_prompt,
+            client=client
         )
+        
+        output_data.append({
+            "Issue Number": issue_no,
+            "Is Bug": classify_answer(answer)
+        })
+
+    with open(args.output_file, "w") as f:
+        writer = csv.DictWriter(f, fieldnames=["Issue Number", "Is Bug"])
+        writer.writeheader()
+        writer.writerows(output_data)
+
+    print("output complete")
 
 if __name__ == "__main__":
     try:
