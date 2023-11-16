@@ -1,6 +1,5 @@
 You have been provided with an issue title, issue body and the tag for TensorFlow or PyTorch Library. You have to predict the label/category of the issue. 
 More specifically, you will give me whether this issue is related to a bug inside the implementation in the library itself or not. Bug means in this context that there are error, flaw or fault in the design, development, or operation of the library that causes it to produce an incorrect or unexpected result,  or to behave in unintended ways
-Additionally, give us an explanation in 2 sentences why it is buggy or not. 
 
 Follow the format 
 
