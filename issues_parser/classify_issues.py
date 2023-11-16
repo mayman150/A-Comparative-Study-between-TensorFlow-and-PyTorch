@@ -100,19 +100,23 @@ def main():
 
     gpt_name = "gpt-3.5-turbo-1106"
     output_data = list()
-    for issue_no, issue_prompt in tqdm(issue_prompts.items()):
-        full_prompt = generate_full_prompt(initial_prompt, issue_prompt)
-        answer = run_chatgpt(
-            model=gpt_name,
-            temp=0,
-            prompt=full_prompt,
-            client=client
-        )
-        
-        output_data.append({
-            "Issue Number": issue_no,
-            "Is Bug": classify_answer(answer)
-        })
+    try:
+        for issue_no, issue_prompt in tqdm(issue_prompts.items()):
+            full_prompt = generate_full_prompt(initial_prompt, issue_prompt)
+            answer = run_chatgpt(
+                model=gpt_name,
+                temp=0,
+                prompt=full_prompt,
+                client=client
+            )
+            
+            output_data.append({
+                "Issue Number": issue_no,
+                "Is Bug": classify_answer(answer)
+            })
+    except:
+        # if crashes, pass
+        pass
 
     with open(args.output_file, "w") as f:
         writer = csv.DictWriter(f, fieldnames=["Issue Number", "Is Bug"])
