@@ -11,14 +11,14 @@ def __main__():
     # set the date two years ago
 
     #Pytorch
-    issues = get_issues(g, 'pytorch/pytorch', state='all')
+    issues = get_issues(g, 'pytorch/pytorch', state='closed')
     # write issues to a CSV file
-    write_issues_to_csv(g, issues, 'PyTorch_issues.csv', ['Issue Number', 'Issue Title', 'Issue Body', 'Time to Close', 'Number of Assignees', 'Number of Comments', 'Tags'])
+    write_issues_to_csv(g, issues, 'PyTorch_issues.csv', ['Issue Number', 'Issue Title', 'Issue Body', 'Time created', 'Time closed', 'Number of Assignees', 'Number of Comments', 'Tags'])
 
     #Tensorflow
-    issues = get_issues(g, 'tensorflow/tensorflow', state='all')
+    issues = get_issues(g, 'tensorflow/tensorflow', state='closed')
     # write issues to a CSV file
-    write_issues_to_csv(g,issues, 'Tensorflow_issues.csv', ['Issue Number', 'Issue Title', 'Issue Body', 'Time to Close', 'Number of Assignees', 'Number of Comments', 'Tags'])
+    write_issues_to_csv(g,issues, 'Tensorflow_issues.csv', ['Issue Number', 'Issue Title', 'Issue Body', 'Time created','Time closed' , 'Number of Assignees', 'Number of Comments', 'Tags'])
 
 
 if __name__ == "__main__":
