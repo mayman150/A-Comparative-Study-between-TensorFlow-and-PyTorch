@@ -42,6 +42,7 @@ def textualEmbeddingMapper(IssueTitle):
     Output: Textual Embedding Representation
     Comment: Using HuggingFace pre-Trained Model
     '''
+    
     tokenized_corpus = [word_tokenize(sentence.lower()) for sentence in corpus]
     # Train Word2Vec model
     model = Word2Vec(sentences=tokenized_corpus, vector_size=100, window=5, min_count=1, workers=4)

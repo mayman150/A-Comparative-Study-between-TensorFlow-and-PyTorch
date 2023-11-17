@@ -51,20 +51,7 @@ def wordBasedChecker(IssueTitle, IssueBody):
     return False
 
 
-def load_data():
-    '''
-    Load the data from the csv file
-    '''
-    data = pd.read_csv('Issues_classifier/data.csv')
-    X = data['IssueTitle'] + ' ' + data['IssueBody']
-    y = data['Tag']
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
-    X_train_var = Variable(torch.from_numpy(X_train)).float()
-    y_train_var = Variable(torch.from_numpy(y_train)).float()
-    X_test_var  = Variable(torch.from_numpy(X_test)).float()
-    y_test_var  = Variable(torch.from_numpy(y_test)).float()
-    return X_train_var, X_test_var, y_train_var, y_test_var
 
 class LogisticRegression(nn.Module):
     def __init__(self, input_size):
@@ -74,8 +61,7 @@ class LogisticRegression(nn.Module):
     def forward(self, x):
         return F.sigmoid(self.linear(x)).view(-1) # change output shape from [n_samples, 1] to [n_samples]
 
-def accuracy(y_pred, y_true):
-    return np.mean((y_pred > 0.5).data.numpy().astype(int) == y_true.data.numpy().astype(int))
+
 
 
 def training_loop(model, epochs=1500):
@@ -98,6 +84,8 @@ def training_loop(model, epochs=1500):
         history["val_loss"].append(val_loss.data[0])
         history["acc"].append(accuracy(model(X_train), y_train))
         history["val_acc"].append(accuracy(model(X_test), y_test))
+    
+
 
 #TODO: Just added other accuracies: F1-Score, IOU, Precision, Recall
 #TODO: Add the plot for the accuracies
