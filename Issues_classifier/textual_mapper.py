@@ -70,6 +70,16 @@ def bertEmbeddingMapper(IssueTitle, IssueBody):
     body_embedding = model.encode(IssueBody)
     return title_embedding, body_embedding
 
+def bertEmbeddingMapper(Issues):
+    '''
+    Input: IssueTitle, IssueBody
+    Output: BERT Embedding Representation
+    Comment: Using HuggingFace pre-Trained Model
+    '''
+    model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
+    res_embedding = model.encode(Issues)
+    return res_embedding
+
 
 
 def main():
@@ -79,14 +89,17 @@ def main():
     #Have a numpy array of all the issue titles and issue bodies
     IssueTitles = df['Issue Title'].to_numpy()
     IssueBodies = df['Issue Body'].to_numpy()
+    embeddings  = []
     for i in range(len(IssueTitles)):
-        IssueTitle = str(IssueTitles[i])
-        IssueBody = str(IssueBodies[i])
-        res_title, res_body = bertEmbeddingMapper(IssueTitle, IssueBody)
-        df_result.loc[i]['Issue Title'] = res_title
-        df_result.loc[i]['Issue Body'] = res_body
+        all_issues = str(IssueTitles[i]) + ' ' + str(IssueBodies[i])
+       
+        res_embedding = bertEmbeddingMapper(all_issues)
+        embeddings.append(res_embedding)
     
-    df_result.to_csv('GT_Data/GT_bert_data.csv', index=False)
+    #add the list in the dataframe
+    df_result['BERT Embedding'] = embeddings
+    
+    df_result.to_csv('GT_Data/GT_bert_data_concat.csv', index=False)
 
 
 if __name__ == "__main__":
