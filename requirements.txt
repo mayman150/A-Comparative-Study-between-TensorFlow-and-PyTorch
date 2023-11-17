@@ -5,3 +5,7 @@ openai
 python-decouple
 tenacity
 pygithub
+torch
+spellchecker
+contractions
+gensim
