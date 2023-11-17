@@ -68,13 +68,26 @@ def bertEmbeddingMapper(IssueTitle, IssueBody):
     model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
     title_embedding = model.encode(IssueTitle)
     body_embedding = model.encode(IssueBody)
-    return np.concatenate((title_embedding, body_embedding), axis=0)
+    return title_embedding, body_embedding
 
 
 
 def main():
-    #test bag of words
-    print(bagOfWordsMapper("This is Mohamed, man. My email is mohamedayman@15069@gmail.com. COntact me whenever u re avaialble."))
+    #Read CSV File 
+    df = pd.read_csv('../issue_parser/GT_Data/GT_tf_data.csv')
+    df_result = df.copy()
+    #Have a numpy array of all the issue titles and issue bodies
+    IssueTitles = df['Issue Title'].to_numpy()
+    IssueBodies = df['Issue Body'].to_numpy()
+    for i in range(len(IssueTitles)):
+        IssueTitle = str(IssueTitles[i])
+        IssueBody = str(IssueBodies[i])
+        res_title, res_body = bertEmbeddingMapper(IssueTitle, IssueBody)
+        df_result.loc[i]['Issue Title'] = res_title
+        df_result.loc[i]['Issue Body'] = res_body
+    
+    df_result.to_csv('GT_Data/GT_bert_data.csv', index=False)
+
 
 if __name__ == "__main__":
     main()
