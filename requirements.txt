@@ -6,6 +6,7 @@ python-decouple
 tenacity
 pygithub
 torch
-spellchecker
+pyspellchecker
 contractions
 gensim
+names_dataset

@@ -10,6 +10,9 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 
+from tqdm import tqdm
+import argparse
+
 from text_preprocessing import preprocess_text
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -83,14 +86,21 @@ def bertEmbeddingMapper(Issues):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("csv_file", help="location of the ground truth CSV file")
+    parser.add_argument("-o", "--output_csv", help="output file location", default="GT_bert_data.csv")
+
+    args = parser.parse_args()
+
     #Read CSV File 
-    df = pd.read_csv('../issue_parser/GT_Data/GT_tf_data.csv')
+    df = pd.read_csv(args.csv_file)
     df_result = df.copy()
     #Have a numpy array of all the issue titles and issue bodies
     IssueTitles = df['Issue Title'].to_numpy()
     IssueBodies = df['Issue Body'].to_numpy()
     embeddings  = []
-    for i in range(len(IssueTitles)):
+    for i in tqdm(range(len(IssueTitles))):
         all_issues = str(IssueTitles[i]) + ' ' + str(IssueBodies[i])
        
         res_embedding = bertEmbeddingMapper(all_issues)
@@ -98,8 +108,8 @@ def main():
     
     #add the list in the dataframe
     df_result['BERT Embedding'] = embeddings
-    
-    df_result.to_csv('GT_Data/GT_bert_data_concat.csv', index=False)
+
+    df_result.to_csv(args.output_csv, index=False)
 
 
 if __name__ == "__main__":
