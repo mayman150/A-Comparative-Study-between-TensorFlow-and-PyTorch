@@ -23,7 +23,7 @@ def modify(input_string):
 
 
 def preprocess_data():
-    data = pd.read_csv('GT_bert_concat_data_tf.csv')
+    data = pd.read_csv('./Data/GT_bert_concat_data_torch.csv')
 
     X = data['BERT Embedding'].apply(lambda x: modify(x))
     X = np.asarray(X.values.tolist(), dtype=np.float32)
@@ -74,7 +74,7 @@ def load_data(n_splits=5, batch_size=32):
 
         loaders.append((train_loader, test_loader))
 
-    return loaders
+    return loaders, X_train.shape[1]
 
 
 
