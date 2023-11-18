@@ -1,1 +1,0 @@
-{'loss': 0.20712654292583466, 'val_loss': 0.2573623061180115, 'acc': 1.0, 'val_acc': 0.96875, 'precision': 1.0, 'val_precision': 1.0, 'recall': 1.0, 'val_recall': 0.8571428571428571, 'f1_score': 1.0, 'val_f1_score': 0.923076923076923}
