@@ -55,10 +55,14 @@ def wordBasedChecker(IssueTitle, IssueBody):
 class LogisticRegression(nn.Module):
     def __init__(self, input_size):
         super().__init__()
-        self.linear = nn.Linear(input_size, 1)
+        self.linear_1 = nn.Linear(input_size, 8)
+        self.linear_2 = nn.Linear(8, 1)
     
     def forward(self, x):
-        return F.sigmoid(self.linear(x)).view(-1) # change output shape from [n_samples, 1] to [n_samples]
+        x = F.relu(self.linear_1(x))
+        x = F.sigmoid(self.linear_2(x))
+        return x.view(-1)
+        # return F.sigmoid(self.linear(x)).view(-1) # change output shape from [n_samples, 1] to [n_samples]
 
 
 
