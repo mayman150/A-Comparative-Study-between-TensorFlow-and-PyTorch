@@ -24,7 +24,6 @@ def modify(input_string):
 
 def preprocess_data():
     data = pd.read_csv('./Data/GT_bert_concat_data_torch.csv')
-
     X = data['BERT Embedding'].apply(lambda x: modify(x))
     X = np.asarray(X.values.tolist(), dtype=np.float32)
     #Given data['Is Bug']make them 0 and 1
