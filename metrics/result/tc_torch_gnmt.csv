@@ -1,6 +1,0 @@
-filename,line_count,tc_min,tc_max,tc_avg
-..\Data\Models\PyTorch\NLP\GNMT\attention.py,119,0.0,0.7000000000000001,0.13946584270371679
-..\Data\Models\PyTorch\NLP\GNMT\decoder.py,173,0.09090909090909093,0.3636363636363637,0.17873267083793404
-..\Data\Models\PyTorch\NLP\GNMT\encoder.py,72,0.0,0.0,0.0
-..\Data\Models\PyTorch\NLP\GNMT\gnmt.py,41,0.0,0.0,0.0
-..\Data\Models\PyTorch\NLP\GNMT\seq2seq_base.py,54,0.0,0.0,0.0

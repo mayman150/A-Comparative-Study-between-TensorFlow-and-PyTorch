@@ -1,7 +1,0 @@
-filename,line_count,tc_min,tc_max,tc_avg
-..\Data\Models\TensorFlow\NLP\GNMT\attention_wrapper.py,856,0.0,1.0,0.09289328928935994
-..\Data\Models\TensorFlow\NLP\GNMT\block_lstm.py,240,0.0,1.0,0.11938580676004638
-..\Data\Models\TensorFlow\NLP\GNMT\estimator.py,644,0.0,1.0,0.07043439768265351
-..\Data\Models\TensorFlow\NLP\GNMT\gnmt_model.py,544,0.0,1.0,0.17707900112865252
-..\Data\Models\TensorFlow\NLP\GNMT\model.py,476,0.0,0.9333333333333333,0.09458587677587897
-..\Data\Models\TensorFlow\NLP\GNMT\model_helper.py,374,0.0,0.9583333333333335,0.10475924110172452
