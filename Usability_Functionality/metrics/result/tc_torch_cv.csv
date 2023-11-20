@@ -1,0 +1,4 @@
+filename,line_count,tc_min,tc_max,tc_avg
+..\Data\Models\PyTorch\CV\Inception.py,343,0.0,1.0,0.12036163256160187
+..\Data\Models\PyTorch\CV\ResNet.py,248,0.0,1.0,0.097865514413413
+..\Data\Models\PyTorch\CV\VGG.py,99,0.0,0.9090909090909091,0.18408116081982967

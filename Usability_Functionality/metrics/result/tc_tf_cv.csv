@@ -1,0 +1,4 @@
+filename,line_count,tc_min,tc_max,tc_avg
+..\Data\Models\TensorFlow\CV\Inception.py,382,0.0,1.0,0.5080917102147136
+..\Data\Models\TensorFlow\CV\ResNet.py,339,0.0,1.0,0.13441773351048417
+..\Data\Models\TensorFlow\CV\VGG.py,261,0.15151515151515152,1.0,0.39475378787878795
