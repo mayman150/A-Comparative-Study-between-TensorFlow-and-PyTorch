@@ -1,0 +1,246 @@
+You have been provided with an issue title, issue body and the tag for TensorFlow or PyTorch Library. You have to predict the label/category of the issue. 
+More specifically, you will give me whether this issue is related to a bug inside the implementation in the library itself or not. Bug means in this context that there are error, flaw or fault in the design, development, or operation of the library that causes it to produce an incorrect or unexpected result,  or to behave in unintended ways
+
+Follow the format 
+
+Q:
+Issue Title: """Trying to process RBG images and use RandomContrast: LookupError: gradient registry has no entry for: AdjustContrastv2"""
+Issue Tags: """[Label(name="stat:awaiting response"), Label(name="type:bug"), Label(name="stale"), Label(name="comp:ops"), Label(name="TF 2.13")]"""
+Issue Body:
+"""
+Issue type
+Bug
+Have you reproduced the bug with TensorFlow Nightly?
+No
+
+Source
+binary
+
+TensorFlow version
+2.13.0
+
+Custom code
+Yes
+
+OS platform and distribution
+google collaboration
+
+Mobile device
+No response
+
+Python version
+3.10.12
+
+Bazel version
+No response
+
+GCC/compiler version
+No response
+
+CUDA/cuDNN version
+No response
+
+GPU model and memory
+T4
+
+Current behavior?
+I see an error when I add RandomContrast layer into the model. Otherwise, it works fine.
+
+Standalone code to reproduce the issue
+# Clean session
+clear_session()
+
+model_6 = Sequential()
+
+model_6.add(Conv2D(filters = 16, kernel_size = (3, 3)
+                   , padding = "same", input_shape = (img_height, img_wdith, 3)
+                   , activation='relu'))
+
+
+model_6.add(RandomRotation(factor=0.3))
+model_6.add(layers.RandomFlip("horizontal_and_vertical"))
+model_6.add(MaxPooling2D(pool_size = (2, 2)))
+model_6.add(Conv2D(filters = 16, kernel_size = (3, 3) , padding = "same" , activation='relu'))
+model_6.add(MaxPooling2D(pool_size = (2, 2)))
+
+# Add batch normalization
+batch_normalization = BatchNormalization()
+batch_normalization.trainable = True
+model_6.add(batch_normalization)
+model_6.add(layers.RandomContrast(factor=0.2, seed=11))
+
+model_6.add(Flatten())
+
+# Adding a fully connected dense layer with 256 neurons
+model_6.add(Dense(256))
+
+model_6.add(LeakyReLU(0.1))
+
+model_6.add(Dense(num_classes, activation = 'softmax'))
+
+# Printing the model summary
+model_6.summary()
+Relevant log output
+Epoch 1/20
+---------------------------------------------------------------------------
+StagingError                              Traceback (most recent call last)
+[<ipython-input-72-d1c53732b3af>](https://39j3jgoo0eu-496ff2e9c6d22116-0-colab.googleusercontent.com/outputframe.html?vrz=colab_20231016-060118_RC00_573771261#) in <cell line: 7>()
+      5 
+      6 # Fit training dataset to model
+----> 7 history_6 = model_6.fit(n_train_ds, validation_data=n_val_ds, epochs=num_epochs, verbose = 1 )
+
+1 frames
+[/usr/local/lib/python3.10/dist-packages/tensorflow/python/eager/polymorphic_function/autograph_util.py](https://39j3jgoo0eu-496ff2e9c6d22116-0-colab.googleusercontent.com/outputframe.html?vrz=colab_20231016-060118_RC00_573771261#) in autograph_handler(*args, **kwargs)
+     50     except Exception as e:  # pylint:disable=broad-except
+     51       if hasattr(e, "ag_error_metadata"):
+---> 52         raise e.ag_error_metadata.to_exception(e)
+     53       else:
+     54         raise
+
+StagingError: in user code:
+
+    File "/usr/local/lib/python3.10/dist-packages/keras/src/engine/training.py", line 1338, in train_function  *
+        return step_function(self, iterator)
+    File "/usr/local/lib/python3.10/dist-packages/keras/src/engine/training.py", line 1322, in step_function  **
+        outputs = model.distribute_strategy.run(run_step, args=(data,))
+    File "/usr/local/lib/python3.10/dist-packages/keras/src/engine/training.py", line 1303, in run_step  **
+        outputs = model.train_step(data)
+    File "/usr/local/lib/python3.10/dist-packages/keras/src/engine/training.py", line 1084, in train_step
+        self.optimizer.minimize(loss, self.trainable_variables, tape=tape)
+    File "/usr/local/lib/python3.10/dist-packages/keras/src/optimizers/optimizer.py", line 543, in minimize
+        grads_and_vars = self.compute_gradients(loss, var_list, tape)
+    File "/usr/local/lib/python3.10/dist-packages/keras/src/optimizers/optimizer.py", line 276, in compute_gradients
+        grads = tape.gradient(loss, var_list)
+
+    LookupError: gradient registry has no entry for: AdjustContrastv2
+"""
+
+A: True 
+explanation: The error is due to the fact that the AdjustContrastv2 is not implemented in the tensorflow library, so it is unexpected behavior in the tensorflow. Also, the issue tag indicated that it is a type of bug. Therefore, it is a bug.
+
+
+Q: 
+Issue Title: """Segmentation fault in torch.nn.functional.cosine_embedding_loss with empty tensors and mixed dtypes """
+Issue Tags: """[Label(name="high priority"), Label(name="triage review"), Label(name="module: crash"), Label(name="module: nn"), Label(name="actionable"), Label(name="module: edge cases")]"""
+Issue Body: 
+"""
+🐛 Describe the bug
+When calling torch.nn.functional.cosine_embedding_loss with empty tensors and a mix of float16, int8, and float32 data types, a segmentation fault occurs. Additionally, a deprecation warning for the size_average and reduce arguments is triggered, which does not halt execution but indicates that these arguments will be deprecated.
+To reproduce
+
+import torch
+import numpy as np
+
+args = {
+    'input1': torch.from_numpy(np.array(np.random.uniform(-1000_000, 1000_000, [0, 0])).astype('float16')), 
+    'input2': torch.from_numpy(np.array(np.random.randint(-1000_000, 1000_000, [0])).astype('int8')),
+    'margin': 6.4513009, 
+    'reduce': True, 
+    'reduction': 'mean', 
+    'size_average': True, 
+    'target': torch.from_numpy(np.array(np.random.uniform(-1000_000, 1000_000, [0])).astype('float32')), 
+}
+
+torch.nn.functional.cosine_embedding_loss(**args)
+Error messages and stack trace
+
+/home/guihuan/.conda/envs/py39/lib/python3.9/site-packages/torch/nn/_reduction.py:42: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  warnings.warn(warning.format(ret))
+Segmentation fault (core dumped)
+"""
+
+A: True 
+explanation: The error is due to the fact that the cosine_embedding_loss is not implemented in the pytorch library, so it is unexpected behavior in the pytorch, so it is a bug.
+
+
+Q: 
+Issue Title: """Conda-forge doesn't have tensorflow 1.15 anymore?"""
+Issue Tags: """[Label(name="stat:awaiting response"), Label(name="type:build/install"), Label(name="type:support"), Label(name="TF 1.15")]"""
+Issue Body: 
+"""
+Issue type
+Build/Install
+
+Have you reproduced the bug with TensorFlow Nightly?
+No
+
+Source
+binary
+
+TensorFlow version
+1.15
+
+Custom code
+Yes
+
+OS platform and distribution
+No response
+
+Mobile device
+No response
+
+Python version
+No response
+
+Bazel version
+No response
+
+GCC/compiler version
+No response
+
+CUDA/cuDNN version
+No response
+
+GPU model and memory
+No response
+
+Current behavior?
+I have an old project that uses tensorflow 1.15, but recently I can't install the conda environment for this anymore. The version no longer exists on conda-forge, for some reason?
+There are versions 1.14 and lower, and 2.*, but no longer 1.15? Why is that?
+
+Standalone code to reproduce the issue
+conda create --name tf1 python=3.7
+conda activate tf1
+conda install -c conda-forge tensorflow=1.15
+Relevant log output
+PackagesNotFoundError: The following packages are not available from current channels:                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                       
+  - tensorflow=1.15   
+
+Current channels:
+
+  - https://conda.anaconda.org/conda-forge/win-64
+  - https://conda.anaconda.org/conda-forge/noarch
+"""
+
+A: False
+explanation: It is not an issue in the code itself, but rather an issue in the conda-forge library, so it is not a bug. Also, the tag indicated that it is related to build/install, instead of bug.
+
+
+Q: 
+Issue Title: """[feature request] Support native ONNX export of FFT-related ops in opset17 (with inverse=True, it also includes inverse DFT)"""
+Issue Tags: """[Label(name="module: onnx"), Label(name="triaged ")]"""
+Issue Body: 
+"""
+🚀 The feature
+Seems that more FFT-related ops are now supported by ONNX opset17 and onnxruntime:
+
+https://github.com/onnx/onnx/blob/main/docs/Operators.md#dft
+It would be good to have torch.fft.rfft and friends to be natively exported without having to construct the basis manually.
+
+I think this would also be import to torchaudio community
+
+Also related: #107446
+
+Motivation, pitch
+N/A
+
+Alternatives
+No response
+
+Additional context
+No response
+"""
+
+A: False
+explanation: It is not an issue in the code itself, but rather an issue in the onnx library, so it is not a bug.
