@@ -1,4 +1,4 @@
-# Evolution over bugs in both PyTorch and TensorfFlow closed issues
+# Evolution over bugs in both PyTorch and TensorFlow closed issues
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
