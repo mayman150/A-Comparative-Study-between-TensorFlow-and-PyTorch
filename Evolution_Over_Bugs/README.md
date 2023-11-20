@@ -4,7 +4,7 @@
 
 ## Overview
 
-Briefly describe your project, its purpose, and the problem it aims to solve. Mention the key features and benefits.
+To be able to answer the question why researchers in Aritificial intelligence whould prefer to use PyTorch over TensorFlow, we need to get the insights how bugs are evolving over time in both frameworks. 
 
 ## Table of Contents
 
@@ -17,8 +17,7 @@ Briefly describe your project, its purpose, and the problem it aims to solve. Me
 
 ## Installation
 
-Provide step-by-step instructions on how to install and set up your project. Include any dependencies and prerequisites.
-
+To be able to run the scripts, just use the following command:
 ```bash
-# Example installation commands
 pip install -r requirements.txt
+```
