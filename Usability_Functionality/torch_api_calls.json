@@ -1,0 +1,30 @@
+{
+    "api_calls": [
+      "torch.unsqueeze",
+      "torch.cat",
+      "torch.flatten",
+      "torch.nn.init.trunc_normal_",
+      "torch.nn.init.constant_",
+      "torch.nn.functional.relu",
+    "torch.nn.functional.dropout",
+    "torch.nn.functional.linear",
+    "torch.nn.functional.softmax",
+    "torch.nn.functional.cross_entropy",
+    "BasicConv2d",
+    "InceptionA",
+    "InceptionB",
+    "InceptionC",
+    "InceptionD",
+    "InceptionE",
+    "InceptionAux",
+    "conv_block",
+    "nn.AdaptiveAvgPool2d",
+    "nn.Conv2d",
+    "nn.Dropout",
+    "nn.Linear",
+    "nn.MaxPool2d",
+    "nn.BatchNorm2d"
+
+]
+  }
+  
