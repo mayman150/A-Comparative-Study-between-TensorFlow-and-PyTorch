@@ -1,33 +1,3 @@
-# Copyright 2017 Google Inc. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
-#
-# Copyright (c) 2019, NVIDIA CORPORATION. All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""GNMT attention sequence-to-sequence model with dynamic RNN support."""
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -42,11 +12,9 @@ import model
 import model_helper
 from utils import misc_utils as utils
 
-
+#411
 class GNMTModel(model.BaseModel):
-  """Sequence-to-sequence dynamic model with GNMT attention architecture.
-  """
-
+  #1
   def __init__(self,
                hparams,
                mode,
@@ -62,7 +30,7 @@ class GNMTModel(model.BaseModel):
         features=features,
         scope=scope,
         extra_args=extra_args)
-
+  #3
   def _prepare_beam_search_decoder_inputs(
       self, beam_width, memory, source_sequence_length, encoder_state):
     memory = tf.contrib.seq2seq.tile_batch(
@@ -114,85 +82,85 @@ class GNMTModel(model.BaseModel):
       encoder_state = (bi_encoder_state[1],) + (
           (encoder_state,) if num_uni_layers == 1 else encoder_state)
     return encoder_outputs, encoder_state
-
+  #23+44+11 = 78
   def _build_encoder_layers_bidi(self, inputs, sequence_length, hparams, dtype):
     """docstring."""
     if hparams.use_fused_lstm:
-      fn = self._build_bidi_rnn_fused
-    elif hparams.use_cudnn_lstm:
+      fn = self._build_bidi_rnn_fused#23
+    elif hparams.use_cudnn_lstm:#44
       fn = self._build_bidi_rnn_cudnn
     else:
-      fn = self._build_bidi_rnn_base
+      fn = self._build_bidi_rnn_base#11
     return fn(inputs, sequence_length, hparams, dtype)
-
+  #23
   def _build_bidi_rnn_fused(self, inputs, sequence_length, hparams, dtype):
     if (not np.isclose(hparams.dropout, 0.) and
         self.mode == tf.contrib.learn.ModeKeys.TRAIN):
       inputs = tf.nn.dropout(inputs, keep_prob=1-hparams.dropout)
 
-    fwd_cell = block_lstm.LSTMBlockFusedCell(
+    fwd_cell = block_lstm.LSTMBlockFusedCell(#6
         hparams.num_units, hparams.forget_bias, dtype=dtype)
     fwd_encoder_outputs, (fwd_final_c, fwd_final_h) = fwd_cell(
         inputs,
         dtype=dtype,
         sequence_length=sequence_length)
 
-    inputs_r = tf.reverse_sequence(
+    inputs_r = tf.reverse_sequence(#1
         inputs, sequence_length, batch_axis=1, seq_axis=0)
-    bak_cell = block_lstm.LSTMBlockFusedCell(
+    bak_cell = block_lstm.LSTMBlockFusedCell(#6
         hparams.num_units, hparams.forget_bias, dtype=dtype)
-    bak_encoder_outputs, (bak_final_c, bak_final_h) = bak_cell(
+    bak_encoder_outputs, (bak_final_c, bak_final_h) = bak_cell(#6
         inputs_r,
         dtype=dtype,
         sequence_length=sequence_length)
-    bak_encoder_outputs = tf.reverse_sequence(
+    bak_encoder_outputs = tf.reverse_sequence(#1
         bak_encoder_outputs, sequence_length, batch_axis=1, seq_axis=0)
-    bi_encoder_outputs = tf.concat(
+    bi_encoder_outputs = tf.concat(#1
         [fwd_encoder_outputs, bak_encoder_outputs], axis=-1)
-    fwd_state = tf.nn.rnn_cell.LSTMStateTuple(fwd_final_c, fwd_final_h)
-    bak_state = tf.nn.rnn_cell.LSTMStateTuple(bak_final_c, bak_final_h)
+    fwd_state = tf.nn.rnn_cell.LSTMStateTuple(fwd_final_c, fwd_final_h)#1
+    bak_state = tf.nn.rnn_cell.LSTMStateTuple(bak_final_c, bak_final_h)#1
     bi_encoder_state = (fwd_state, bak_state)
 
     # mask aren't applied on outputs, but final states are post-masking.
     return bi_encoder_outputs, bi_encoder_state
-
+  #13
   def _build_unidi_rnn_fused(self, inputs, state,
                              sequence_length, hparams, dtype):
     if (not np.isclose(hparams.dropout, 0.) and
-        self.mode == tf.contrib.learn.ModeKeys.TRAIN):
-      inputs = tf.nn.dropout(inputs, keep_prob=1-hparams.dropout)
+        self.mode == tf.contrib.learn.ModeKeys.TRAIN):#1
+      inputs = tf.nn.dropout(inputs, keep_prob=1-hparams.dropout)#1
 
-    cell = block_lstm.LSTMBlockFusedCell(
+    cell = block_lstm.LSTMBlockFusedCell(#6
         hparams.num_units, hparams.forget_bias, dtype=dtype)
-    outputs, (final_c, final_h) = cell(
+    outputs, (final_c, final_h) = cell(#6
         inputs,
         state,
         dtype=dtype,
         sequence_length=sequence_length)
 
     # mask aren't applied on outputs, but final states are post-masking.
-    return outputs, tf.nn.rnn_cell.LSTMStateTuple(final_c, final_h)
-
+    return outputs, tf.nn.rnn_cell.LSTMStateTuple(final_c, final_h)#1
+  #15
   def _build_unidi_rnn_cudnn(self, inputs, state, sequence_length, dtype,
                              hparams, num_layers, is_fwd):
     # cudnn inputs only support time-major
     if not self.time_major:
-      inputs = tf.transpose(inputs, axis=[1, 0, 2])
+      inputs = tf.transpose(inputs, axis=[1, 0, 2])#1
 
     if num_layers == 1 and not np.isclose(hparams.dropout, 0.):
       # Special case when drop is used and only one layer
       dropout = 0.
-      inputs = tf.nn.dropout(inputs, keep_prob=1-dropout)
+      inputs = tf.nn.dropout(inputs, keep_prob=1-dropout)#1
     else:
-      dropout = hparams.dropout
+      dropout = hparams.dropout#1
 
     # the outputs would be in time-majored
-    sequence_length = tf.transpose(sequence_length)
+    sequence_length = tf.transpose(sequence_length)#1
 
     if not is_fwd:
-      inputs = tf.reverse_sequence(
+      inputs = tf.reverse_sequence(#1
           inputs, sequence_length, batch_axis=1, seq_axis=0)
-    cell = tf.contrib.cudnn_rnn.CudnnLSTM(
+    cell = tf.contrib.cudnn_rnn.CudnnLSTM(#1
         num_layers=num_layers,
         num_units=hparams.num_units,
         direction=cudnn_rnn.CUDNN_RNN_UNIDIRECTION,
@@ -200,42 +168,33 @@ class GNMTModel(model.BaseModel):
         dropout=dropout)
     outputs, (h, c) = cell(inputs, initial_state=state)
 
-    """
-    # Mask outputs
-    # [batch, time]
-    mask = tf.sequence_mask(sequence_length, dtype=self.dtype)
-    # [time, batch]
-    mask = tf.transpose(mask)
-    outputs *= mask
-    """
-
     if not is_fwd:
-      outputs = tf.reverse_sequence(
+      outputs = tf.reverse_sequence(#1
           inputs, sequence_length, batch_axis=1, seq_axis=0)
     # NOTICE! There's no way to get the "correct" masked cell state in cudnn
     # rnn.
     if num_layers == 1:
-      h = tf.squeeze(h, axis=0)
-      c = tf.squeeze(c, axis=0)
-      return outputs, tf.nn.rnn_cell.LSTMStateTuple(c=c, h=h)
+      h = tf.squeeze(h, axis=0)#1
+      c = tf.squeeze(c, axis=0)#1
+      return outputs, tf.nn.rnn_cell.LSTMStateTuple(c=c, h=h)#1
 
     # Split h and c to form a
-    h.set_shape((num_layers, None, hparams.num_units))
-    c.set_shape((num_layers, None, hparams.num_units))
-    hs = tf.unstack(h)
-    cs = tf.unstack(c)
+    h.set_shape((num_layers, None, hparams.num_units))#1
+    c.set_shape((num_layers, None, hparams.num_units))#1
+    hs = tf.unstack(h)#1
+    cs = tf.unstack(c)#1
     # The cell passed to bidi-dyanmic-rnn is a MultiRNNCell consisting 2 regular
     # LSTM, the state of each is a simple LSTMStateTuple. Thus the state of the
     # MultiRNNCell is a tuple of LSTMStateTuple.
-    states = tuple(
+    states = tuple(#1
         tf.nn.rnn_cell.LSTMStateTuple(c=c, h=h) for h, c in zip(hs, cs))
     # No need to transpose back
     return outputs, states
-
+  #4
   def _build_encoder_cell(self, hparams, num_layers, num_residual_layers,
                           dtype=None):
     """Build a multi-layer RNN cell that can be used by encoder."""
-    return model_helper.create_rnn_cell(
+    return model_helper.create_rnn_cell(#4
         unit_type=hparams.unit_type,
         num_units=self.num_units,
         num_layers=num_layers,
@@ -246,7 +205,7 @@ class GNMTModel(model.BaseModel):
         dtype=dtype,
         single_cell_fn=self.single_cell_fn,
         use_block_lstm=hparams.use_block_lstm)
-
+  #11
   def _build_bidi_rnn_base(self, inputs, sequence_length, hparams, dtype):
     """Create and call biddirectional RNN cells."""
     # num_residual_layers: Number of residual layers from top to bottom. For
@@ -254,15 +213,15 @@ class GNMTModel(model.BaseModel):
     # RNN layers in each RNN cell will be wrapped with `ResidualWrapper`.
 
     # Construct forward and backward cells
-    fw_cell = self._build_encoder_cell(hparams,
+    fw_cell = self._build_encoder_cell(hparams,#4
                                        1,  # num_bi_layers,
                                        0,  # num_bi_residual_layers,
                                        dtype)
-    bw_cell = self._build_encoder_cell(hparams,
+    bw_cell = self._build_encoder_cell(hparams,#4
                                        1,  # num_bi_layers,
                                        0,  # num_bi_residual_layers,
                                        dtype)
-    if hparams.use_dynamic_rnn:
+    if hparams.use_dynamic_rnn:#1
       bi_outputs, bi_state = tf.nn.bidirectional_dynamic_rnn(
           fw_cell,
           bw_cell,
@@ -271,7 +230,7 @@ class GNMTModel(model.BaseModel):
           sequence_length=sequence_length,
           time_major=self.time_major,
           swap_memory=True)
-    else:
+    else:#1
       bi_outputs, bi_state = tf.contrib.recurrent.bidirectional_functional_rnn(
           fw_cell,
           bw_cell,
@@ -280,48 +239,48 @@ class GNMTModel(model.BaseModel):
           sequence_length=sequence_length,
           time_major=self.time_major,
           use_tpu=False)
-    return tf.concat(bi_outputs, -1), bi_state
-
+    return tf.concat(bi_outputs, -1), bi_state#1
+  #44
   def _build_bidi_rnn_cudnn(self, inputs, sequence_length, hparams, dtype):
     # Notice cudnn rnn dropout is applied between layers. (if 1 layer only then
     # no dropout).
     if not np.isclose(hparams.dropout, 0.):
-      inputs = tf.nn.dropout(inputs, keep_prob=1-hparams.dropout)
-    if not hparams.use_loose_bidi_cudnn_lstm:
-      fwd_outputs, fwd_states = self._build_unidi_rnn_cudnn(
+      inputs = tf.nn.dropout(inputs, keep_prob=1-hparams.dropout)#1
+    if not hparams.use_loose_bidi_cudnn_lstm:#1
+      fwd_outputs, fwd_states = self._build_unidi_rnn_cudnn(#15
           inputs, None,  # initial_state
           sequence_length, dtype, hparams,
           1,  # num_layer
           is_fwd=True)
-      bak_outputs, bak_states = self._build_unidi_rnn_cudnn(
+      bak_outputs, bak_states = self._build_unidi_rnn_cudnn(#15
           inputs, None,  # initial_state
           sequence_length, dtype, hparams,
           1,  # num_layer
           is_fwd=False)
-      bi_outputs = tf.concat([fwd_outputs, bak_outputs], axis=-1)
+      bi_outputs = tf.concat([fwd_outputs, bak_outputs], axis=-1)#1
       return bi_outputs, (fwd_states, bak_states)
     else:
       # Cudnn only accept time-majored inputs
       if not self.time_major:
-        inputs = tf.transpose(inputs, axis=[1, 0, 2])
-      bi_outputs, (bi_h, bi_c) = tf.contrib.cudnn_rnn.CudnnLSTM(
+        inputs = tf.transpose(inputs, axis=[1, 0, 2])#1
+      bi_outputs, (bi_h, bi_c) = tf.contrib.cudnn_rnn.CudnnLSTM(#1
           num_layers=1,  # num_bi_layers,
-          num_units=hparams.num_units,
-          direction=cudnn_rnn.CUDNN_RNN_BIDIRECTION,
+          num_units=hparams.num_units,#11
+          direction=cudnn_rnn.CUDNN_RNN_BIDIRECTION,#1
           dropout=0.,  # one layer, dropout isn't applied anyway,
           seed=hparams.random_seed,
           dtype=self.dtype,
-          kernel_initializer=tf.get_variable_scope().initializer,
-          bias_initializer=tf.zeros_initializer())(inputs)
+          kernel_initializer=tf.get_variable_scope().initializer,#1
+          bias_initializer=tf.zeros_initializer())(inputs)#1
       # state shape is [num_layers * num_dir, batch, dim]
-      bi_h.set_shape((2, None, hparams.num_units))
-      bi_c.set_shape((2, None, hparams.num_units))
-      fwd_h, bak_h = tf.unstack(bi_h)
-      fwd_c, bak_c = tf.unstack(bi_c)
+      bi_h.set_shape((2, None, hparams.num_units))#1
+      bi_c.set_shape((2, None, hparams.num_units))#1
+      fwd_h, bak_h = tf.unstack(bi_h)#1
+      fwd_c, bak_c = tf.unstack(bi_c)#
       # No need to transpose back
-      return bi_outputs, (tf.nn.rnn_cell.LSTMStateTuple(c=fwd_c, h=fwd_h),
+      return bi_outputs, (tf.nn.rnn_cell.LSTMStateTuple(c=fwd_c, h=fwd_h),#2
                           tf.nn.rnn_cell.LSTMStateTuple(c=bak_c, h=bak_h))
-
+  #40
   def _build_encoder_layers_unidi(self, inputs, sequence_length,
                                   num_uni_layers, hparams, dtype):
     """Build encoder layers all at once."""
@@ -331,31 +290,31 @@ class GNMTModel(model.BaseModel):
     if hparams.use_fused_lstm:
       for i in range(num_uni_layers):
         if (not np.isclose(hparams.dropout, 0.) and
-            self.mode == tf.contrib.learn.ModeKeys.TRAIN):
-          cell_inputs = tf.nn.dropout(inputs, keep_prob=1-hparams.dropout)
+            self.mode == tf.contrib.learn.ModeKeys.TRAIN):#1
+          cell_inputs = tf.nn.dropout(inputs, keep_prob=1-hparams.dropout)#1
         else:
           cell_inputs = inputs
 
-        cell = block_lstm.LSTMBlockFusedCell(
+        cell = block_lstm.LSTMBlockFusedCell(#6
             hparams.num_units, hparams.forget_bias, dtype=dtype)
         encoder_outputs, (final_c, final_h) = cell(
             cell_inputs,
             dtype=dtype,
             sequence_length=sequence_length)
-        encoder_state += (tf.nn.rnn_cell.LSTMStateTuple(final_c, final_h),)
+        encoder_state += (tf.nn.rnn_cell.LSTMStateTuple(final_c, final_h),)#1
         if i >= num_uni_layers - self.num_encoder_residual_layers:
           # Add the pre-dropout inputs. Residual wrapper is applied after
           # dropout wrapper.
           encoder_outputs += inputs
         inputs = encoder_outputs
-    elif hparams.use_cudnn_lstm:
+    elif hparams.use_cudnn_lstm:#1
       # Single layer cudnn rnn, dropout isnt applied in the kernel
-      for i in range(num_uni_layers):
+      for i in range(num_uni_layers):#8
         if (not np.isclose(hparams.dropout, 0.) and
             self.mode == tf.contrib.learn.ModeKeys.TRAIN):
           inputs = tf.nn.dropout(inputs, keep_prob=1-hparams.dropout)
 
-        encoder_outputs, encoder_states = self._build_unidi_rnn_cudnn(
+        encoder_outputs, encoder_states = self._build_unidi_rnn_cudnn(#15
             inputs,
             None,  # initial_state
             sequence_length,
@@ -364,12 +323,12 @@ class GNMTModel(model.BaseModel):
             1,  # num_layer
             is_fwd=True)
         encoder_state += (tf.nn.rnn_cell.LSTMStateTuple(encoder_states.c,
-                                                        encoder_states.h),)
+                                                        encoder_states.h),)#1
         if i >= num_uni_layers - self.num_encoder_residual_layers:
           encoder_outputs += inputs
         inputs = encoder_outputs
     else:
-      uni_cell = model_helper.create_rnn_cell(
+      uni_cell = model_helper.create_rnn_cell(#4
           unit_type=hparams.unit_type,
           num_units=hparams.num_units,
           num_layers=num_uni_layers,
@@ -382,14 +341,14 @@ class GNMTModel(model.BaseModel):
           use_block_lstm=hparams.use_block_lstm)
 
       if hparams.use_dynamic_rnn:
-        encoder_outputs, encoder_state = tf.nn.dynamic_rnn(
+        encoder_outputs, encoder_state = tf.nn.dynamic_rnn(#1
             uni_cell,
             inputs,
             dtype=dtype,
             sequence_length=sequence_length,
             time_major=self.time_major)
       else:
-        encoder_outputs, encoder_state = tf.contrib.recurrent.functional_rnn(
+        encoder_outputs, encoder_state = tf.contrib.recurrent.functional_rnn(#1
             uni_cell,
             inputs,
             dtype=dtype,
@@ -398,7 +357,7 @@ class GNMTModel(model.BaseModel):
             use_tpu=False)
 
     return encoder_state, encoder_outputs
-
+  #174
   def _build_decoder_cell(self, hparams, encoder_outputs, encoder_state,
                           source_sequence_length):
     """Build a RNN cell with GNMT attention architecture."""
@@ -411,27 +370,27 @@ class GNMTModel(model.BaseModel):
 
     num_units = hparams.num_units
     infer_mode = hparams.infer_mode
-    dtype = tf.float16 if hparams.use_fp16 else tf.float32
+    dtype = tf.float16 if hparams.use_fp16 else tf.float32#1
 
     if self.time_major:
-      memory = tf.transpose(encoder_outputs, [1, 0, 2])
+      memory = tf.transpose(encoder_outputs, [1, 0, 2])#1
     else:
       memory = encoder_outputs
 
-    if (self.mode == tf.contrib.learn.ModeKeys.INFER and
+    if (self.mode == tf.contrib.learn.ModeKeys.INFER and#1
         infer_mode == "beam_search"):
       memory, source_sequence_length, encoder_state, batch_size = (
-          self._prepare_beam_search_decoder_inputs(
+          self._prepare_beam_search_decoder_inputs(#3
               hparams.beam_width, memory, source_sequence_length,
               encoder_state))
     else:
       batch_size = self.batch_size
 
-    attention_mechanism = model.create_attention_mechanism(
+    attention_mechanism = model.create_attention_mechanism(#122
         num_units, memory, source_sequence_length, dtype=dtype)
 
     cell_list = model_helper._cell_list(  # pylint: disable=protected-access
-        unit_type=hparams.unit_type,
+        unit_type=hparams.unit_type,#4
         num_units=num_units,
         num_layers=self.num_decoder_layers,
         num_residual_layers=self.num_decoder_residual_layers,
@@ -448,15 +407,15 @@ class GNMTModel(model.BaseModel):
 
     # Only generate alignment in greedy INFER mode.
     alignment_history = (self.mode == tf.contrib.learn.ModeKeys.INFER and
-                         infer_mode != "beam_search")
-    attention_cell = attention_wrapper.AttentionWrapper(
+                         infer_mode != "beam_search")#1
+    attention_cell = attention_wrapper.AttentionWrapper(#30
         attention_cell,
         attention_mechanism,
         attention_layer_size=None,  # don't use attention layer.
         output_attention=False,
         alignment_history=alignment_history,
         name="attention")
-    cell = GNMTAttentionMultiCell(attention_cell, cell_list)
+    cell = GNMTAttentionMultiCell(attention_cell, cell_list)#11
 
     if hparams.pass_hidden_state:
       decoder_initial_state = tuple(
@@ -471,112 +430,7 @@ class GNMTModel(model.BaseModel):
 
   def _build_decoder_cudnn(self, encoder_outputs, encoder_state, hparams):
     pass
-    """
-    # Training
-    # Use dynamic_rnn to compute the 1st layer outputs and attention
-    # GNMT attention
-    with tf.variable_scope("decoder") as decoder_scope:
-
-      assert self.is_gnmt_attention
-      attention_option = hparams.attention
-      attention_architecture = hparams.attention_architecture
-      assert attention_option == "normed_bahdanau"
-      assert attention_architecture == "gnmt_v2"
-
-      num_units = hparams.num_units
-      infer_mode = hparams.infer_mode
-      dtype = tf.float16 if hparams.use_fp16 else tf.float32
-
-      if self.time_major:
-        memory = tf.transpose(encoder_outputs, [1, 0, 2])
-      else:
-        memory = encoder_outputs
-
-      source_sequence_length = self.features["source_sequence_length"]
-      if (self.mode == tf.contrib.learn.ModeKeys.INFER and
-          infer_mode == "beam_search"):
-        memory, source_sequence_length, encoder_state, batch_size = (
-            self._prepare_beam_search_decoder_inputs(
-                hparams.beam_width, memory, source_sequence_length,
-                encoder_state))
-      else:
-        batch_size = self.batch_size
-
-      attention_mechanism = model.create_attention_mechanism(
-          num_units, memory, source_sequence_length, dtype=dtype)
-
-      attention_cell = model_helper._cell_list(  # pylint: disable=protected-access
-          unit_type=hparams.unit_type,
-          num_units=num_units,
-          num_layers=1,  # just one layer
-          num_residual_layers=0,  # 1st layer has no residual connection.
-          forget_bias=hparams.forget_bias,
-          dropout=hparams.dropout,
-          mode=self.mode,
-          dtype=dtype,
-          single_cell_fn=self.single_cell_fn,
-          residual_fn=gnmt_residual_fn,
-          use_block_lstm=False)[0]
-      # Only generate alignment in greedy INFER mode.
-      alignment_history = (self.mode == tf.contrib.learn.ModeKeys.INFER and
-                           infer_mode != "beam_search")
-      attention_cell = attention_wrapper.AttentionWrapper(
-          attention_cell,
-          attention_mechanism,
-          attention_layer_size=None,  # don't use attention layer.
-          output_attention=False,
-          alignment_history=alignment_history,
-          name="attention")
-      decoder_attention_cell_initial_state = attention_cell.zero_state(
-          batch_size, dtype).clone(cell_state=encoder_state[0])
-
-      # TODO(jamesqin): support frnn
-      # [batch, time]
-      target_input = self.features["target_input"]
-      if self.time_major:
-        # If using time_major mode, then target_input should be [time, batch]
-        # then the decoder_emb_inp would be [time, batch, dim]
-        target_input = tf.transpose(target_input)
-      decoder_emb_inp = tf.cast(
-          tf.nn.embedding_lookup(self.embedding_decoder, target_input),
-          self.dtype)
-
-      attention_cell_outputs, attention_cell_state = tf.nn.dynamic_rnn(
-          attention_cell,
-          decoder_emb_inp,
-          sequence_length=self.features["target_sequence_length"],
-          initial_state=decoder_attention_cell_initial_state,
-          dtype=self.dtype,
-          scope=decoder_scope,
-          parallel_iterations=hparams.parallel_iterations,
-          time_major=self.time_major)
-
-      attention = None
-      inputs = tf.concat([target_input, attention_cell_outputs], axis=-1)
-      initial_state = encoder_state[1:]
-      num_bi_layers = 1
-      num_unidi_decoder_layers = self.num_decoder_layers = num_bi_layers
-      # 3 layers of uni cudnn
-      for i in range(num_unidi_decoder_layers):
-        # Concat input with attention
-        if (not np.isclose(hparams.dropout, 0.) and
-            self.mode == tf.contrib.learn.ModeKeys.TRAIN):
-          inputs = tf.nn.dropout(inputs, keep_prob=1 - hparams.dropout)
-
-        outputs, states = self._build_unidi_rnn_cudnn(
-            inputs,
-            initial_state[i],
-            self.features["target_sequence_length"],
-            self.dtype,
-            hparams,
-            1,  # num_layer
-            is_fwd=True)
-        if i >= num_unidi_decoder_layers - self.num_decoder_residual_layers:
-          outputs += inputs
-        inputs = outputs
-      pass
-      """
-
+   
   def _build_decoder_fused_for_training(self, encoder_outputs, initial_state,
                                         decoder_emb_inp, hparams):
     assert self.mode == tf.contrib.learn.ModeKeys.TRAIN
@@ -647,7 +501,7 @@ class GNMTModel(model.BaseModel):
       inputs = outputs
     return outputs
 
-
+#11
 class GNMTAttentionMultiCell(tf.nn.rnn_cell.MultiRNNCell):
   """A MultiCell with GNMT attention style."""
 
@@ -660,7 +514,7 @@ class GNMTAttentionMultiCell(tf.nn.rnn_cell.MultiRNNCell):
     """
     cells = [attention_cell] + cells
     super(GNMTAttentionMultiCell, self).__init__(cells, state_is_tuple=True)
-
+  #11
   def __call__(self, inputs, state, scope=None):
     """Run the cell with bottom layer's attention copied to all upper layers."""
     if not tf.contrib.framework.nest.is_sequence(state):
@@ -688,18 +542,8 @@ class GNMTAttentionMultiCell(tf.nn.rnn_cell.MultiRNNCell):
 
     return cur_inp, tuple(new_states)
 
-
+#5
 def gnmt_residual_fn(inputs, outputs):
-  """Residual function that handles different inputs and outputs inner dims.
-
-  Args:
-    inputs: cell inputs, this is actual inputs concatenated with the attention
-      vector.
-    outputs: cell outputs
-
-  Returns:
-    outputs + actual inputs
-  """
   def split_input(inp, out):
     inp_dim = inp.get_shape().as_list()[-1]
     out_dim = out.get_shape().as_list()[-1]

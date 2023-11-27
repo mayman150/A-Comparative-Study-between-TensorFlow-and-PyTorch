@@ -5,8 +5,8 @@ from deepspeech_pytorch.configs.inference_config import LMConfig
 from deepspeech_pytorch.decoder import GreedyDecoder
 from deepspeech_pytorch.enums import DecoderType
 from deepspeech_pytorch.model import DeepSpeech
-
-
+#tot = 4
+#0
 def check_loss(loss, loss_value):
     """
     Check that warp-ctc loss is valid and will not break training
@@ -33,10 +33,10 @@ def load_model(device,
     model = model.to(device)
     return model
 
-
+#3
 def load_decoder(labels, cfg: LMConfig):
     if cfg.decoder_type == DecoderType.beam:
-        from deepspeech_pytorch.decoder import BeamCTCDecoder
+        from deepspeech_pytorch.decoder import BeamCTCDecoder#1
         if cfg.lm_path:
             cfg.lm_path = hydra.utils.to_absolute_path(cfg.lm_path)
         decoder = BeamCTCDecoder(labels=labels,
@@ -53,7 +53,7 @@ def load_decoder(labels, cfg: LMConfig):
                                 blank_index=labels.index('_'))
     return decoder
 
-
+#1
 def remove_parallel_wrapper(model):
     """
     Return the model or extract the model out of the parallel wrapper

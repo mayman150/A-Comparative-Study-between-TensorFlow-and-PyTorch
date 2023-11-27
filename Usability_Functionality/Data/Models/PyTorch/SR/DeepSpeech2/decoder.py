@@ -1,34 +1,8 @@
-#!/usr/bin/env python
-# ----------------------------------------------------------------------------
-# Copyright 2015-2016 Nervana Systems Inc.
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ----------------------------------------------------------------------------
-# Modified to support pytorch Tensors
-
 import torch
 from six.moves import xrange
-
+#total = 1
 
 class Decoder(object):
-    """
-    Basic decoder class from which all other decoders inherit. Implements several
-    helper functions. Subclasses should implement the decode() method.
-
-    Arguments:
-        labels (list): mapping from integers to characters.
-        blank_index (int, optional): index for the blank '_' character. Defaults to 0.
-    """
-
     def __init__(self, labels, blank_index=0):
         self.labels = labels
         self.int_to_char = dict([(i, c) for (i, c) in enumerate(labels)])
@@ -39,20 +13,9 @@ class Decoder(object):
         self.space_index = space_index
 
     def decode(self, probs, sizes=None):
-        """
-        Given a matrix of character probabilities, returns the decoder's
-        best guess of the transcription
-
-        Arguments:
-            probs: Tensor of character probabilities, where probs[c,t]
-                            is the probability of character c at time t
-            sizes(optional): Size of each sequence in the mini-batch
-        Returns:
-            string: sequence of the model's best guess for the transcription
-        """
         raise NotImplementedError
 
-
+#1
 class BeamCTCDecoder(Decoder):
     def __init__(self,
                  labels,
@@ -101,15 +64,6 @@ class BeamCTCDecoder(Decoder):
         return results
 
     def decode(self, probs, sizes=None):
-        """
-        Decodes probability output using ctcdecode package.
-        Arguments:
-            probs: Tensor of character probabilities, where probs[c,t]
-                            is the probability of character c at time t
-            sizes: Size of each sequence in the mini-batch
-        Returns:
-            string: sequences of the model's best guess for the transcription
-        """
         probs = probs.cpu()
         out, scores, offsets, seq_lens = self._decoder.decode(probs, sizes)
 
@@ -160,19 +114,8 @@ class GreedyDecoder(Decoder):
                     string = string + char
                     offsets.append(i)
         return string, torch.tensor(offsets, dtype=torch.int)
-
+    #1
     def decode(self, probs, sizes=None):
-        """
-        Returns the argmax decoding given the probability matrix. Removes
-        repeated elements in the sequence, as well as blanks.
-
-        Arguments:
-            probs: Tensor of character probabilities from the network. Expected shape of batch x seq_length x output_dim
-            sizes(optional): Size of each sequence in the mini-batch
-        Returns:
-            strings: sequences of the model's best guess for the transcription on inputs
-            offsets: time step per character predicted
-        """
         _, max_probs = torch.max(probs, 2)
         strings, offsets = self.convert_to_strings(max_probs.view(max_probs.size(0), max_probs.size(1)),
                                                    sizes,

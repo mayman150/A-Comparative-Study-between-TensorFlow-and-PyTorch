@@ -15,7 +15,7 @@
 
 """Utility functions for building models."""
 from __future__ import print_function
-
+#total : 81
 import collections
 import os
 import time
@@ -35,7 +35,7 @@ __all__ = [
 # If a vocab size is greater than this value, put the embedding on cpu instead
 VOCAB_SIZE_THRESHOLD_CPU = 50000
 
-
+#4
 def get_initializer(init_op, seed=None, init_weight=0):
   """Create an initializer. init_weight is only for uniform."""
   if init_op == "uniform":
@@ -75,23 +75,10 @@ def _get_embed_device(vocab_size):
   else:
     return "/gpu:0"
 
-
+#5
 def _create_pretrained_emb_from_txt(
     vocab_file, embed_file, num_trainable_tokens=3, dtype=tf.float32,
     scope=None):
-  """Load pretrain embeding from embed_file, and return an embedding matrix.
-
-  Args:
-    vocab_file: Path to vocab file.
-    embed_file: Path to a Glove formmated embedding txt file.
-    num_trainable_tokens: Make the first n tokens in the vocab file as trainable
-      variables. Default is 3, which is "<unk>", "<s>" and "</s>".
-    dtype: data type.
-    scope: tf scope name.
-
-  Returns:
-    pretrained embedding table variable.
-  """
   vocab, _ = vocab_utils.load_vocab(vocab_file)
   trainable_tokens = vocab[:num_trainable_tokens]
 
@@ -113,18 +100,18 @@ def _create_pretrained_emb_from_txt(
         "emb_mat_var", [num_trainable_tokens, emb_size])
   return tf.concat([emb_mat_var, emb_mat_const], 0)
 
-
+#6
 def _create_or_load_embed(embed_name, vocab_file, embed_file,
                           vocab_size, embed_size, dtype):
   """Create a new or load an existing embedding matrix."""
   if vocab_file and embed_file:
-    embedding = _create_pretrained_emb_from_txt(vocab_file, embed_file)
-  else:
+    embedding = _create_pretrained_emb_from_txt(vocab_file, embed_file)#5
+  else:#1
     embedding = tf.get_variable(
         embed_name, [vocab_size, embed_size], dtype)
   return embedding
 
-
+#26
 def create_emb_for_encoder_and_decoder(share_vocab,
                                        src_vocab_size,
                                        tgt_vocab_size,
@@ -139,37 +126,6 @@ def create_emb_for_encoder_and_decoder(share_vocab,
                                        tgt_embed_file=None,
                                        use_char_encode=False,
                                        scope=None):
-  """Create embedding matrix for both encoder and decoder.
-
-  Args:
-    share_vocab: A boolean. Whether to share embedding matrix for both
-      encoder and decoder.
-    src_vocab_size: An integer. The source vocab size.
-    tgt_vocab_size: An integer. The target vocab size.
-    src_embed_size: An integer. The embedding dimension for the encoder's
-      embedding.
-    tgt_embed_size: An integer. The embedding dimension for the decoder's
-      embedding.
-    dtype: dtype of the embedding matrix. Default to float32.
-    num_enc_partitions: number of partitions used for the encoder's embedding
-      vars.
-    num_dec_partitions: number of partitions used for the decoder's embedding
-      vars.
-    src_vocab_file: A string. The source vocabulary file.
-    tgt_vocab_file: A string. The target vocabulary file.
-    src_embed_file: A string. The source embedding file.
-    tgt_embed_file: A string. The target embedding file.
-    use_char_encode: A boolean. If true, use char encoder.
-    scope: VariableScope for the created subgraph. Default to "embedding".
-
-  Returns:
-    embedding_encoder: Encoder's embedding matrix.
-    embedding_decoder: Decoder's embedding matrix.
-
-  Raises:
-    ValueError: if use share_vocab but source and target have different vocab
-      size.
-  """
   if num_enc_partitions <= 1:
     enc_partitioner = None
   else:
@@ -177,7 +133,7 @@ def create_emb_for_encoder_and_decoder(share_vocab,
     # embedding_lookup tries to colocate single partition-ed embedding variable
     # with lookup ops. This may cause embedding variables being placed on worker
     # jobs.
-    enc_partitioner = tf.fixed_size_partitioner(num_enc_partitions)
+    enc_partitioner = tf.fixed_size_partitioner(num_enc_partitions)#1
 
   if num_dec_partitions <= 1:
     dec_partitioner = None
@@ -186,7 +142,7 @@ def create_emb_for_encoder_and_decoder(share_vocab,
     # embedding_lookup tries to colocate single partition-ed embedding variable
     # with lookup ops. This may cause embedding variables being placed on worker
     # jobs.
-    dec_partitioner = tf.fixed_size_partitioner(num_dec_partitions)
+    dec_partitioner = tf.fixed_size_partitioner(num_dec_partitions)#1
 
   if src_embed_file and enc_partitioner:
     raise ValueError(
@@ -198,7 +154,7 @@ def create_emb_for_encoder_and_decoder(share_vocab,
         "Can't set num_dec_partitions > 1 when using pretrained decdoer "
         "embedding")
 
-  with tf.variable_scope(
+  with tf.variable_scope(#1
       scope or "embeddings", dtype=dtype, partitioner=enc_partitioner) as scope:
     # Share embedding
     if share_vocab:
@@ -210,29 +166,29 @@ def create_emb_for_encoder_and_decoder(share_vocab,
       vocab_file = src_vocab_file or tgt_vocab_file
       embed_file = src_embed_file or tgt_embed_file
 
-      embedding_encoder = _create_or_load_embed(
+      embedding_encoder = _create_or_load_embed(#6
           "embedding_share", vocab_file, embed_file,
           src_vocab_size, src_embed_size, dtype)
       embedding_decoder = embedding_encoder
     else:
       if not use_char_encode:
-        with tf.variable_scope("encoder", partitioner=enc_partitioner):
-          embedding_encoder = _create_or_load_embed(
+        with tf.variable_scope("encoder", partitioner=enc_partitioner):#1
+          embedding_encoder = _create_or_load_embed(#6
               "embedding_encoder", src_vocab_file, src_embed_file,
               src_vocab_size, src_embed_size, dtype)
       else:
         embedding_encoder = None
 
-      with tf.variable_scope("decoder", partitioner=dec_partitioner):
-        embedding_decoder = _create_or_load_embed(
+      with tf.variable_scope("decoder", partitioner=dec_partitioner):#1
+        embedding_decoder = _create_or_load_embed(#6
             "embedding_decoder", tgt_vocab_file, tgt_embed_file,
             tgt_vocab_size, tgt_embed_size, dtype)
 
   return embedding_encoder, embedding_decoder
 
-
+#4
 def build_cell(cell, input_shape):
-  if isinstance(cell, tf.contrib.rnn.MultiRNNCell):
+  if isinstance(cell, tf.contrib.rnn.MultiRNNCell):#1
     assert isinstance(input_shape, collections.Sequence)
     for i, c in enumerate(cell._cells):
       if i == 0:
@@ -241,64 +197,62 @@ def build_cell(cell, input_shape):
         c.build((None, c.num_units))
     return
 
-  if isinstance(cell, tf.nn.rnn_cell.DropoutWrapper):
+  if isinstance(cell, tf.nn.rnn_cell.DropoutWrapper):#1
     build_cell(cell._cell, input_shape)
-  elif isinstance(cell, tf.nn.rnn_cell.ResidualWrapper):
+  elif isinstance(cell, tf.nn.rnn_cell.ResidualWrapper):#1
     build_cell(cell._cell, input_shape)
-  elif isinstance(cell, tf.nn.rnn_cell.LSTMCell):
+  elif isinstance(cell, tf.nn.rnn_cell.LSTMCell):#1
     cell.build(input_shape)
   else:
     raise ValueError("%s not supported" % type(cell))
 
-
+#8
 def _single_cell(unit_type, num_units, forget_bias, dropout, mode,
                  dtype=None, residual_connection=False, residual_fn=None,
                  use_block_lstm=False):
-  """Create an instance of a single RNN cell."""
-  # dropout (= 1 - keep_prob) is set to 0 during eval and infer
-  dropout = dropout if mode == tf.contrib.learn.ModeKeys.TRAIN else 0.0
+  dropout = dropout if mode == tf.contrib.learn.ModeKeys.TRAIN else 0.0#1
 
   # Cell Type
   if unit_type == "lstm":
     utils.print_out("  LSTM, forget_bias=%g" % forget_bias, new_line=False)
     if not use_block_lstm:
-      single_cell = tf.nn.rnn_cell.LSTMCell(
+      single_cell = tf.nn.rnn_cell.LSTMCell(#1
           num_units, dtype=dtype, forget_bias=forget_bias)
     else:
-      single_cell = tf.contrib.rnn.LSTMBlockCell(
+      single_cell = tf.contrib.rnn.LSTMBlockCell(#1
           num_units, forget_bias=forget_bias)
   elif unit_type == "gru":
     utils.print_out("  GRU", new_line=False)
-    single_cell = tf.contrib.rnn.GRUCell(num_units)
+    single_cell = tf.contrib.rnn.GRUCell(num_units)#1
   elif unit_type == "layer_norm_lstm":
     utils.print_out("  Layer Normalized LSTM, forget_bias=%g" % forget_bias,
                     new_line=False)
-    single_cell = tf.contrib.rnn.LayerNormBasicLSTMCell(
+    single_cell = tf.contrib.rnn.LayerNormBasicLSTMCell(#1
         num_units,
         forget_bias=forget_bias,
         layer_norm=True)
   elif unit_type == "nas":
     utils.print_out("  NASCell", new_line=False)
-    single_cell = tf.contrib.rnn.NASCell(num_units)
+    single_cell = tf.contrib.rnn.NASCell(num_units)#1
   else:
     raise ValueError("Unknown unit type %s!" % unit_type)
 
   # Dropout (= 1 - keep_prob)
   if dropout > 0.0:
-    single_cell = tf.contrib.rnn.DropoutWrapper(
+    single_cell = tf.contrib.rnn.DropoutWrapper(#1
         cell=single_cell, input_keep_prob=(1.0 - dropout))
     utils.print_out("  %s, dropout=%g " %(type(single_cell).__name__, dropout),
                     new_line=False)
 
   # Residual
-  if residual_connection:
+  if residual_connection:#1
     single_cell = tf.contrib.rnn.ResidualWrapper(
         single_cell, residual_fn=residual_fn)
     utils.print_out("  %s" % type(single_cell).__name__, new_line=False)
 
   return single_cell
 
-
+#4
 def _cell_list(unit_type, num_units, num_layers, num_residual_layers,
                forget_bias, dropout, mode, dtype=None,
                single_cell_fn=None, residual_fn=None, use_block_lstm=False):
@@ -326,28 +280,10 @@ def _cell_list(unit_type, num_units, num_layers, num_residual_layers,
 
   return cell_list
 
-
+#4
 def create_rnn_cell(unit_type, num_units, num_layers, num_residual_layers,
                     forget_bias, dropout, mode, dtype=None,
                     single_cell_fn=None, use_block_lstm=False):
-  """Create multi-layer RNN cell.
-
-  Args:
-    unit_type: string representing the unit type, i.e. "lstm".
-    num_units: the depth of each unit.
-    num_layers: number of cells.
-    num_residual_layers: Number of residual layers from top to bottom. For
-      example, if `num_layers=4` and `num_residual_layers=2`, the last 2 RNN
-      cells in the returned list will be wrapped with `ResidualWrapper`.
-    forget_bias: the initial forget bias of the RNNCell(s).
-    dropout: floating point value between 0.0 and 1.0:
-      the probability of dropout.  this is ignored if `mode != TRAIN`.
-    mode: either tf.contrib.learn.TRAIN/EVAL/INFER
-    single_cell_fn: allow for adding customized cell.
-      When not specified, we default to model_helper._single_cell
-  Returns:
-    An `RNNCell` instance.
-  """
   cell_list = _cell_list(unit_type=unit_type,
                          num_units=num_units,
                          num_layers=num_layers,
@@ -362,9 +298,9 @@ def create_rnn_cell(unit_type, num_units, num_layers, num_residual_layers,
   if len(cell_list) == 1:  # Single layer.
     return cell_list[0]
   else:  # Multi layers
-    return tf.contrib.rnn.MultiRNNCell(cell_list)
+    return tf.contrib.rnn.MultiRNNCell(cell_list)#1
 
-
+#1
 def gradient_clip(gradients, max_gradient_norm):
   """Clipping gradients of a model."""
   clipped_gradients, gradient_norm = math_utils.clip_by_global_norm(
@@ -372,7 +308,7 @@ def gradient_clip(gradients, max_gradient_norm):
 
   return clipped_gradients, gradient_norm
 
-
+#2
 def print_variables_in_ckpt(ckpt_path):
   """Print a list of variables in a checkpoint together with their shapes."""
   utils.print_out("# Variables in ckpt %s" % ckpt_path)
@@ -381,7 +317,7 @@ def print_variables_in_ckpt(ckpt_path):
   for key in sorted(variable_map.keys()):
     utils.print_out("  %s: %s" % (key, variable_map[key]))
 
-
+#4
 def load_model(model, ckpt_path, session, name):
   """Load model from a checkpoint."""
   start_time = time.time()
@@ -398,7 +334,7 @@ def load_model(model, ckpt_path, session, name):
       (name, ckpt_path, time.time() - start_time))
   return model
 
-
+#10
 def avg_checkpoints(model_dir, num_last_checkpoints, global_step_name):
   """Average the last N checkpoints in the model_dir."""
   checkpoint_state = tf.train.get_checkpoint_state(model_dir)
@@ -467,7 +403,7 @@ def avg_checkpoints(model_dir, num_last_checkpoints, global_step_name):
 
   return avg_model_dir
 
-
+#3
 def create_or_load_model(model, model_dir, session, name):
   """Create translation model and initialize or load parameters in session."""
   latest_ckpt = tf.train.latest_checkpoint(model_dir)

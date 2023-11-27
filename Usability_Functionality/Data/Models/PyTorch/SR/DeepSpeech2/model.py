@@ -14,15 +14,12 @@ from deepspeech_pytorch.configs.train_config import SpectConfig, BiDirectionalCo
     SGDConfig, UniDirectionalConfig
 from deepspeech_pytorch.decoder import GreedyDecoder
 from deepspeech_pytorch.validation import CharErrorRate, WordErrorRate
+#total = 117+5 = 122
 
-
+#5
 class SequenceWise(nn.Module):
     def __init__(self, module):
-        """
-        Collapses input of dim T*N*H to (T*N)*H, and applies to a module.
-        Allows handling of variable sequence lengths and minibatch sizes.
-        :param module: Module to apply input to.
-        """
+
         super(SequenceWise, self).__init__()
         self.module = module
 
@@ -39,24 +36,13 @@ class SequenceWise(nn.Module):
         tmpstr += ')'
         return tmpstr
 
-
+#3
 class MaskConv(nn.Module):
     def __init__(self, seq_module):
-        """
-        Adds padding to the output of the module based on the given lengths. This is to ensure that the
-        results of the model do not change when batch sizes change during inference.
-        Input needs to be in the shape of (BxCxDxT)
-        :param seq_module: The sequential module containing the conv stack.
-        """
         super(MaskConv, self).__init__()
         self.seq_module = seq_module
 
     def forward(self, x, lengths):
-        """
-        :param x: The input of size BxCxDxT
-        :param lengths: The actual length of each sequence in the batch
-        :return: Masked output from the module
-        """
         for module in self.seq_module:
             x = module(x)
             mask = torch.BoolTensor(x.size()).fill_(0)
@@ -69,7 +55,7 @@ class MaskConv(nn.Module):
             x = x.masked_fill(mask, 0)
         return x, lengths
 
-
+#1
 class InferenceBatchSoftmax(nn.Module):
     def forward(self, input_):
         if not self.training:
@@ -77,43 +63,40 @@ class InferenceBatchSoftmax(nn.Module):
         else:
             return input_
 
-
+#12
 class BatchRNN(nn.Module):
     def __init__(self, input_size, hidden_size, rnn_type=nn.LSTM, bidirectional=False, batch_norm=True):
         super(BatchRNN, self).__init__()
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.bidirectional = bidirectional
-        self.batch_norm = SequenceWise(nn.BatchNorm1d(input_size)) if batch_norm else None
+        self.batch_norm = SequenceWise(nn.BatchNorm1d(input_size)) if batch_norm else None#6
         self.rnn = rnn_type(input_size=input_size, hidden_size=hidden_size,
-                            bidirectional=bidirectional, bias=True)
+                            bidirectional=bidirectional, bias=True)#1
         self.num_directions = 2 if bidirectional else 1
 
     def flatten_parameters(self):
-        self.rnn.flatten_parameters()
-
+        self.rnn.flatten_parameters()#1
+    #5
     def forward(self, x, output_lengths, h=None):
         if self.batch_norm is not None:
-            x = self.batch_norm(x)
-        x = nn.utils.rnn.pack_padded_sequence(x, output_lengths)
-        x, h = self.rnn(x, h)
-        x, _ = nn.utils.rnn.pad_packed_sequence(x)
+            x = self.batch_norm(x)#1
+        x = nn.utils.rnn.pack_padded_sequence(x, output_lengths)#1
+        x, h = self.rnn(x, h)#1
+        x, _ = nn.utils.rnn.pad_packed_sequence(x)#1
         if self.bidirectional:
-            x = x.view(x.size(0), x.size(1), 2, -1).sum(2).view(x.size(0), x.size(1), -1)  # (TxNxH*2) -> (TxNxH) by sum
+            x = x.view(x.size(0), x.size(1), 2, -1).sum(2).view(x.size(0), x.size(1), -1)  # 1
         return x, h
 
-
+#6
 class Lookahead(nn.Module):
-    # Wang et al 2016 - Lookahead Convolution Layer for Unidirectional Recurrent Neural Networks
-    # input shape - sequence, batch, feature - TxNxH
-    # output shape - same as input
     def __init__(self, n_features, context):
         super(Lookahead, self).__init__()
         assert context > 0
         self.context = context
         self.n_features = n_features
         self.pad = (0, self.context - 1)
-        self.conv = nn.Conv1d(
+        self.conv = nn.Conv1d(#1
             self.n_features,
             self.n_features,
             kernel_size=self.context,
@@ -122,7 +105,7 @@ class Lookahead(nn.Module):
             padding=0,
             bias=False
         )
-
+    #5
     def forward(self, x):
         x = x.transpose(0, 1).transpose(1, 2)
         x = F.pad(x, pad=self.pad, value=0)
@@ -135,8 +118,9 @@ class Lookahead(nn.Module):
                + 'n_features=' + str(self.n_features) \
                + ', context=' + str(self.context) + ')'
 
-
+#95
 class DeepSpeech(pl.LightningModule):
+    #55
     def __init__(self,
                  labels: List,
                  model_cfg: Union[UniDirectionalConfig, BiDirectionalConfig],
@@ -169,8 +153,8 @@ class DeepSpeech(pl.LightningModule):
         rnn_input_size = int(math.floor(rnn_input_size + 2 * 10 - 21) / 2 + 1)
         rnn_input_size *= 32
 
-        self.rnns = nn.Sequential(
-            BatchRNN(
+        self.rnns = nn.Sequential(#1
+            BatchRNN(#12
                 input_size=rnn_input_size,
                 hidden_size=self.model_cfg.hidden_size,
                 rnn_type=self.model_cfg.rnn_type.value,
@@ -178,7 +162,7 @@ class DeepSpeech(pl.LightningModule):
                 batch_norm=False
             ),
             *(
-                BatchRNN(
+                BatchRNN(#12
                     input_size=self.model_cfg.hidden_size,
                     hidden_size=self.model_cfg.hidden_size,
                     rnn_type=self.model_cfg.rnn_type.value,
@@ -187,31 +171,31 @@ class DeepSpeech(pl.LightningModule):
             )
         )
 
-        self.lookahead = nn.Sequential(
+        self.lookahead = nn.Sequential(#1
             # consider adding batch norm?
-            Lookahead(self.model_cfg.hidden_size, context=self.model_cfg.lookahead_context),
-            nn.Hardtanh(0, 20, inplace=True)
+            Lookahead(self.model_cfg.hidden_size, context=self.model_cfg.lookahead_context),#6
+            nn.Hardtanh(0, 20, inplace=True)#1
         ) if not self.bidirectional else None
 
-        fully_connected = nn.Sequential(
-            nn.BatchNorm1d(self.model_cfg.hidden_size),
-            nn.Linear(self.model_cfg.hidden_size, num_classes, bias=False)
+        fully_connected = nn.Sequential(#1
+            nn.BatchNorm1d(self.model_cfg.hidden_size),#1
+            nn.Linear(self.model_cfg.hidden_size, num_classes, bias=False)#1
         )
-        self.fc = nn.Sequential(
-            SequenceWise(fully_connected),
+        self.fc = nn.Sequential(#1
+            SequenceWise(fully_connected),#5
         )
-        self.inference_softmax = InferenceBatchSoftmax()
-        self.criterion = CTCLoss(blank=self.labels.index('_'), reduction='sum', zero_infinity=True)
-        self.evaluation_decoder = GreedyDecoder(self.labels)  # Decoder used for validation
-        self.wer = WordErrorRate(
+        self.inference_softmax = InferenceBatchSoftmax()#1
+        self.criterion = CTCLoss(blank=self.labels.index('_'), reduction='sum', zero_infinity=True)#1
+        self.evaluation_decoder = GreedyDecoder(self.labels)  # Decoder used for validation -> 1
+        self.wer = WordErrorRate(#2
             decoder=self.evaluation_decoder,
             target_decoder=self.evaluation_decoder
         )
-        self.cer = CharErrorRate(
+        self.cer = CharErrorRate(#2
             decoder=self.evaluation_decoder,
             target_decoder=self.evaluation_decoder
         )
-
+    #32
     def forward(self, x, lengths, hs=None):
         lengths = lengths.cpu().int()
         output_lengths = self.get_seq_lens(lengths)
@@ -227,18 +211,18 @@ class DeepSpeech(pl.LightningModule):
 
         new_hs = []
         for i, rnn in enumerate(self.rnns):
-            x, h = rnn(x, output_lengths, hs[i])
+            x, h = rnn(x, output_lengths, hs[i])#25
             new_hs.append(h)
 
         if not self.bidirectional:  # no need for lookahead layer in bidirectional
-            x = self.lookahead(x)
+            x = self.lookahead(x)#6
 
-        x = self.fc(x)
+        x = self.fc(x)#1
         x = x.transpose(0, 1)
         # identity in training mode, softmax in eval mode
-        x = self.inference_softmax(x)
+        x = self.inference_softmax(x)#1
         return x, output_lengths, new_hs
-
+    #4
     def training_step(self, batch, batch_idx):
         inputs, targets, input_percentages, target_sizes = batch
         input_sizes = input_percentages.mul_(int(inputs.size(3))).int()
@@ -248,21 +232,21 @@ class DeepSpeech(pl.LightningModule):
 
         loss = self.criterion(out, targets, output_sizes, target_sizes)
         return loss
-
+    #5
     def validation_step(self, batch, batch_idx):
         inputs, targets, input_percentages, target_sizes = batch
         input_sizes = input_percentages.mul_(int(inputs.size(3))).int()
         inputs = inputs.to(self.device)
-        with autocast(enabled=self.precision == 16):
+        with autocast(enabled=self.precision == 16):#1
             out, output_sizes, hs = self(inputs, input_sizes)
-        decoded_output, _ = self.evaluation_decoder.decode(out, output_sizes)
-        self.wer(
+        decoded_output, _ = self.evaluation_decoder.decode(out, output_sizes)#1
+        self.wer(#2
             preds=out,
             preds_sizes=output_sizes,
             targets=targets,
             target_sizes=target_sizes
         )
-        self.cer(
+        self.cer(#2
             preds=out,
             preds_sizes=output_sizes,
             targets=targets,
@@ -270,7 +254,7 @@ class DeepSpeech(pl.LightningModule):
         )
         self.log('wer', self.wer.compute(), prog_bar=True, on_epoch=True)
         self.log('cer', self.cer.compute(), prog_bar=True, on_epoch=True)
-
+    #3
     def configure_optimizers(self):
         if OmegaConf.get_type(self.optim_cfg) is SGDConfig:
             optimizer = torch.optim.SGD(
@@ -296,14 +280,9 @@ class DeepSpeech(pl.LightningModule):
             gamma=self.optim_cfg.learning_anneal
         )
         return [optimizer], [scheduler]
-
+    #1
     def get_seq_lens(self, input_length):
-        """
-        Given a 1D Tensor or Variable containing integer sequence lengths, return a 1D tensor or variable
-        containing the size sequences that will be output by the network.
-        :param input_length: 1D Tensor
-        :return: 1D Tensor scaled by model
-        """
+
         seq_len = input_length
         for m in self.conv.modules():
             if type(m) == nn.modules.conv.Conv2d:

@@ -8,7 +8,7 @@ from tqdm import tqdm
 from deepspeech_pytorch.decoder import Decoder, GreedyDecoder
 
 import Levenshtein as Lev
-
+#8
 
 class ErrorRate(Metric, ABC):
     def __init__(self,
@@ -44,7 +44,7 @@ class ErrorRate(Metric, ABC):
                 reference=reference
             )
 
-
+#2
 class CharErrorRate(ErrorRate):
     def __init__(self,
                  decoder: Decoder,
@@ -83,7 +83,7 @@ class CharErrorRate(ErrorRate):
         s1, s2, = s1.replace(' ', ''), s2.replace(' ', '')
         return Lev.distance(s1, s2)
 
-
+#2
 class WordErrorRate(ErrorRate):
     def __init__(self,
                  decoder: Decoder,

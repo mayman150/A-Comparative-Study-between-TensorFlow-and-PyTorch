@@ -33,7 +33,7 @@ __all__ = [
     "vgg19_bn",
 ]
 
-
+#29
 class VGG(nn.Module):
     def __init__(
         self, features: nn.Module, num_classes: int = 1000, init_weights: bool = True, dropout: float = 0.5
@@ -68,7 +68,7 @@ class VGG(nn.Module):
         x = self.features(x)
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
-        x = self.classifier(x)
+        x = self.classifier(x)#8
         return x
 
 
@@ -95,14 +95,14 @@ cfgs: Dict[str, List[Union[str, int]]] = {
     "D": [64, 64, "M", 128, 128, "M", 256, 256, 256, "M", 512, 512, 512, "M", 512, 512, 512, "M"],
     "E": [64, 64, "M", 128, 128, "M", 256, 256, 256, 256, "M", 512, 512, 512, 512, "M", 512, 512, 512, 512, "M"],
 }
-
+#so far 36
 
 def _vgg(cfg: str, batch_norm: bool, weights: Optional[WeightsEnum], progress: bool, **kwargs: Any) -> VGG:
     if weights is not None:
         kwargs["init_weights"] = False
         if weights.meta["categories"] is not None:
             _ovewrite_named_param(kwargs, "num_classes", len(weights.meta["categories"]))
-    model = VGG(make_layers(cfgs[cfg], batch_norm=batch_norm), **kwargs)
+    model = VGG(make_layers(cfgs[cfg], batch_norm=batch_norm), **kwargs) #6 + 29 = 35 * 2 = 70
     if weights is not None:
         model.load_state_dict(weights.get_state_dict(progress=progress, check_hash=True))
     return model

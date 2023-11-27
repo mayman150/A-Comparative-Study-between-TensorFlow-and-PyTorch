@@ -1,32 +1,3 @@
-# Copyright 2017 Google Inc. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
-#
-# Copyright (c) 2019, NVIDIA CORPORATION. All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-"""Basic sequence-to-sequence model with dynamic RNN support."""
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -53,11 +24,10 @@ from utils import vocab_utils
 utils.check_tensorflow_version()
 
 __all__ = ["BaseModel"]
-
-
+#total : 122+147 = 269
+#122
 def create_attention_mechanism(
     num_units, memory, source_sequence_length, dtype=None):
-  """Create attention mechanism based on the attention_option."""
   # Mechanism
   attention_mechanism = attention_wrapper.BahdanauAttention(
       num_units,
@@ -72,16 +42,7 @@ class BaseModel(object):
   """
 
   def __init__(self, hparams, mode, features, scope=None, extra_args=None):
-    """Create the model.
 
-    Args:
-      hparams: Hyperparameter configurations.
-      mode: TRAIN | EVAL | INFER
-      features: a dict of input features.
-      scope: scope of the model.
-      extra_args: model_helper.ExtraArgs, for passing customizable functions.
-
-    """
     self.hparams = hparams
     # Set params
     self._set_params_initializer(hparams, mode, features, scope, extra_args)
@@ -89,7 +50,7 @@ class BaseModel(object):
     # Train graph
     res = self.build_graph(hparams, scope=scope)
     self._set_train_or_infer(res, hparams)
-
+  #14+26 = 40
   def _set_params_initializer(self,
                               hparams,
                               mode,
@@ -143,13 +104,13 @@ class BaseModel(object):
 
     # Initializer
     self.random_seed = hparams.random_seed
-    initializer = model_helper.get_initializer(
+    initializer = model_helper.get_initializer(#4
         hparams.init_op, self.random_seed, hparams.init_weight)
     tf.get_variable_scope().set_initializer(initializer)
 
     # Embeddings
-    self.encoder_emb_lookup_fn = tf.nn.embedding_lookup
-    self.init_embeddings(hparams, scope)
+    self.encoder_emb_lookup_fn = tf.nn.embedding_lookup#1
+    self.init_embeddings(hparams, scope)#26
 
   def _set_train_or_infer(self, res, hparams):
     """Set up training."""
@@ -170,12 +131,6 @@ class BaseModel(object):
       ## Count the number of predicted words for compute ppl.
       self.predict_count = tf.reduce_sum(
           self.features["target_sequence_length"])
-
-    # Gradients and SGD update operation for training the model.
-    # Arrange for the embedding vars to appear at the beginning.
-    # Only build bprop if running on GPU and using dist_strategy, in which
-    # case learning rate, grads and train_op are created in estimator model
-    # function.
     with tf.name_scope("learning_rate"):
       self.learning_rate = tf.constant(hparams.learning_rate)
       # warm-up
@@ -308,11 +263,11 @@ class BaseModel(object):
             (self.global_step - start_decay_step),
             decay_steps, decay_factor, staircase=True),
         name="learning_rate_decay_cond")
-
+  #26
   def init_embeddings(self, hparams, scope):
     """Init embeddings."""
     self.embedding_encoder, self.embedding_decoder = (
-        model_helper.create_emb_for_encoder_and_decoder(
+        model_helper.create_emb_for_encoder_and_decoder(#26
             share_vocab=hparams.share_vocab,
             src_vocab_size=self.src_vocab_size,
             tgt_vocab_size=self.tgt_vocab_size,
@@ -330,26 +285,6 @@ class BaseModel(object):
         ))
 
   def build_graph(self, hparams, scope=None):
-    """Subclass must implement this method.
-
-    Creates a sequence-to-sequence model with dynamic RNN decoder API.
-    Args:
-      hparams: Hyperparameter configurations.
-      scope: VariableScope for the created subgraph; default "dynamic_seq2seq".
-
-    Returns:
-      A tuple of the form (logits, loss_tuple, final_context_state, sample_id),
-      where:
-        logits: float32 Tensor [batch_size x num_decoder_symbols].
-        loss: loss = the total loss / batch_size.
-        final_context_state: the final state of decoder RNN.
-        sample_id: sampling indices.
-
-    Raises:
-      ValueError: if encoder_type differs from mono and bi, or
-        attention_option is not (luong | scaled_luong |
-        bahdanau | normed_bahdanau).
-    """
     utils.print_out("# Creating %s graph ..." % self.mode)
 
     # Projection
@@ -374,7 +309,7 @@ class BaseModel(object):
 
       ## Loss
       if self.mode != tf.contrib.learn.ModeKeys.INFER:
-        loss = self._compute_loss(logits, hparams.label_smoothing)
+        loss = self._compute_loss(logits, hparams.label_smoothing)#20
       else:
         loss = tf.constant(0.0)
 
@@ -393,7 +328,7 @@ class BaseModel(object):
       A tuple of encoder_outputs and encoder_state.
     """
     pass
-
+    #5
   def _get_infer_maximum_iterations(self, hparams, source_sequence_length):
     """Maximum decoding steps at inference time."""
     if hparams.tgt_max_len_infer:
@@ -406,20 +341,8 @@ class BaseModel(object):
       maximum_iterations = tf.to_int32(
           tf.round(tf.to_float(max_encoder_length) * decoding_length_factor))
     return maximum_iterations
-
+  #27
   def _build_decoder(self, encoder_outputs, encoder_state, hparams):
-    """Build and run a RNN decoder with a final projection layer.
-
-    Args:
-      encoder_outputs: The outputs of encoder for every time step.
-      encoder_state: The final state of the encoder.
-      hparams: The Hyperparameters configurations.
-
-    Returns:
-      A tuple of final logits and final decoder state:
-        logits: size [time, batch_size, vocab_size] when time_major=True.
-    """
-
     ## Decoder.
     with tf.variable_scope("decoder") as decoder_scope:
 
@@ -436,12 +359,12 @@ class BaseModel(object):
             self.dtype)
 
         if not hparams.use_fused_lstm_dec:
-          cell, decoder_initial_state = self._build_decoder_cell(
+          cell, decoder_initial_state = self._build_decoder_cell(#0
               hparams, encoder_outputs, encoder_state,
               self.features["source_sequence_length"])
 
           if hparams.use_dynamic_rnn:
-            final_rnn_outputs, _ = tf.nn.dynamic_rnn(
+            final_rnn_outputs, _ = tf.nn.dynamic_rnn(#1
                 cell,
                 decoder_emb_inp,
                 sequence_length=self.features["target_sequence_length"],
@@ -451,7 +374,7 @@ class BaseModel(object):
                 parallel_iterations=hparams.parallel_iterations,
                 time_major=self.time_major)
           else:
-            final_rnn_outputs, _ = tf.contrib.recurrent.functional_rnn(
+            final_rnn_outputs, _ = tf.contrib.recurrent.functional_rnn(#1
                 cell,
                 decoder_emb_inp,
                 sequence_length=tf.to_int32(
@@ -465,7 +388,7 @@ class BaseModel(object):
           if hparams.pass_hidden_state:
             decoder_initial_state = encoder_state
           else:
-            decoder_initial_state = tuple((tf.nn.rnn_cell.LSTMStateTuple(
+            decoder_initial_state = tuple((tf.nn.rnn_cell.LSTMStateTuple(#4
               tf.zeros_like(s[0]), tf.zeros_like(s[1])) for s in encoder_state))
           final_rnn_outputs = self._build_decoder_fused_for_training(
               encoder_outputs, decoder_initial_state, decoder_emb_inp, self.hparams)
@@ -477,14 +400,14 @@ class BaseModel(object):
         sample_id = None
       ## Inference
       else:
-        cell, decoder_initial_state = self._build_decoder_cell(
+        cell, decoder_initial_state = self._build_decoder_cell(#0
             hparams, encoder_outputs, encoder_state,
             self.features["source_sequence_length"])
 
         assert hparams.infer_mode == "beam_search"
-        _, tgt_vocab_table = vocab_utils.create_vocab_tables(
+        _, tgt_vocab_table = vocab_utils.create_vocab_tables(#1
             hparams.src_vocab_file, hparams.tgt_vocab_file, hparams.share_vocab)
-        tgt_sos_id = tf.cast(
+        tgt_sos_id = tf.cast(#7
             tgt_vocab_table.lookup(tf.constant(hparams.sos)), tf.int32)
         tgt_eos_id = tf.cast(
             tgt_vocab_table.lookup(tf.constant(hparams.eos)), tf.int32)
@@ -494,7 +417,7 @@ class BaseModel(object):
         length_penalty_weight = hparams.length_penalty_weight
         coverage_penalty_weight = hparams.coverage_penalty_weight
 
-        my_decoder = beam_search_decoder.BeamSearchDecoder(
+        my_decoder = beam_search_decoder.BeamSearchDecoder(#1
             cell=cell,
             embedding=self.embedding_decoder,
             start_tokens=start_tokens,
@@ -506,22 +429,22 @@ class BaseModel(object):
             coverage_penalty_weight=coverage_penalty_weight)
 
         # maximum_iteration: The maximum decoding steps.
-        maximum_iterations = self._get_infer_maximum_iterations(
+        maximum_iterations = self._get_infer_maximum_iterations(#5
             hparams, self.features["source_sequence_length"])
 
         # Dynamic decoding
-        outputs, _, _ = tf.contrib.seq2seq.dynamic_decode(
+        outputs, _, _ = tf.contrib.seq2seq.dynamic_decode(#1
             my_decoder,
             maximum_iterations=maximum_iterations,
             output_time_major=self.time_major,
             swap_memory=True,
             scope=decoder_scope)
 
-        logits = tf.no_op()
+        logits = tf.no_op()#1
         sample_id = outputs.predicted_ids
 
     return logits, sample_id
-
+  #1
   def get_max_time(self, tensor):
     time_axis = 0 if self.time_major else 1
     return tensor.shape[time_axis].value or tf.shape(tensor)[time_axis]
@@ -529,37 +452,26 @@ class BaseModel(object):
   @abc.abstractmethod
   def _build_decoder_cell(self, hparams, encoder_outputs, encoder_state,
                           source_sequence_length):
-    """Subclass must implement this.
-
-    Args:
-      hparams: Hyperparameters configurations.
-      encoder_outputs: The outputs of encoder for every time step.
-      encoder_state: The final state of the encoder.
-      source_sequence_length: sequence length of encoder_outputs.
-
-    Returns:
-      A tuple of a multi-layer RNN cell used by decoder and the initial state of
-      the decoder RNN.
-    """
     pass
-
+    #25
   def _softmax_cross_entropy_loss(self, logits, labels, label_smoothing):
     """Compute softmax loss or sampled softmax loss."""
     use_defun = os.environ["use_defun"] == "true"
     use_xla = os.environ["use_xla"] == "true"
 
     # @function.Defun(noinline=True, compiled=use_xla)
+    #2
     def ComputePositiveCrossent(labels, logits):
       crossent = math_utils.sparse_softmax_crossent_with_logits(
           labels=labels, logits=logits)
       return crossent
     crossent = ComputePositiveCrossent(labels, logits)
     assert crossent.dtype == tf.float32
-
+  #1
     def _safe_shape_div(x, y):
       """Divides `x / y` assuming `x, y >= 0`, treating `0 / 0 = 0`."""
       return x // tf.maximum(y, 1)
-
+  #4
     @function.Defun(tf.float32, tf.float32, compiled=use_xla)
     def ReduceSumGrad(x, grad):
       """docstring."""
@@ -571,7 +483,7 @@ class BaseModel(object):
         tile_scaling = _safe_shape_div(input_shape, output_shape_kept_dims)
       grad = tf.reshape(grad, output_shape_kept_dims)
       return tf.tile(grad, tile_scaling)
-
+  #1
     def ReduceSum(x):
       """docstring."""
       return tf.reduce_sum(x, axis=-1)
@@ -584,6 +496,7 @@ class BaseModel(object):
 
     if abs(label_smoothing) > 1e-3:
       # pylint:disable=invalid-name
+      #5
       def ComputeNegativeCrossentFwd(logits):
         """docstring."""
         # [time, batch, dim]
@@ -600,7 +513,7 @@ class BaseModel(object):
         neg_crossent = ReduceSum(
             shifted_logits - tf.expand_dims(log_sum_exp, axis=-1))
         return neg_crossent
-
+      #5
       def ComputeNegativeCrossent(logits):
         return ComputeNegativeCrossentFwd(logits)
 
@@ -616,7 +529,7 @@ class BaseModel(object):
       # pylint:enable=invalid-name
 
     return crossent
-
+  #20
   def _compute_loss(self, logits, label_smoothing):
     """Compute optimization loss."""
     target_output = self.features["target_output"]
@@ -625,7 +538,7 @@ class BaseModel(object):
     max_time = self.get_max_time(target_output)
     self.batch_seq_len = max_time
 
-    crossent = self._softmax_cross_entropy_loss(
+    crossent = self._softmax_cross_entropy_loss(#16
         logits, target_output, label_smoothing)
     assert crossent.dtype == tf.float32
 
@@ -640,7 +553,7 @@ class BaseModel(object):
         self.batch_size)
 
     return loss
-
+  #3
   def build_encoder_states(self, include_embeddings=False):
     """Stack encoder states and return tensor [batch, length, layer, size]."""
     assert self.mode == tf.contrib.learn.ModeKeys.INFER

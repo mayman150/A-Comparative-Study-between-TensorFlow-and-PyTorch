@@ -74,7 +74,7 @@ class NoOpScope(object):
   def __exit__(self, exc_type, exc_value, traceback):
     return False
 
-
+#12
 @slim.add_arg_scope
 def bottleneck(inputs,
                depth,
@@ -138,7 +138,7 @@ def bottleneck(inputs,
                                             sc.name,
                                             output)
 
-
+#16
 def resnet_v1(inputs,
               blocks,
               num_classes=None,
@@ -256,7 +256,7 @@ def resnet_v1(inputs,
         return net, end_points
 resnet_v1.default_image_size = 224
 
-
+#21
 def resnet_v1_block(scope, base_depth, num_units, stride):
   """Helper function for creating a resnet_v1 bottleneck block.
 
@@ -270,7 +270,7 @@ def resnet_v1_block(scope, base_depth, num_units, stride):
   Returns:
     A resnet_v1 bottleneck block.
   """
-  return resnet_utils.Block(scope, bottleneck, [{
+  return resnet_utils.Block(scope, bottleneck, [{ #21
       'depth': base_depth * 4,
       'depth_bottleneck': base_depth,
       'stride': 1
@@ -280,7 +280,7 @@ def resnet_v1_block(scope, base_depth, num_units, stride):
       'stride': stride
   }])
 
-
+#100
 def resnet_v1_50(inputs,
                  num_classes=None,
                  is_training=True,
@@ -295,23 +295,23 @@ def resnet_v1_50(inputs,
   """ResNet-50 model of [1]. See resnet_v1() for arg and return description."""
   depth_func = lambda d: max(int(d * depth_multiplier), min_base_depth)
   blocks = [
-      resnet_v1_block('block1', base_depth=depth_func(64), num_units=3,
+      resnet_v1_block('block1', base_depth=depth_func(64), num_units=3, #21
                       stride=2),
-      resnet_v1_block('block2', base_depth=depth_func(128), num_units=4,
+      resnet_v1_block('block2', base_depth=depth_func(128), num_units=4,#21
                       stride=2),
-      resnet_v1_block('block3', base_depth=depth_func(256), num_units=6,
+      resnet_v1_block('block3', base_depth=depth_func(256), num_units=6,#21
                       stride=2),
-      resnet_v1_block('block4', base_depth=depth_func(512), num_units=3,
+      resnet_v1_block('block4', base_depth=depth_func(512), num_units=3,#21
                       stride=1),
   ]
   return resnet_v1(inputs, blocks, num_classes, is_training,
                    global_pool=global_pool, output_stride=output_stride,
                    include_root_block=True, spatial_squeeze=spatial_squeeze,
                    store_non_strided_activations=store_non_strided_activations,
-                   reuse=reuse, scope=scope)
+                   reuse=reuse, scope=scope)#16
 resnet_v1_50.default_image_size = resnet_v1.default_image_size
 
-
+#100
 def resnet_v1_101(inputs,
                   num_classes=None,
                   is_training=True,
@@ -342,7 +342,7 @@ def resnet_v1_101(inputs,
                    reuse=reuse, scope=scope)
 resnet_v1_101.default_image_size = resnet_v1.default_image_size
 
-
+#100
 def resnet_v1_152(inputs,
                   num_classes=None,
                   is_training=True,
@@ -373,7 +373,7 @@ def resnet_v1_152(inputs,
                    reuse=reuse, scope=scope)
 resnet_v1_152.default_image_size = resnet_v1.default_image_size
 
-
+#100
 def resnet_v1_200(inputs,
                   num_classes=None,
                   is_training=True,

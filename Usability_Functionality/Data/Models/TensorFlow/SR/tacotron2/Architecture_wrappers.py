@@ -1,6 +1,3 @@
-"""A set of wrappers usefull for tacotron 2 architecture
-All notations and variable names were used in concordance with originial tensorflow implementation
-"""
 import collections
 
 import numpy as np
@@ -16,11 +13,6 @@ _zero_state_tensors = rnn_cell_impl._zero_state_tensors
 
 
 class TacotronEncoderCell(RNNCell):
-	"""Tacotron 2 Encoder Cell
-	Passes inputs through a stack of convolutional layers then through a bidirectional LSTM
-	layer to predict the hidden representation vector (or memory)
-	"""
-
 	def __init__(self, convolutional_layers, lstm_layer):
 		"""Initialize encoder parameters
 
@@ -132,19 +124,6 @@ class TacotronDecoderCell(RNNCell):
 			max_attentions=())
 
 	def zero_state(self, batch_size, dtype):
-		"""Return an initial (zero) state tuple for this `AttentionWrapper`.
-
-		Args:
-		  batch_size: `0D` integer tensor: the batch size.
-		  dtype: The internal state data type.
-		Returns:
-		  An `TacotronDecoderCellState` tuple containing zeroed out tensors and,
-		  possibly, empty `TensorArray` objects.
-		Raises:
-		  ValueError: (or, possibly at runtime, InvalidArgument), if
-			`batch_size` does not match the output size of the encoder passed
-			to the wrapper object at initialization time.
-		"""
 		with ops.name_scope(type(self).__name__ + "ZeroState", values=[batch_size]):
 			cell_state = self._cell._cell.zero_state(batch_size, dtype)
 			error_message = (
