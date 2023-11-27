@@ -294,7 +294,7 @@ def process_files(args):
     asts = gather_asts(args.data_paths)
     combined_tree = merge_asts(asts)
 
-    json_file = args.type + '_api_calls.json'
+    json_file = args.json_paths + args.type + '_api_calls.json'
     DICT_ = json.load(open(json_file))
     LIST = DICT_['api_calls']
     dct_class = get_class_calls(combined_tree)
@@ -307,6 +307,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_paths', nargs='+', type=str, default='./Data/Models/TensorFlow/NLP/GNMT/')
+    parser.add_argument('--json_paths', type=str, default='./Data/json_packages/')
     parser.add_argument('--type', type=str, default='tf')
     args = parser.parse_args()
 
