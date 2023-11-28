@@ -2,9 +2,10 @@
 
 
 ## What is done? 
-* Implemented ITID and Textual Coherence: Results will be in this sheet: https://docs.google.com/spreadsheets/d/1f8y4ic2EvjojgNXtEVq2Xu8MnBjdxj4Bf_5Li_cEFaI/edit#gid=0 over 7 models
-* Understandability Score
-## What is left to be done? 
-* Number Of Concepts
-* Solving the issues
-* Not all of it for Evolution over bugs.
+* Evolution over bugs
+* Found a way to scrape the documentation for both TF and PyTorch
+
+## What is Left? 
+* Start Scraping
+* Implement some of the metrics according to the paper we found
+* Start Writing for the Report: because it will take from us a lot of time to produce a good one.

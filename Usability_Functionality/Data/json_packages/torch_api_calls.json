@@ -1,0 +1,4 @@
+{
+    "api_calls": ["torch", "nn", "f", "functional", "optim", "utils", "torchvision"]
+  }
+  

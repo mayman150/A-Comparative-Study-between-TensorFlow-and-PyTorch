@@ -10,3 +10,5 @@ pyspellchecker
 contractions
 gensim
 names_dataset
+matplotlib
+scikit-learn
