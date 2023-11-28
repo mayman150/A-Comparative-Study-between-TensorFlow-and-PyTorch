@@ -12,3 +12,4 @@ gensim
 names_dataset
 matplotlib
 scikit-learn
+bs4
