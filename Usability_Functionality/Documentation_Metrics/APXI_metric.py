@@ -46,6 +46,8 @@ def MeasureGoodness(df):
 
 def CalculateSpt(params_type_method):
     #Given the param Name and Type List we calculate the S_pt
+    if params_type_method == None:
+        return 0
     lens = len(params_type_method)
     Spt = 0
     for i in range(1,lens):
@@ -56,8 +58,10 @@ def CalculateSpt(params_type_method):
 
 def h(params_type_method):
     Spt = CalculateSpt(params_type_method)
-    A_m = len((params_type_method))
-    
+    try:
+        A_m = len((params_type_method))
+    except:
+        A_m = 0
     if A_m > 1: 
         return 1 - Spt/(A_m - 1)
     else:
@@ -77,3 +81,20 @@ def APXI(df):
     C_s = ParameterSequenceComplexity(df['Parameters_type'])
     
     return (C_l + C_s)/2.0
+
+
+# # Sample data
+# data = {
+#     'Name_Method': ['getUserInfo', 'setPassword', 'updateUserProfile', 'isUserAdmin', 'addUserRole', 'deleteUser'],
+#     'Parameters_name': ['username, password', 'password', 'profileData', 'X', 'roleName', 'username'],
+#     'Parameters_type': [['str', 'str'], ['str'], ['obj'], None, ['str'], ['str']]
+# }
+
+# # Create a DataFrame
+# df = pd.DataFrame(data)
+
+# # Call the APXI function
+# apxi_result = APXI(df)
+
+# # Print the result
+# print("APXI Result:", apxi_result)
