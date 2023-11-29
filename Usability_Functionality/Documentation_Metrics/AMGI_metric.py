@@ -86,3 +86,21 @@ def compute_average_AMGI(method_names):
 
     average_AMGI = total_AMGI / len(api_keywords) if len(api_keywords) > 0 else 0
     return average_AMGI
+
+
+
+
+# def test_AMGI_calculation():
+#     # Sample method names
+#     method_names = [
+#         'getUserInfo',
+#         'setPassword',
+#         'updateUserProfile',
+#         'isUserAdmin',
+#         'addUserRole',
+#         'deleteUser'
+#     ]
+#     print(compute_average_AMGI(method_names))
+
+# # Run the test function
+# test_AMGI_calculation()

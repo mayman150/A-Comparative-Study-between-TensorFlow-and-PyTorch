@@ -32,7 +32,32 @@ def AMNCI(df):
     # Get the set of all method names
     method_names = df['Name_Method'].tolist()
     method_names = [clean_and_convert_to_uppercase(method_name) for method_name in method_names]
-    C = len(set(method_names))
+    #GET CF
+    C = 0
+    for i in range(len(method_names)):
+        for j in range(i+1, len(method_names)):
+            m1 = method_names[i]
+            m2 = method_names[j]
+            if m1 == m2:
+                C += 1
+    
     AMNCI = 1 - C/len(method_names)
     
     return AMNCI
+
+
+# # Sample data
+# data = {
+#     'Name_Method': ['getUserInfo', 'setPassword', 'updateUserProfile', 'isUserAdmin', 'addUserRole', 'deleteUser', 'getUserInfo'],
+#     'Parameters': ['username', 'password', 'profileData', None, 'roleName', 'username', 'userId'],
+#     'Return_Type': ['UserInfo', 'bool', 'bool', 'bool', 'UserRole', 'bool', 'UserInfo']
+# }
+
+# # Create a DataFrame
+# df = pd.DataFrame(data)
+
+# # Call the AMNCI function
+# amnci_result = AMNCI(df)
+
+# # Print the result
+# print("AMNCI Result:", amnci_result)
