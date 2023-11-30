@@ -200,10 +200,10 @@ def find_table_of_type(soup: BeautifulSoup, type: str):
         parsed_table = table_to_2d(t)
         is_args = check_table_is_type(parsed_table, type)
         if is_args:
-            # If multiple table of the same type is found, highly possible that this is a parent doc
-            # need to raise exception
-            if table_set:
-                raise ValueError("Multiple table exists")
+            # # If multiple table of the same type is found, highly possible that this is a parent doc
+            # # need to raise exception
+            # if table_set:
+            #     raise ValueError("Multiple table exists")
             # discard header
             table = parsed_table[1:]
             table_set = True
