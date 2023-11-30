@@ -1,0 +1,137 @@
+description: Compute gradients for a FakeQuantWithMinMaxVarsPerChannel operation.
+robots: noindex
+
+# tf.raw_ops.FakeQuantWithMinMaxVarsPerChannelGradient
+
+<!-- Insert buttons and diff -->
+
+<table class="tfo-notebook-buttons tfo-api nocontent" align="left">
+
+</table>
+
+
+
+Compute gradients for a FakeQuantWithMinMaxVarsPerChannel operation.
+
+
+<section class="expandable">
+  <h4 class="showalways">View aliases</h4>
+  <p>
+<b>Compat aliases for migration</b>
+<p>See
+<a href="https://www.tensorflow.org/guide/migrate">Migration guide</a> for
+more details.</p>
+<p>`tf.compat.v1.raw_ops.FakeQuantWithMinMaxVarsPerChannelGradient`</p>
+</p>
+</section>
+
+<pre class="devsite-click-to-copy prettyprint lang-py tfo-signature-link">
+<code>tf.raw_ops.FakeQuantWithMinMaxVarsPerChannelGradient(
+    gradients, inputs, min, max, num_bits=8, narrow_range=False, name=None
+)
+</code></pre>
+
+
+
+<!-- Placeholder for "Used in" -->
+
+
+<!-- Tabular view -->
+ <table class="responsive fixed orange">
+<colgroup><col width="214px"><col></colgroup>
+<tr><th colspan="2"><h2 class="add-link">Args</h2></th></tr>
+
+<tr>
+<td>
+`gradients`<a id="gradients"></a>
+</td>
+<td>
+A `Tensor` of type `float32`.
+Backpropagated gradients above the FakeQuantWithMinMaxVars operation,
+shape one of: `[d]`, `[b, d]`,  `[b, h, w, d]`.
+</td>
+</tr><tr>
+<td>
+`inputs`<a id="inputs"></a>
+</td>
+<td>
+A `Tensor` of type `float32`.
+Values passed as inputs to the FakeQuantWithMinMaxVars operation, shape
+  same as `gradients`.
+min, max: Quantization interval, floats of shape `[d]`.
+</td>
+</tr><tr>
+<td>
+`min`<a id="min"></a>
+</td>
+<td>
+A `Tensor` of type `float32`.
+</td>
+</tr><tr>
+<td>
+`max`<a id="max"></a>
+</td>
+<td>
+A `Tensor` of type `float32`.
+</td>
+</tr><tr>
+<td>
+`num_bits`<a id="num_bits"></a>
+</td>
+<td>
+An optional `int`. Defaults to `8`.
+The bitwidth of the quantization; between 2 and 16, inclusive.
+</td>
+</tr><tr>
+<td>
+`narrow_range`<a id="narrow_range"></a>
+</td>
+<td>
+An optional `bool`. Defaults to `False`.
+Whether to quantize into 2^num_bits - 1 distinct values.
+</td>
+</tr><tr>
+<td>
+`name`<a id="name"></a>
+</td>
+<td>
+A name for the operation (optional).
+</td>
+</tr>
+</table>
+
+
+
+<!-- Tabular view -->
+ <table class="responsive fixed orange">
+<colgroup><col width="214px"><col></colgroup>
+<tr><th colspan="2"><h2 class="add-link">Returns</h2></th></tr>
+<tr class="alt">
+<td colspan="2">
+A tuple of `Tensor` objects (backprops_wrt_input, backprop_wrt_min, backprop_wrt_max).
+</td>
+</tr>
+<tr>
+<td>
+`backprops_wrt_input`<a id="backprops_wrt_input"></a>
+</td>
+<td>
+A `Tensor` of type `float32`.
+</td>
+</tr><tr>
+<td>
+`backprop_wrt_min`<a id="backprop_wrt_min"></a>
+</td>
+<td>
+A `Tensor` of type `float32`.
+</td>
+</tr><tr>
+<td>
+`backprop_wrt_max`<a id="backprop_wrt_max"></a>
+</td>
+<td>
+A `Tensor` of type `float32`.
+</td>
+</tr>
+</table>
+

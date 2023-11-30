@@ -1,0 +1,82 @@
+description: Returns the list of input tensors necessary to compute tensor.
+
+<div itemscope itemtype="http://developers.google.com/ReferenceObject">
+<meta itemprop="name" content="tf.keras.utils.get_source_inputs" />
+<meta itemprop="path" content="Stable" />
+</div>
+
+# tf.keras.utils.get_source_inputs
+
+<!-- Insert buttons and diff -->
+
+<table class="tfo-notebook-buttons tfo-api nocontent" align="left">
+<td>
+  <a target="_blank" href="https://github.com/keras-team/keras/tree/v2.15.0/keras/utils/layer_utils.py#L33-L69">
+    <img src="https://www.tensorflow.org/images/GitHub-Mark-32px.png" />
+    View source on GitHub
+  </a>
+</td>
+</table>
+
+
+
+Returns the list of input tensors necessary to compute `tensor`.
+
+
+<pre class="devsite-click-to-copy prettyprint lang-py tfo-signature-link">
+<code>tf.keras.utils.get_source_inputs(
+    tensor, layer=None, node_index=None
+)
+</code></pre>
+
+
+
+<!-- Placeholder for "Used in" -->
+
+Output will always be a list of tensors
+(potentially with 1 element).
+
+<!-- Tabular view -->
+ <table class="responsive fixed orange">
+<colgroup><col width="214px"><col></colgroup>
+<tr><th colspan="2"><h2 class="add-link">Args</h2></th></tr>
+
+<tr>
+<td>
+`tensor`<a id="tensor"></a>
+</td>
+<td>
+The tensor to start from.
+</td>
+</tr><tr>
+<td>
+`layer`<a id="layer"></a>
+</td>
+<td>
+Origin layer of the tensor. Will be
+determined via tensor._keras_history if not provided.
+</td>
+</tr><tr>
+<td>
+`node_index`<a id="node_index"></a>
+</td>
+<td>
+Origin node index of the tensor.
+</td>
+</tr>
+</table>
+
+
+
+<!-- Tabular view -->
+ <table class="responsive fixed orange">
+<colgroup><col width="214px"><col></colgroup>
+<tr><th colspan="2"><h2 class="add-link">Returns</h2></th></tr>
+<tr class="alt">
+<td colspan="2">
+List of input tensors.
+</td>
+</tr>
+
+</table>
+

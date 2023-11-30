@@ -1,0 +1,122 @@
+description: Replaces all the variables in a graph with constants of the same values. (deprecated)
+
+<div itemscope itemtype="http://developers.google.com/ReferenceObject">
+<meta itemprop="name" content="tf.compat.v1.graph_util.convert_variables_to_constants" />
+<meta itemprop="path" content="Stable" />
+</div>
+
+# tf.compat.v1.graph_util.convert_variables_to_constants
+
+<!-- Insert buttons and diff -->
+
+<table class="tfo-notebook-buttons tfo-api nocontent" align="left">
+
+</table>
+
+<a target="_blank" class="external" href="/code/stable/tensorflow/python/framework/convert_to_constants.py">View source</a>
+
+
+
+Replaces all the variables in a graph with constants of the same values. (deprecated)
+
+
+<pre class="devsite-click-to-copy prettyprint lang-py tfo-signature-link">
+<code>tf.compat.v1.graph_util.convert_variables_to_constants(
+    sess,
+    input_graph_def,
+    output_node_names,
+    variable_names_whitelist=None,
+    variable_names_blacklist=None
+)
+</code></pre>
+
+
+
+<!-- Placeholder for "Used in" -->
+
+Deprecated: THIS FUNCTION IS DEPRECATED. It will be removed in a future version.
+Instructions for updating:
+This API was designed for TensorFlow v1. See https://www.tensorflow.org/guide/migrate for instructions on how to migrate your code to TensorFlow v2.
+
+If you have a trained graph containing Variable ops, it can be convenient to
+convert them all to Const ops holding the same values. This makes it possible
+to describe the network fully with a single GraphDef file, and allows the
+removal of a lot of ops related to loading and saving the variables.
+
+<!-- Tabular view -->
+ <table class="responsive fixed orange">
+<colgroup><col width="214px"><col></colgroup>
+<tr><th colspan="2"><h2 class="add-link">Args</h2></th></tr>
+
+<tr>
+<td>
+`sess`<a id="sess"></a>
+</td>
+<td>
+Active TensorFlow session containing the variables.
+</td>
+</tr><tr>
+<td>
+`input_graph_def`<a id="input_graph_def"></a>
+</td>
+<td>
+GraphDef object holding the network.
+</td>
+</tr><tr>
+<td>
+`output_node_names`<a id="output_node_names"></a>
+</td>
+<td>
+List of name strings for the result nodes of the graph.
+</td>
+</tr><tr>
+<td>
+`variable_names_whitelist`<a id="variable_names_whitelist"></a>
+</td>
+<td>
+The set of variable names to convert (by default,
+all variables are converted).
+</td>
+</tr><tr>
+<td>
+`variable_names_blacklist`<a id="variable_names_blacklist"></a>
+</td>
+<td>
+The set of variable names to omit converting to
+constants.
+</td>
+</tr>
+</table>
+
+
+
+<!-- Tabular view -->
+ <table class="responsive fixed orange">
+<colgroup><col width="214px"><col></colgroup>
+<tr><th colspan="2"><h2 class="add-link">Returns</h2></th></tr>
+<tr class="alt">
+<td colspan="2">
+GraphDef containing a simplified version of the original.
+</td>
+</tr>
+
+</table>
+
+
+
+<!-- Tabular view -->
+ <table class="responsive fixed orange">
+<colgroup><col width="214px"><col></colgroup>
+<tr><th colspan="2"><h2 class="add-link">Raises</h2></th></tr>
+
+<tr>
+<td>
+`RuntimeError`<a id="RuntimeError"></a>
+</td>
+<td>
+if a DT_RESOURCE op is found whose ancestor Variables are both
+denylisted AND whitelisted for freezing.
+</td>
+</tr>
+</table>
+

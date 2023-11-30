@@ -1,0 +1,107 @@
+description: Mish activation function.
+
+<div itemscope itemtype="http://developers.google.com/ReferenceObject">
+<meta itemprop="name" content="tf.keras.activations.mish" />
+<meta itemprop="path" content="Stable" />
+</div>
+
+# tf.keras.activations.mish
+
+<!-- Insert buttons and diff -->
+
+<table class="tfo-notebook-buttons tfo-api nocontent" align="left">
+<td>
+  <a target="_blank" href="https://github.com/keras-team/keras/tree/v2.15.0/keras/activations.py#L474-L510">
+    <img src="https://www.tensorflow.org/images/GitHub-Mark-32px.png" />
+    View source on GitHub
+  </a>
+</td>
+</table>
+
+
+
+Mish activation function.
+
+
+<pre class="devsite-click-to-copy prettyprint lang-py tfo-signature-link">
+<code>tf.keras.activations.mish(
+    x
+)
+</code></pre>
+
+
+
+<!-- Placeholder for "Used in" -->
+
+
+#### It is defined as:
+
+
+
+```python
+def mish(x):
+    return x * tanh(softplus(x))
+```
+
+where `softplus` is defined as:
+
+```python
+def softplus(x):
+    return log(exp(x) + 1)
+```
+
+#### Example:
+
+
+
+```
+>>> a = tf.constant([-3.0, -1.0, 0.0, 1.0], dtype = tf.float32)
+>>> b = tf.keras.activations.mish(a)
+>>> b.numpy()
+array([-0.14564745, -0.30340144,  0.,  0.86509836], dtype=float32)
+```
+
+<!-- Tabular view -->
+ <table class="responsive fixed orange">
+<colgroup><col width="214px"><col></colgroup>
+<tr><th colspan="2"><h2 class="add-link">Args</h2></th></tr>
+
+<tr>
+<td>
+`x`<a id="x"></a>
+</td>
+<td>
+Input tensor.
+</td>
+</tr>
+</table>
+
+
+
+<!-- Tabular view -->
+ <table class="responsive fixed orange">
+<colgroup><col width="214px"><col></colgroup>
+<tr><th colspan="2"><h2 class="add-link">Returns</h2></th></tr>
+<tr class="alt">
+<td colspan="2">
+The mish activation.
+</td>
+</tr>
+
+</table>
+
+
+
+<!-- Tabular view -->
+ <table class="responsive fixed orange">
+<colgroup><col width="214px"><col></colgroup>
+<tr><th colspan="2"><h2 class="add-link">Reference</h2></th></tr>
+<tr class="alt">
+<td colspan="2">
+- [Mish: A Self Regularized Non-Monotonic
+Activation Function](https://arxiv.org/abs/1908.08681)
+</td>
+</tr>
+
+</table>
+

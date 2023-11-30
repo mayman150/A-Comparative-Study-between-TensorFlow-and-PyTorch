@@ -1,0 +1,129 @@
+description: Creates a dataset that passes a sliding window over input_dataset.
+robots: noindex
+
+# tf.raw_ops.SlidingWindowDataset
+
+<!-- Insert buttons and diff -->
+
+<table class="tfo-notebook-buttons tfo-api nocontent" align="left">
+
+</table>
+
+
+
+Creates a dataset that passes a sliding window over `input_dataset`.
+
+
+<section class="expandable">
+  <h4 class="showalways">View aliases</h4>
+  <p>
+<b>Compat aliases for migration</b>
+<p>See
+<a href="https://www.tensorflow.org/guide/migrate">Migration guide</a> for
+more details.</p>
+<p>`tf.compat.v1.raw_ops.SlidingWindowDataset`</p>
+</p>
+</section>
+
+<pre class="devsite-click-to-copy prettyprint lang-py tfo-signature-link">
+<code>tf.raw_ops.SlidingWindowDataset(
+    input_dataset,
+    window_size,
+    window_shift,
+    window_stride,
+    output_types,
+    output_shapes,
+    drop_remainder=True,
+    name=None
+)
+</code></pre>
+
+
+
+<!-- Placeholder for "Used in" -->
+
+
+<!-- Tabular view -->
+ <table class="responsive fixed orange">
+<colgroup><col width="214px"><col></colgroup>
+<tr><th colspan="2"><h2 class="add-link">Args</h2></th></tr>
+
+<tr>
+<td>
+`input_dataset`<a id="input_dataset"></a>
+</td>
+<td>
+A `Tensor` of type `variant`.
+</td>
+</tr><tr>
+<td>
+`window_size`<a id="window_size"></a>
+</td>
+<td>
+A `Tensor` of type `int64`.
+A scalar representing the number of elements in the
+sliding window.
+</td>
+</tr><tr>
+<td>
+`window_shift`<a id="window_shift"></a>
+</td>
+<td>
+A `Tensor` of type `int64`.
+A scalar representing the steps moving the sliding window
+forward in one iteration. It must be positive.
+</td>
+</tr><tr>
+<td>
+`window_stride`<a id="window_stride"></a>
+</td>
+<td>
+A `Tensor` of type `int64`.
+A scalar representing the stride of the input elements of the sliding window.
+It must be positive.
+</td>
+</tr><tr>
+<td>
+`output_types`<a id="output_types"></a>
+</td>
+<td>
+A list of `tf.DTypes` that has length `>= 1`.
+</td>
+</tr><tr>
+<td>
+`output_shapes`<a id="output_shapes"></a>
+</td>
+<td>
+A list of shapes (each a <a href="../../tf/TensorShape.md"><code>tf.TensorShape</code></a> or list of `ints`) that has length `>= 1`.
+</td>
+</tr><tr>
+<td>
+`drop_remainder`<a id="drop_remainder"></a>
+</td>
+<td>
+An optional `bool`. Defaults to `True`.
+</td>
+</tr><tr>
+<td>
+`name`<a id="name"></a>
+</td>
+<td>
+A name for the operation (optional).
+</td>
+</tr>
+</table>
+
+
+
+<!-- Tabular view -->
+ <table class="responsive fixed orange">
+<colgroup><col width="214px"><col></colgroup>
+<tr><th colspan="2"><h2 class="add-link">Returns</h2></th></tr>
+<tr class="alt">
+<td colspan="2">
+A `Tensor` of type `variant`.
+</td>
+</tr>
+
+</table>
+
