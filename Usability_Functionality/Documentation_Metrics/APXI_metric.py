@@ -7,13 +7,13 @@ extent to which they occur in runs of data objects of the same type
 '''
 import numpy as np 
 import pandas as pd
-
+from ast import literal_eval
 
 def g(x,y):
     if y >= x: 
-        return np.exp(-1*(y-x))
+        return np.exp(x-y)
     else:
-        return 1
+        return 1.0
 
 
 #Measure C_l
@@ -22,26 +22,15 @@ def MeasureGoodness(df):
     Given the dataframe, we calculate the goodness of the API: Getting the params
     '''
     #documentation_dataFrame should have the following columns: Name_Method, Parameters, Return_Type 
-    #Get the parameters
-    parameters = df['Parameters_name']
-    
+    #Get the parameters    
+    parameters = df.apply(lambda x: literal_eval(x['param_names']), axis=1)
     C_L = 0.0
     
-    N_d = 0.0 #Max Number of parameters in a method
-    params_lens = []
-    for i in range(len(parameters)):
-        #Get the parameters of each method
-        parameters_i = parameters[i]
-        parameters_i = parameters_i.split(',')
-        parameters_i = [x.strip(' ') for x in parameters_i]
-        params_lens.append(len(parameters_i))
-        N_d = max(N_d, len(parameters_i))
+    N_d = 5 #Max Number of parameters in a method
 
     for i in range(len(parameters)):               
-        C_L += g(N_d, params_lens[i])
-    
+        C_L += g(N_d, len(parameters[i]))
     C_L = C_L/len(parameters)
-    
     return C_L
 
 def CalculateSpt(params_type_method):
@@ -78,7 +67,9 @@ def ParameterSequenceComplexity(param_type_methods):
 def APXI(df):
     
     C_l = MeasureGoodness(df)
-    C_s = ParameterSequenceComplexity(df['Parameters_type'])
+    #make df['param_types'] a list of lists
+    param_types = df.apply(lambda x: literal_eval(x['param_types']), axis=1)
+    C_s = ParameterSequenceComplexity(param_types)
     
     return (C_l + C_s)/2.0
 

@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 
-def ADI_per_method(length_documentation_words, thershold=10):
+def ADI_per_method(length_documentation_words, thershold=50):
     
     if(length_documentation_words > thershold):
         return 1
@@ -19,7 +19,7 @@ def ADI_Methods(df):
     ADI = 0
     
     for i in range(len(df)):
-        ADI += ADI_per_method(df['Length_Documentation_Words'][i])
+        ADI += ADI_per_method(df['documentation_length'][i])
     
     return ADI/len(df)
 
