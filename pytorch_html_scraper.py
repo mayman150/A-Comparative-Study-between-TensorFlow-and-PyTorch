@@ -177,7 +177,7 @@ def extract_parameters(parameters_html: bs4.element.Tag):
                 continue
 
         param_names.append(param_name)
-        param_list_of_types.append(param_types.pop()) # only care about the first type detected
+        param_list_of_types.append(param_types.pop(0)) # only care about the first type detected
         optional_list.append(is_optional)
     
     return param_names, param_list_of_types, optional_list
@@ -219,13 +219,13 @@ def try_find_function(section: bs4.element.Tag):
         # merge with existing list
         for p in param_names_2:
             if p in param_names:
-                param_list_of_types2.pop()
-                optional_list_2.pop()
+                param_list_of_types2.pop(0)
+                optional_list_2.pop(0)
                 continue
 
             param_names.append(p)
-            param_list_of_types.append(param_list_of_types2.pop())
-            optional_list.append(optional_list_2.pop())
+            param_list_of_types.append(param_list_of_types2.pop(0))
+            optional_list.append(optional_list_2.pop(0))
 
     # find list of keyword arguments and its type
     # merge it with parameter list
@@ -286,7 +286,7 @@ def main():
     if not path.exists():
         parser.error("Unable to locate path: " + str(path))
     
-
+    print("Obtaining all documentation files...")
     content_list = list()
     if os.path.isfile(path):
         with open(path.absolute(), 'r', encoding="utf-8-sig") as f:
