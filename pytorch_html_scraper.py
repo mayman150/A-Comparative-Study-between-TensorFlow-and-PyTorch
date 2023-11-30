@@ -221,7 +221,10 @@ def main():
     with open(args.output_file, 'w') as f:
         writer = csv.DictWriter(f, fieldnames=("function_name", "param_list", "return_type"))
         writer.writeheader()
-        writer.writerows(functions)
+        for f in functions:
+            if len(f.get("param_list", list())) == 0 and str(f.get("return_type", None)).lower() == "none":
+                continue
+            writer.writerow(f)
 
     print("Done")
 
