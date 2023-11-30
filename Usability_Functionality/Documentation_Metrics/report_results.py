@@ -15,14 +15,11 @@ def parse_args():
     parser.add_argument('--data', help='The path to the data file', default='../Data/Documentation/output_init_torch.csv')
     return parser.parse_args()
 
-
 def main():
     
     args = parse_args()
     df = pd.read_csv(args.data)
-    # df['']
-    import pdb; pdb.set_trace()
-    method_names = df['Name_Method'].tolist()
+    method_names = df['function_name'].tolist()
     # GET AMGI Metric
     AMGI_result = compute_average_AMGI(method_names)
     AMNCI_result = AMNCI(df)
@@ -31,11 +28,11 @@ def main():
     DAI_result = ADI_Methods(df)
     
     # Report the results in a good way with colors
-    print("AMGI Result:", Fore.GREEN + f"{AMGI_result:.2f}%" + Style.RESET_ALL)
-    print("AMNCI Result:", Fore.GREEN + f"{AMNCI_result:.2f}%" + Style.RESET_ALL)
-    print("AMONI Result:", Fore.GREEN + f"{AMONI_result:.2f}%" + Style.RESET_ALL)
-    print("APXI Result:", Fore.GREEN + f"{APXI_result:.2f}%" + Style.RESET_ALL)
-    print("DAI Result:", Fore.GREEN + f"{DAI_result:.2f}%" + Style.RESET_ALL)
+    print("AMGI Result:", Fore.GREEN + f"{AMGI_result*100:.2f}%" + Style.RESET_ALL)
+    print("AMNCI Result:", Fore.GREEN + f"{AMNCI_result*100:.2f}%" + Style.RESET_ALL)
+    print("AMONI Result:", Fore.GREEN + f"{AMONI_result*100:.2f}%" + Style.RESET_ALL)
+    print("APXI Result:", Fore.GREEN + f"{APXI_result*100:.2f}%" + Style.RESET_ALL)
+    print("DAI Result:", Fore.GREEN + f"{DAI_result*100:.2f}%" + Style.RESET_ALL)
 
     
 

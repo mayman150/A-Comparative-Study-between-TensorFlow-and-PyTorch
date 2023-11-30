@@ -30,7 +30,7 @@ def clean_and_convert_to_uppercase(input_string):
 def AMNCI(df):
 
     # Get the set of all method names
-    method_names = df['Name_Method'].tolist()
+    method_names = df['function_name'].tolist()
     method_names = [clean_and_convert_to_uppercase(method_name) for method_name in method_names]
     #GET CF
     C = 0
