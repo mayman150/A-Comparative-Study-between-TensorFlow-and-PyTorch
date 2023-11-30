@@ -9,6 +9,11 @@ import csv
 from tqdm import tqdm
 
 
+def count_documentation_length(doc: str):
+    ''' Find the length of the documentation'''
+    return len(re.findall(r'[^\w\s]|\w+', doc))
+
+
 def validate_name(string: str):
     ''' Validate and remove any special characters that does not follow python variable name rules '''
     if not isinstance(string, str):
@@ -188,6 +193,13 @@ def try_find_function(section: bs4.element.Tag):
         return None, list(), None
 
     details_paragraph = section.find("dl")
+
+    # Find documentation length
+    if hasattr(details_paragraph, "text"):
+        documentation_length = count_documentation_length(str(details_paragraph.text))
+    else:
+        documentation_length = 0
+
     function_description_html = section.find("dt")
 
     parameters_html = find_subsection_tag_by_text(details_paragraph, "Parameters")
@@ -236,7 +248,7 @@ def try_find_function(section: bs4.element.Tag):
             return_type_name = parse_type(str(return_type_tag.text).strip())
 
     assert len(param_names) == len(param_list_of_types) == len(optional_list)
-    return function_name, param_names, param_list_of_types, optional_list, return_type_name
+    return function_name, param_names, param_list_of_types, optional_list, return_type_name, documentation_length
 
 
 def get_function(content: str):
@@ -247,7 +259,7 @@ def get_function(content: str):
 
     functions = list()
     for s in sections:
-        function_name, param_names, param_list_of_types, optional_list, return_type_name = try_find_function(s)
+        function_name, param_names, param_list_of_types, optional_list, return_type_name, documentation_length = try_find_function(s)
 
         if function_name is not None:
             functions.append({
@@ -255,7 +267,8 @@ def get_function(content: str):
                 "param_names": param_names,
                 "param_types": param_list_of_types,
                 "is_optional": optional_list,
-                "return_type": return_type_name
+                "return_type": return_type_name,
+                "documentation_length": documentation_length
             })
 
     return functions
@@ -291,7 +304,7 @@ def main():
 
     print("Writing to output...")
     with open(args.output_file, 'w') as f:
-        writer = csv.DictWriter(f, fieldnames=("function_name", "param_names", "param_types", "is_optional","return_type"))
+        writer = csv.DictWriter(f, fieldnames=("function_name", "param_names", "param_types", "is_optional", "return_type", "documentation_length"))
         writer.writeheader()
         for f in functions:
             if len(f.get("param_names", list())) == 0 and str(f.get("return_type", None)).lower() == "none":
