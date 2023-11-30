@@ -77,7 +77,9 @@ def extract_parameters(parameters_html: bs4.element.Tag):
         # use the tag as itself
         list_tags = [parameters_html]
 
-    param_list = list()
+    param_names = list()
+    param_list_of_types = list()
+    optional_list = list()
     for list_tag in list_tags:
         if not hasattr(list_tag, "text"):
             continue
@@ -119,13 +121,11 @@ def extract_parameters(parameters_html: bs4.element.Tag):
                 else:
                     param_types.append(parse_type(t))
 
-        param_list.append({
-            "param_name": param_name,
-            "param_type": param_types,
-            "is_optional": is_optional
-        })
+        param_names.append(param_names)
+        param_list_of_types.append(param_types)
+        optional_list.append(is_optional)
 
-    return param_list
+    return param_names, param_list_of_types, optional_list
 
 
 def try_find_function(section: bs4.element.Tag):
@@ -144,15 +144,17 @@ def try_find_function(section: bs4.element.Tag):
 
     # find list of parameters and its type
     if isinstance(parameters_html, bs4.element.Tag):
-        param_list = extract_parameters(parameters_html)
+        param_names, param_list_of_types, optional_list = extract_parameters(parameters_html)
     else:
-        param_list = list()
+        param_names, param_list_of_types, optional_list = list(), list(), list()
 
     # find list of keyword arguments and its type
     # merge it with parameter list
     if isinstance(keyword_html, bs4.element.Tag):
-        kw_args = extract_parameters(keyword_html)
-        param_list += kw_args
+        kw_names, kw_list_of_types, kw_optional_list = extract_parameters(keyword_html)
+        param_names += kw_names
+        param_list_of_types += kw_list_of_types
+        optional_list += kw_optional_list
 
     # find return type
     return_type_name = "None"
@@ -166,7 +168,8 @@ def try_find_function(section: bs4.element.Tag):
         if hasattr(return_type_tag, "text"):
             return_type_name = parse_type(str(return_type_tag.text).strip())
 
-    return function_name, param_list, return_type_name
+    assert len(param_names) == len(param_list_of_types) == len(optional_list)
+    return function_name, param_names, param_list_of_types, optional_list, return_type_name
 
 
 def get_function(content: str):
@@ -177,12 +180,14 @@ def get_function(content: str):
 
     functions = list()
     for s in sections:
-        function_name, param_list, return_type_name = try_find_function(s)
+        function_name, param_names, param_list_of_types, optional_list, return_type_name = try_find_function(s)
 
         if function_name is not None:
             functions.append({
                 "function_name": function_name,
-                "param_list": param_list,
+                "param_names": param_names,
+                "param_types": param_list_of_types,
+                "is_optional": optional_list,
                 "return_type": return_type_name
             })
 
@@ -219,10 +224,10 @@ def main():
 
     print("Writing to output...")
     with open(args.output_file, 'w') as f:
-        writer = csv.DictWriter(f, fieldnames=("function_name", "param_list", "return_type"))
+        writer = csv.DictWriter(f, fieldnames=("function_name", "param_names", "param_types", "is_optional","return_type"))
         writer.writeheader()
         for f in functions:
-            if len(f.get("param_list", list())) == 0 and str(f.get("return_type", None)).lower() == "none":
+            if len(f.get("param_names", list())) == 0 and str(f.get("return_type", None)).lower() == "none":
                 continue
             writer.writerow(f)
 
