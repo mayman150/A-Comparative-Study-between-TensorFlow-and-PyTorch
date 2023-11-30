@@ -190,15 +190,9 @@ def try_find_function(section: bs4.element.Tag):
     if hasattr(h1, "find"):
         function_name = h1.find(string=True, recursive=False)
     else:
-        return None, list(), None
+        return None, list(), list(), list(), None
 
     details_paragraph = section.find("dl")
-
-    # Find documentation length
-    if hasattr(details_paragraph, "text"):
-        documentation_length = count_documentation_length(str(details_paragraph.text))
-    else:
-        documentation_length = 0
 
     function_description_html = section.find("dt")
 
@@ -248,7 +242,7 @@ def try_find_function(section: bs4.element.Tag):
             return_type_name = parse_type(str(return_type_tag.text).strip())
 
     assert len(param_names) == len(param_list_of_types) == len(optional_list)
-    return function_name, param_names, param_list_of_types, optional_list, return_type_name, documentation_length
+    return function_name, param_names, param_list_of_types, optional_list, return_type_name
 
 
 def get_function(content: str):
@@ -257,9 +251,11 @@ def get_function(content: str):
 
     sections = soup.find_all("div", {"class": "section"})
 
+    documentation_length = count_documentation_length(soup.text)
+
     functions = list()
     for s in sections:
-        function_name, param_names, param_list_of_types, optional_list, return_type_name, documentation_length = try_find_function(s)
+        function_name, param_names, param_list_of_types, optional_list, return_type_name = try_find_function(s)
 
         if function_name is not None:
             functions.append({
@@ -293,8 +289,8 @@ def main():
             content_list.append(f.read())
     else:
         path = os.path.join(path.absolute(), '') # append slash automatically
-        path = os.path.join(path, "*.html")
-        for file_path in glob(path):
+        path = os.path.join(path, "**/*.html")
+        for file_path in glob(path, recursive=True):
             with open(file_path, 'r', encoding="utf-8-sig") as f:
                 content_list.append(f.read())
     
