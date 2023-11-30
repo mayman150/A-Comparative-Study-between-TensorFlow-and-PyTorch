@@ -194,14 +194,21 @@ def find_table_of_type(soup: BeautifulSoup, type: str):
     ''' Find the table of a given header. Return the table as 2d list, discarding the header. Treat first row as header'''
     tables = soup.find_all("table")
 
+    table = list()
+    table_set = False
     for t in tables:
         parsed_table = table_to_2d(t)
         is_args = check_table_is_type(parsed_table, type)
         if is_args:
+            # If multiple table of the same type is found, highly possible that this is a parent doc
+            # need to raise exception
+            if table_set:
+                raise ValueError("Multiple table exists")
             # discard header
-            return parsed_table[1:]
+            table = parsed_table[1:]
+            table_set = True
 
-    return list()
+    return table
 
 
 def load_md_file(path: Path):
@@ -254,7 +261,8 @@ def get_function(content: str):
         return_type = validate_name(return_type)
 
     # find documentation length
-    documentation_length = count_documentation_length(soup.text)
+    # exclude "code" and "table" blocks as those has been accounted for.
+    documentation_length = count_documentation_length(soup.extract("code").extract("table").text)
 
     return {
         "function_name": validate_name(function_name), 
@@ -290,7 +298,14 @@ def main():
 
     functions = list()
     for content in tqdm(content_list, desc="Scraping function from markdown:"):
-        functions.append(get_function(content))
+        try:
+            f = get_function(content)
+            functions.append(f)
+        except ValueError:
+            # This will only be raised if the md contains multiple definitons
+            # this indicates this fine is not a method only definition
+            # discard
+            continue
     
     print("Writing to output...")
     with open(args.output_file, 'w') as f:

@@ -1,19 +1,15 @@
 function_name,param_names,param_types,is_optional,return_type,documentation_length
 tf.edit_distance,"['hypothesis', 'truth', 'normalize', 'name']","['sparsetensor', 'sparsetensor', 'bool', 'name']","[False, False, False, True]",tensor,741
 tf.histogram_fixed_width,"['values', 'value_range', 'nbins', 'dtype', 'name']","['tensor', 'tensor', 'bins', 'dtype', 'defaults']","[False, False, False, False, False]",tensor,370
-tf.DeviceSpec,"['job', 'replica', 'task', 'device_type', 'device_index']","['job', 'index', 'index', 'cpu', 'device']","[True, True, True, True, True]",devicespec,1284
 tf.bitcast,"['input', 'type', 'name']","['tensor', 'tf.bfloat16', 'name']","[False, False, True]",tensor,811
-tf.RaggedTensor,"['axis', 'name', 'out_type']","['bounding', 'tensor', 'tensor']","[False, True, False]",tensor,20754
 tf.py_function,"['func', 'inp', 'Tout', 'name']","['inp', 'func', 'func', 'name']","[False, False, False, True]",func,1488
 tf.gather_nd,"['params', 'indices', 'name', 'batch_dims']","['tensor', 'tensor', 'name', 'tensor']","[False, False, True, False]",tensor,2558
 tf.CriticalSection,"['fn', 'exclusive_resource_access', 'name']","['tensor', 'fn', 'execute']","[False, False, False]",tensor,793
 tf.custom_gradient,['f'],['x'],[False],f,2134
-tf.TensorArraySpec,"['element_shape', 'dtype', 'dynamic_size', 'infer_shape']","['tensorarray', 'tensorarray', 'tensorarray', 'inference']","[False, False, False, False]",None,542
 tf.eye,"['num_rows', 'num_columns', 'batch_shape', 'dtype', 'name']","['int32', 'int32', 'int32', 'tensor', 'op']","[False, True, False, False, False]",tensor,390
 tf.expand_dims,"['input', 'axis', 'name']","['tensor', 'input', 'tensor']","[False, False, True]",tensor,530
 tf.identity,"['input', 'name']","['tensor', 'name']","[False, True]",tensor,405
 tf.slice,"['input_', 'begin', 'size', 'name']","['tensor', 'int32', 'int32', 'name']","[False, False, False, True]",tensor,572
-tf.SparseTensorSpec,"['shape', 'dtype']","['sparsetensor', 'sparsetensor']","[False, False]",None,630
 tf.zeros_like,"['input', 'dtype', 'name', 'layout']","['tensor', 'tensor', 'name', 'tensor']","[False, True, True, True]",tensor,388
 tf.norm,"['tensor', 'ord', 'axis', 'keepdims', 'name']","['tensor', 'tensor', 'tensor', 'axis', 'name']","[False, False, False, False, False]",tensor,750
 tf.executing_eagerly,[],[],[],true,343
@@ -28,7 +24,6 @@ tf.register_tensor_conversion_function,"['base_type', 'conversion_func', 'priori
 tf.cond,"['pred', 'true_fn', 'false_fn', 'name']","['true_fn', 'None', 'None', 'tensor']","[False, False, False, True]",true_fn,939
 tf.ragged_fill_empty_rows,"['value_rowids', 'values', 'nrows', 'default_value', 'name']","['tensor', 'tensor', 'tensor', 'tensor', 'name']","[False, False, False, False, True]",tensor,212
 tf.realdiv,"['x', 'y', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,239
-tf.ones_initializer,['config'],['get_config'],[False],initializer,347
 tf.pad,"['tensor', 'paddings', 'mode', 'constant_values', 'name']","['tensor', 'tensor', 'constant', 'tensor', 'name']","[False, False, False, False, True]",tensor,651
 tf.load_op_library,['library_filename'],['file'],[False],module,190
 tf.sort,"['values', 'axis', 'direction', 'name']","['tensor', 'axis', 'or', 'name']","[False, False, False, True]",tensor,522
@@ -40,29 +35,23 @@ tf.map_fn,"['fn', 'elems', 'dtype', 'parallel_iterations', 'back_prop', 'swap_me
 tf.variable_creator_scope,['variable_creator'],['creator'],[False],None,537
 tf.clip_by_norm,"['t', 'clip_norm', 'axes', 'name']","['tensor', 'tensor', 'tensor', 'name']","[False, False, False, True]",tensor,558
 tf.gradients,"['ys', 'xs', 'grad_ys', 'name', 'gate_gradients', 'aggregation_method', 'stop_gradients', 'unconnected_gradients']","['tensor', 'tensor', 'tensor', 'gradients', 'conditions', 'aggregationmethod', 'tensor', 'tensor']","[False, False, True, True, False, False, True, True]",tensor,1227
-tf.TensorArray,"['dtype', 'size', 'dynamic_size', 'clear_after_read', 'tensor_array_name', 'handle', 'flow', 'infer_shape', 'element_shape', 'colocate_with_first_write_call', 'name']","['data', 'tensor', 'bool', 'bool', 'None', 'tensor', 'tensor', 'case', 'tensorshape', 'true', 'name']","[False, True, True, True, True, True, True, True, True, False, True]",tensor,2149
-tf.Graph,"['name', 'value']","['graphkeys', 'collection']","[False, False]",context,5646
 tf.stop_gradient,"['input', 'name']","['tensor', 'name']","[False, True]",tensor,501
 tf.clip_by_global_norm,"['t_list', 'clip_norm', 'use_norm', 'name']","['tensors', 'tensor', 'tensor', 'name']","[False, False, True, True]",list_clipped,493
 tf.broadcast_static_shape,"['shape_x', 'shape_y']","['tensorshape', 'tensorshape']","[False, False]",tensorshape,249
 tf.tensor_scatter_nd_sub,"['tensor', 'indices', 'updates', 'name']","['tensor', 'tensor', 'tensor', 'name']","[False, False, False, True]",tensor,974
-tf.TensorShape,['dims'],['None'],[False],none,3597
 tf.guarantee_const,"['input', 'name']","['tensor', 'name']","[False, False]",tensor,148
 tf.unique_with_counts,"['x', 'out_idx', 'name']","['tensor', 'defaults', 'name']","[False, True, True]",tensor,380
 tf.shape,"['input', 'out_type', 'name']","['tensor', 'int32', 'name']","[False, True, True]",tensor,458
 tf.get_static_value,"['tensor', 'partial']","['tensor', 'None']","[False, False]",tensor,458
 tf.Module,['method'],['method'],[False],method,1148
-tf.GradientTape,"['persistent', 'watch_accessed_variables']","['bool', 'watch']","[False, False]",tensor,2962
 tf.foldr,"['fn', 'elems', 'initializer', 'parallel_iterations', 'back_prop', 'swap_memory', 'name']","['None', 'tensor', 'tensor', 'iterations', 'deprecated', 'gpucpu', 'tensor']","[False, False, True, True, True, True, True]",tensor,609
 tf.concat,"['values', 'axis', 'name']","['tensor', 'int32', 'name']","[False, False, True]",tensor,564
 tf.shape_n,"['input', 'out_type', 'name']","['tensor', 'int32', 'name']","[False, True, True]",tensor,224
 tf.print,"['inputs', 'output_stream', 'summarize', 'sep', 'end', 'name']","['tensor', 'tmpfoo.out', 'tensor', 'defaults', 'character', 'name']","[False, False, False, False, False, True]",None,972
 tf.nondifferentiable_batch_function,"['num_batch_threads', 'max_batch_size', 'batch_timeout_micros', 'allowed_batch_sizes', 'max_enqueued_batches', 'autograph', 'enable_large_batch_splitting']","['batches', 'batch', 'batch', 'batch', 'batch', 'autograph', 'max_batch_size']","[False, False, False, True, False, False, False]",computation,466
-tf.constant_initializer,"['value', 'support_partition']","['value', 'arguments']","[False, False]",initializer,757
 tf.type_spec_from_value,['value'],['tensor'],[False],typespec,367
 tf.boolean_mask,"['tensor', 'mask', 'axis', 'name']","['tensor', 'bool', 'tensor', 'name']","[False, False, False, True]",tensor,536
 tf.make_tensor_proto,"['values', 'dtype', 'shape', 'verify_shape', 'allow_broadcast']","['tensorproto', 'tensor', 'tensor', 'bool', 'bool']","[False, True, False, False, False]",tensor,482
-tf.Operation,['type_proto'],['tft_product'],[False],object,1073
 tf.broadcast_to,"['input', 'shape', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,456
 tf.unstack,"['value', 'num', 'axis', 'name']","['tensor', 'int', 'int', 'name']","[False, False, False, True]",tensor,1001
 tf.control_dependencies,['control_inputs'],['operation'],[False],context,614
@@ -73,7 +62,6 @@ tf.no_gradient,['op_type'],['opdef.name'],[False],None,231
 tf.scan,"['fn', 'elems', 'initializer', 'parallel_iterations', 'back_prop', 'swap_memory', 'infer_shape', 'reverse', 'name']","['initializer', 'tensor', 'tensor', 'iterations', 'deprecated', 'gpucpu', 'disables', 'tensor', 'tensor']","[False, False, True, True, True, True, True, True, True]",tensor,1194
 tf.unravel_index,"['indices', 'dims', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,354
 tf.histogram_fixed_width_bins,"['values', 'value_range', 'nbins', 'dtype', 'name']","['tensor', 'tensor', 'bins', 'dtype', 'defaults']","[False, False, False, False, False]",tensor,391
-tf.random_uniform_initializer,"['minval', 'maxval', 'seed']","['tensor', 'tensor', 'behavior']","[False, False, False]",initializer,442
 tf.clip_by_value,"['t', 'clip_value_min', 'clip_value_max', 'name']","['tensor', 'tensor', 'tensor', 'name']","[False, False, False, True]",tensor,697
 tf.strided_slice,"['input_', 'begin', 'end', 'strides', 'begin_mask', 'end_mask', 'ellipsis_mask', 'new_axis_mask', 'shrink_axis_mask', 'var', 'name']","['tensor', 'int32', 'int32', 'int32', 'int32', 'int32', 'int32', 'int32', 'int32', 'input_', 'name']","[False, False, False, False, False, False, False, False, False, False, True]",tensor,998
 tf.argsort,"['values', 'axis', 'direction', 'stable', 'name']","['tensor', 'axis', 'or', 'tensor', 'name']","[False, False, False, False, True]",tensor,622
@@ -90,22 +78,17 @@ tf.switch_case,"['branch_index', 'branch_fns', 'default', 'name']","['branch_fns
 tf.conv2d_backprop_filter_v2,"['input', 'filter', 'out_backprop', 'strides', 'padding', 'use_cudnn_on_gpu', 'explicit_paddings', 'data_format', 'dilations', 'name']","['tensor', 'tensor', 'tensor', 'ints', 'string', 'bool', 'ints', 'string', 'tensor', 'name']","[False, False, False, False, False, True, True, True, True, True]",tensor,662
 tf.gather,"['params', 'indices', 'validate_indices', 'axis', 'batch_dims', 'name']","['tensor', 'tensor', 'bound', 'tensor', 'integer', 'name']","[False, False, False, False, False, True]",tensor,1977
 tf.ifftnd,"['input', 'fft_length', 'axes', 'name']","['tensor', 'tensor', 'tensor', 'name']","[False, False, False, True]",tensor,277
-tf.OptionalSpec,['proto'],['experimental_as_proto'],[False],None,763
 tf.while_loop,"['cond', 'body', 'loop_vars', 'shape_invariants', 'parallel_iterations', 'back_prop', 'swap_memory', 'maximum_iterations', 'name']","['condition', 'body', 'tensor', 'invariants', 'int', 'deprecated', 'gpucpu', 'cond', 'tensor']","[False, False, False, False, False, True, False, True, True]",tensor,2169
 tf.rfftnd,"['input', 'fft_length', 'axes', 'Tcomplex', 'name']","['tensor', 'tensor', 'tensor', 'defaults', 'name']","[False, False, False, True, True]",tensor,329
 tf.reshape,"['tensor', 'shape', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,938
 tf.constant,"['value', 'dtype', 'shape', 'name']","['dtype', 'tensor', 'tensor', 'tensor']","[False, False, True, True]",tensor,767
-tf.zeros_initializer,['config'],['get_config'],[False],initializer,347
 tf.numpy_function,"['func', 'inp', 'Tout', 'stateful', 'name']","['tensor', 'list', 'tensor', 'stateful', 'a']","[False, False, False, False, True]",func,1222
 tf.device,['device_name'],['context'],[False],context,293
 tf.tensor_scatter_nd_update,"['tensor', 'indices', 'updates', 'name']","['tensor', 'indices', 'indices', 'name']","[False, False, False, True]",tensor,2294
-tf.random_normal_initializer,"['mean', 'stddev', 'seed']","['tensor', 'tensor', 'behavior']","[False, False, False]",initializer,462
 tf.reverse_sequence,"['input', 'seq_lengths', 'seq_axis', 'batch_axis', 'name']","['tensor', 'tensor', 'int', 'int', 'name']","[False, False, False, True, True]",input,372
 tf.grad_pass_through,['f'],['tensor'],[False],f,373
-tf.Variable,"['initial_value', 'trainable', 'validate_shape', 'caching_device', 'name', 'variable_def', 'dtype', 'import_scope', 'constraint', 'synchronization', 'aggregation', 'shape', 'experimental_enable_variable_lifting']","['tensor', 'true', 'false', 'session', 'defaults', 'variabledef', 'tensor', 'string', 'optimizer', 'auto', 'class', 'initial_value', 'tensor']","[False, False, False, True, True, False, False, True, True, False, False, True, False]",read_value,12979
 tf.zeros,"['shape', 'dtype', 'name', 'layout']","['list', 'tensor', 'name', 'tensor']","[False, False, True, True]",tensor,241
 tf.fingerprint,"['data', 'method', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,481
-tf.TensorSpec,"['shape', 'dtype', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,1293
 tf.space_to_batch,"['input', 'block_shape', 'paddings', 'name']","['tensor', 'tensor', 'tensor', 'name']","[False, False, False, True]",tensor,1350
 tf.tensor_scatter_nd_min,"['tensor', 'indices', 'updates', 'name']","['tensor', 'tensor', 'tensor', 'name']","[False, False, False, True]",tensor,159
 tf.approx_top_k,"['input', 'k', 'reduction_dimension', 'recall_target', 'is_max_k', 'reduction_input_size_override', 'aggregate_to_topk', 'name']","['tensor', 'int', 'int', 'float', 'bool', 'int', 'bool', 'name']","[False, False, True, True, True, True, True, True]",tensor,491
@@ -116,12 +99,10 @@ tf.is_symbolic_tensor,['tensor'],['object'],[False],tensor,77
 tf.no_op,['name'],['name'],[True],operation,77
 tf.repeat,"['input', 'repeats', 'axis', 'name']","['n', 'int', 'array', 'name']","[False, False, False, False]",input,363
 tf.transpose,"['a', 'perm', 'conjugate', 'name']","['tensor', 'a', 'true', 'name']","[False, False, True, True]",tensor,569
-tf.TypeSpec,['proto'],['experimental_as_proto'],[False],None,741
 tf.einsum,"['equation', 'inputs', 'kwargs']","['str', 'tensor', 'greedy']","[False, False, True]",tensor,1379
 tf.reverse,"['tensor', 'axis', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,727
 tf.identity_n,"['input', 'name']","['tensor', 'name']","[False, True]",tensor,235
 tf.batch_to_space,"['input', 'block_shape', 'crops', 'name']","['tensor', 'tensor', 'tensor', 'name']","[False, False, False, True]",tensor,1450
-tf.IndexedSlicesSpec,"['shape', 'dtype', 'indices_dtype', 'dense_shape_dtype', 'indices_shape']","['indexedslices', 'indexedslices', 'indices', 'tensor', 'indices']","[False, False, False, False, False]",None,697
 tf.conv2d_backprop_input_v2,"['input', 'filter', 'out_backprop', 'strides', 'padding', 'use_cudnn_on_gpu', 'explicit_paddings', 'data_format', 'dilations', 'name']","['tensor', 'tensor', 'tensor', 'ints', 'string', 'bool', 'ints', 'string', 'tensor', 'name']","[False, False, False, False, False, True, True, True, True, True]",tensor,666
 tf.broadcast_dynamic_shape,"['shape_x', 'shape_y']","['tensor', 'tensor']","[False, False]",tensor,221
 tf.tensordot,"['a', 'b', 'axes', 'name']","['tensor', 'tensor', 'n', 'name']","[False, False, False, True]",tensor,574
@@ -129,8 +110,6 @@ tf.ragged_fill_empty_rows_grad,"['reverse_index_map', 'grad_values', 'name']","[
 tf.dynamic_partition,"['data', 'partitions', 'num_partitions', 'name']","['tensor', 'tensor', 'int', 'name']","[False, False, False, True]",num_partitions,482
 tf.meshgrid,"['args', 'kwargs']","['tensor', 'default']","[False, True]",outputs,345
 tf.ones,"['shape', 'dtype', 'name', 'layout']","['list', 'tensor', 'name', 'tensor']","[False, True, True, True]",tensor,256
-tf.RaggedTensorSpec,"['shape', 'dtype', 'ragged_rank', 'row_splits_dtype', 'flat_values_spec']","['none', 'raggedtensor', 'defaults', 'tensor', 'dtype']","[False, False, False, False, False]",None,1156
-tf.Tensor,"['feed_dict', 'session']","['tensor', 'tensor']","[False, True]",tensor,11419
 tf.split,"['value', 'num_or_size_splits', 'axis', 'num', 'name']","['tensor', 'int', 'int', 'int', 'name']","[False, False, False, True, True]",num_or_size_splits,619
 tf.RegisterGradient,['op_type'],['opdef.name'],[False],None,279
 tf.tensor_scatter_nd_add,"['tensor', 'indices', 'updates', 'name']","['tensor', 'tensor', 'tensor', 'name']","[False, False, False, True]",tensor,766
@@ -158,7 +137,6 @@ tf.sets.difference,"['a', 'b', 'aminusb', 'validate_indices']","['tensor', 'tens
 tf.sets.intersection,"['a', 'b', 'validate_indices']","['tensor', 'tensor', 'a']","[False, False, False]",sparsetensor,676
 tf.sets.union,"['a', 'b', 'validate_indices']","['tensor', 'tensor', 'a']","[False, False, False]",sparsetensor,792
 tf.sets.size,"['a', 'validate_indices']","['sparsetensor', 'a']","[False, False]",int32,224
-tf.Variable.SaveSliceInfo,"['full_name', 'full_shape', 'var_offset', 'var_shape', 'save_slice_info_def', 'import_scope']","['variable', 'int', 'variable', 'variable', 'savesliceinfodef', 'string']","[False, False, False, False, False, True]",savesliceinfodef,318
 tf.image.random_saturation,"['image', 'lower', 'upper', 'seed']","['dimension', 'float', 'float', 'conjunction']","[False, False, False, False]",image,388
 tf.image.convert_image_dtype,"['image', 'dtype', 'saturate', 'name']","['image', 'dtype', 'true', 'name']","[False, False, False, True]",image,1153
 tf.image.crop_to_bounding_box,"['image', 'offset_height', 'offset_width', 'target_height', 'target_width']","['tensor', 'image', 'image', 'tensor', 'tensor']","[False, False, False, False, False]",image,501
@@ -221,12 +199,6 @@ tf.image.image_gradients,['image'],['batch_size'],[False],tensor,548
 tf.image.adjust_saturation,"['image', 'saturation_factor', 'name']","['dimension', 'float', 'name']","[False, False, True]",image,328
 tf.audio.encode_wav,"['audio', 'sample_rate', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,254
 tf.audio.decode_wav,"['contents', 'desired_channels', 'desired_samples', 'name']","['tensor', 'int', 'int', 'name']","[False, True, True, True]",tensor,358
-tf.lookup.TextFileInitializer,"['filename', 'key_dtype', 'key_index', 'value_dtype', 'value_index', 'vocab_size', 'delimiter', 'name', 'value_index_offset']","['tensor', 'key', 'index', 'value', 'index', 'elements', 'delimiter', 'name', 'cases']","[False, False, False, False, False, False, False, True, False]",operation,857
-tf.lookup.StaticHashTable,"['initializer', 'default_value', 'name', 'experimental_is_anonymous']","['hashtable', 'key', 'name', 'default']","[False, False, True, False]",tensor,669
-tf.lookup.KeyValueTensorInitializer,"['keys', 'values', 'key_dtype', 'value_dtype', 'name']","['tensor', 'tensor', 'keys', 'values', 'name']","[False, False, False, False, True]",operation,330
-tf.lookup.StaticVocabularyTable,"['initializer', 'num_oov_buckets', 'lookup_key_dtype', 'name', 'experimental_is_anonymous']","['tableinitializerbase', 'statichashtable', 'lookup', 'name', 'default']","[False, False, False, True, False]",sparsetensor,1102
-tf.lookup.experimental.DenseHashTable,"['key_dtype', 'value_dtype', 'default_value', 'empty_key', 'deleted_key', 'initial_num_buckets', 'name', 'checkpoint', 'experimental_is_anonymous']","['tensor', 'tensor', 'key', 'buckets', 'buckets', 'experimental_is_anonymous', 'name', 'shared_name', 'default']","[False, False, False, False, False, True, True, False, False]",operation,1347
-tf.lookup.experimental.MutableHashTable,"['key_dtype', 'value_dtype', 'default_value', 'name', 'checkpoint', 'experimental_is_anonymous']","['tensor', 'tensor', 'key', 'name', 'shared_name', 'default']","[False, False, False, True, False, False]",tensor,1146
 tf.mlir.experimental.convert_saved_model_v1,"['saved_model_path', 'exported_names', 'tags', 'lift_variables', 'include_variables_in_initializers', 'upgrade_legacy', 'show_debug_info']","['path', 'names', 'metagraphdef', 'arguments', 'initializers', 'graph', 'form']","[False, False, False, False, False, False, False]",mlir,169
 tf.mlir.experimental.convert_saved_model,"['saved_model_path', 'exported_names', 'show_debug_info']","['path', 'names', 'form']","[False, False, False]",mlir,108
 tf.mlir.experimental.tflite_to_tosa_bytecode,"['flatbuffer', 'bytecode', 'use_external_constant', 'ordered_input_arrays', 'ordered_output_arrays']","['path', 'bytecode', 'tfl.external_const', 'None', 'function']","[False, False, False, False, False]",None,141
@@ -240,7 +212,6 @@ tf.summary.flush,"['writer', 'name']","['None', 'argument']","[False, False]",tf
 tf.summary.histogram,[],[],[],default,668
 tf.summary.scalar,[],[],[],default,433
 tf.summary.trace_export,"['name', 'step', 'profiler_outdir']","['name', 'int64', 'directory']","[False, False, False]",None,186
-tf.summary.SummaryWriter,['step'],['int64'],[False],context,505
 tf.summary.create_file_writer,"['logdir', 'max_queue', 'flush_millis', 'filename_suffix', 'name', 'experimental_trackable', 'experimental_mesh']","['directory', 'defaults', 'defaults', 'v2', 'name', 'trackableresource', 'accelerator']","[False, False, False, True, False, False, False]",object,234
 tf.summary.audio,[],[],[],default,416
 tf.summary.text,[],[],[],default,530
@@ -250,12 +221,10 @@ tf.summary.graph,['graph_data'],['graph'],[False],default,290
 tf.profiler.experimental.start,"['logdir', 'options']","['directory', 'profileroptions']","[False, False]",None,165
 tf.profiler.experimental.stop,['save'],['default'],[True],None,77
 tf.profiler.experimental.Profile,"['logdir', 'options']","['data', 'behavior']","[False, True]",None,148
-tf.profiler.experimental.Trace,"['name', 'kwargs']","['event', 'logdir']","[False, False]",None,563
 tf.profiler.experimental.client.monitor,"['service_addr', 'duration_ms', 'level']","['address', 'duration', 'job']","[False, False, False]",monitoring,232
 tf.profiler.experimental.client.trace,"['service_addr', 'logdir', 'duration_ms', 'worker_list', 'num_tracing_attempts', 'options']","['localhost12345', 'your_tb_dir', 'duration', 'configuration', 'event', 'namedtuple']","[False, False, False, True, True, False]",None,908
 tf.profiler.experimental.server.start,['port'],['port'],[False],None,107
 tf.nn.embedding_lookup,"['params', 'ids', 'max_norm', 'name']","['tensor', 'tensor', 'none', 'name']","[False, False, False, True]",tensor,544
-tf.nn.RNNCellDropoutWrapper,"['cell', 'input_keep_prob', 'output_keep_prob', 'state_keep_prob', 'variational_recurrent', 'input_size', 'dtype', 'seed', 'dropout_state_filter_visitor', 'kwargs']","['projection', 'float', 'float', 'state_keep_prob', 'true', 'tensor', 'tensor', 'int', 'true', 'arguments']","[False, False, False, False, False, True, True, True, True, False]",tensor,4109
 tf.nn.max_pool_with_argmax,"['input', 'ksize', 'strides', 'padding', 'data_format', 'output_dtype', 'include_batch_in_index', 'name']","['tensor', 'tensor', 'tensor', 'string', 'string', 'tensor', 'boolean', 'name']","[False, False, False, False, True, True, True, True]",tensor,580
 tf.nn.ctc_loss,"['labels', 'logits', 'label_length', 'logit_length', 'logits_time_major', 'unique', 'blank_index', 'name']","['tensor', 'tensor', 'tensor', 'tensor', 'logits', 'ctc_unique_labels', 'num_labels', 'op']","[False, False, False, False, True, True, True, False]",loss,906
 tf.nn.scale_regularization_loss,['regularization_loss'],['loss'],[False],loss,184
@@ -301,7 +270,6 @@ tf.nn.ctc_beam_search_decoder,"['inputs', 'sequence_length', 'beam_width', 'top_
 tf.nn.sigmoid_cross_entropy_with_logits,"['labels', 'logits', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,1028
 tf.nn.collapse_repeated,"['labels', 'seq_length', 'name']","['batch', 'batch', 'op']","[False, False, False]",collapsed_labels,212
 tf.nn.separable_conv2d,"['input', 'depthwise_filter', 'pointwise_filter', 'strides', 'padding', 'data_format', 'dilations', 'name']","['tensor', 'tensor', 'tensor', 'input', 'or', 'data', 'height', 'name']","[False, False, False, False, False, False, False, True]",tensor,657
-tf.nn.RNNCellDeviceWrapper,"['cell', 'device', 'kwargs']","['rnncell', 'device', 'arguments']","[False, False, False]",tensor,3593
 tf.nn.space_to_depth,"['input', 'block_size', 'data_format', 'name']","['tensor', 'int', 'string', 'name']","[False, False, True, True]",tensor,898
 tf.nn.avg_pool,"['input', 'ksize', 'strides', 'padding', 'data_format', 'name']","['if', 'tensor', 'tensor', 'or', 'channel', 'name']","[False, False, False, False, False, True]",tensor,380
 tf.nn.weighted_moments,"['x', 'axes', 'frequency_weights', 'keepdims', 'name']","['tensor', 'tensor', 'tensor', 'dimensionality', 'name']","[False, False, False, False, False]",tensor,131
@@ -321,7 +289,6 @@ tf.nn.atrous_conv2d_transpose,"['value', 'filters', 'output_shape', 'rate', 'pad
 tf.nn.convolution,"['input', 'filters', 'padding', 'strides', 'dilations', 'name', 'data_format']","['tensor', 'tensor', 'or', 'defaults', 'or', 'tensor', 'input']","[False, False, False, True, True, True, False]",tensor,1233
 tf.nn.relu,"['features', 'name']","['tensor', 'name']","[False, True]",tensor,242
 tf.nn.conv2d,"['input', 'filters', 'strides', 'padding', 'data_format', 'dilations', 'name']","['tensor', 'tensor', 'ints', 'string', 'string', 'tensor', 'name']","[False, False, False, False, True, False, True]",tensor,1196
-tf.nn.RNNCellResidualWrapper,"['cell', 'residual_fn', 'kwargs']","['rnncell', 'cell', 'arguments']","[False, True, False]",tensor,3636
 tf.nn.conv2d_transpose,"['input', 'filters', 'output_shape', 'strides', 'padding', 'data_format', 'dilations', 'name']","['tensor', 'tensor', 'tensor', 'ints', 'string', 'nchw', 'tensor', 'tensor']","[False, False, False, False, False, False, False, True]",tensor,754
 tf.nn.erosion2d,"['value', 'filters', 'strides', 'padding', 'data_format', 'dilations', 'name']","['tensor', 'tensor', 'tensor', 'string', 'string', 'ints', 'name']","[False, False, False, False, False, False, True]",tensor,574
 tf.nn.sufficient_statistics,"['x', 'axes', 'shift', 'keepdims', 'name']","['tensor', 'array', 'tensor', 'dimensionality', 'name']","[False, False, False, False, False]",tensor,266
@@ -376,7 +343,6 @@ tf.math.reduce_mean,"['input_tensor', 'axis', 'keepdims', 'name']","['tensor', '
 tf.math.square,"['x', 'name']","['tensor', 'name']","[False, True]",tensor,268
 tf.math.cosh,"['x', 'name']","['tensor', 'name']","[False, True]",tensor,280
 tf.math.lbeta,"['x', 'name']","['tensor', 'name']","[False, True]",dimension,419
-tf.math.logical_and,"['x', 'y', 'name']","['bool', 'bool', 'name']","[False, False, True]",x,561
 tf.math.reduce_max,"['input_tensor', 'axis', 'keepdims', 'name']","['tensor', 'tensor', 'dimensions', 'name']","[False, False, False, True]",tensor,417
 tf.math.sign,"['x', 'name']","['bfloat16', 'name']","[False, True]",x,308
 tf.math.reduce_std,"['input_tensor', 'axis', 'keepdims', 'name']","['tensor', 'tensor', 'dimensions', 'name']","[False, False, False, True]",tensor,371
@@ -438,7 +404,6 @@ tf.math.expm1,"['x', 'name']","['tensor', 'name']","[False, True]",tensor,299
 tf.math.logical_xor,"['x', 'y', 'name']","['bool', 'bool', 'name']","[False, False, True]",bool,362
 tf.math.floordiv,"['x', 'y', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",infinity,242
 tf.math.add_n,"['inputs', 'name']","['tensor', 'name']","[False, True]",inputs,365
-tf.math.logical_or,"['x', 'y', 'name']","['bool', 'bool', 'name']","[False, False, True]",x,561
 tf.math.rint,"['x', 'name']","['tensor', 'name']","[False, True]",tensor,250
 tf.math.less,"['x', 'y', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,343
 tf.math.segment_prod,"['data', 'segment_ids', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,534
@@ -520,16 +485,8 @@ tf.quantization.quantized_concat,"['concat_dim', 'values', 'input_mins', 'input_
 tf.quantization.fake_quant_with_min_max_args,"['inputs', 'min', 'max', 'num_bits', 'narrow_range', 'name']","['tensor', 'float', 'float', 'int', 'bool', 'name']","[False, True, True, True, True, True]",tensor,599
 tf.quantization.fake_quant_with_min_max_vars_per_channel_gradient,"['gradients', 'inputs', 'min', 'max', 'num_bits', 'narrow_range', 'name']","['tensor', 'tensor', 'tensor', 'tensor', 'int', 'bool', 'name']","[False, False, False, False, True, True, True]",tensor,365
 tf.quantization.quantize_and_dequantize,"['input', 'input_min', 'input_max', 'signed_input', 'num_bits', 'range_given', 'round_mode', 'name', 'narrow_range', 'axis']","['tensor', 'axis', 'axis', 'quantization', 'bitwidth', 'input_min', 'float', 'name', 'bit', 'tensor']","[False, False, False, False, False, False, False, True, False, False]",tensor,440
-tf.quantization.experimental.TfRecordRepresentativeDatasetSaver,['path_map'],['representativedataset'],[False],file,405
 tf.quantization.experimental.quantize_saved_model,"['saved_model_path', 'output_directory', 'quantization_options', 'representative_dataset', 'overwrite_output_directory']","['model', 'overwrite_output_directory', 'None', 'representative_datasets', 'default']","[False, False, False, False, False]",None,628
-tf.data.Iterator,[],[],[],structure,690
-tf.data.FixedLengthRecordDataset,"['filenames', 'record_bytes', 'header_bytes', 'footer_bytes', 'buffer_size', 'compression_type', 'num_parallel_reads', 'name']","['tensor', 'bytes', 'bytes', 'bytes', 'bytes', '', 'none', 'name']","[False, False, True, True, True, True, True, True]",dataset,22763
-tf.data.Dataset,['variant_tensor'],['tensor'],[False],dataset,22910
-tf.data.IteratorSpec,['proto'],['experimental_as_proto'],[False],None,725
-tf.data.TFRecordDataset,"['filenames', 'compression_type', 'buffer_size', 'num_parallel_reads', 'name']","['tensor', '', 'none', 'none', 'name']","[False, True, True, True, True]",dataset,22936
-tf.data.DatasetSpec,['proto'],['experimental_as_proto'],[False],None,523
 tf.data.Options,['options'],['tf.data.options'],[False],input,794
-tf.data.TextLineDataset,"['filenames', 'compression_type', 'buffer_size', 'num_parallel_reads', 'name']","['tensor', '', 'bytes', 'none', 'name']","[False, True, True, True, True]",dataset,22755
 tf.data.experimental.index_table_from_dataset,"['dataset', 'num_oov_buckets', 'vocab_size', 'default_value', 'hasher_spec', 'key_dtype', 'name']","['dataset', 'buckets', 'elements', 'defaults', 'hasherspec', 'key', 'name']","[False, False, False, False, False, False, True]",dataset,411
 tf.data.experimental.table_from_dataset,"['dataset', 'num_oov_buckets', 'vocab_size', 'default_value', 'hasher_spec', 'key_dtype', 'name']","['containing', 'buckets', 'elements', 'defaults', 'hasherspec', 'key', 'name']","[False, False, False, False, False, False, True]",dataset,493
 tf.data.experimental.unique,[],[],[],dataset,217
@@ -543,7 +500,6 @@ tf.data.experimental.group_by_window,"['key_func', 'reduce_func', 'window_size',
 tf.data.experimental.snapshot,"['path', 'compression', 'reader_func', 'shard_func']","['directory', 'gzip', 'data', 'data']","[False, True, True, True]",dataset,721
 tf.data.experimental.enumerate_dataset,['start'],['enumeration'],[False],dataset,301
 tf.data.experimental.pad_to_cardinality,"['cardinality', 'mask_key']","['cardinality', 'elements']","[False, False]",dataset,388
-tf.data.experimental.SqlDataset,"['driver_name', 'data_source_name', 'query', 'output_types']","['tensor', 'tensor', 'tensor', 'query']","[False, False, False, False]",dataset,22417
 tf.data.experimental.group_by_reducer,"['key_func', 'reducer']","['tensor', 'reducer']","[False, False]",dataset,237
 tf.data.experimental.map_and_batch,"['map_func', 'batch_size', 'num_parallel_batches', 'drop_remainder', 'num_parallel_calls']","['tensor', 'batch', 'batches', 'batch', 'calls']","[False, False, True, True, True]",dataset,440
 tf.data.experimental.save,"['dataset', 'path', 'compression', 'shard_func', 'checkpoint_args']","['dataset', 'dataset', 'gzip', 'computation', 'checkpoint_args']","[False, False, True, True, True]",None,664
@@ -554,15 +510,12 @@ tf.data.experimental.scan,"['initial_state', 'scan_func']","['tensor', 'tensor']
 tf.data.experimental.parallel_interleave,"['map_func', 'cycle_length', 'block_length', 'sloppy', 'buffer_output_elements', 'prefetch_input_elements']","['tensor', 'dataset', 'dataset', 'sloppy', 'prefetch', 'elements']","[False, False, False, False, False, False]",dataset,526
 tf.data.experimental.from_list,"['elements', 'name']","['components', 'name']","[False, True]",dataset,481
 tf.data.experimental.choose_from_datasets,"['datasets', 'choice_dataset', 'stop_on_empty_dataset']","['list', 'tensor', 'true']","[False, False, False]",datasets,471
-tf.data.experimental.RandomDataset,['transformation_func'],['dataset'],[False],dataset,22273
 tf.data.experimental.load,"['path', 'element_spec', 'compression', 'reader_func']","['dataset', 'a', 'gzip', 'computation']","[False, True, True, True]",instance,554
 tf.data.experimental.sample_from_datasets,"['datasets', 'weights', 'seed', 'stop_on_empty_dataset']","['list', 'datasets', 'behavior', 'true']","[False, True, True, False]",datasets,525
 tf.data.experimental.take_while,['predicate'],['tensor'],[False],dataset,170
-tf.data.experimental.CheckpointInputPipelineHook,"['estimator', 'external_state_policy']","['estimator', 'default']","[False, False]",sessionrunargs,1069
 tf.data.experimental.get_single_element,['dataset'],['element'],[False],dataset,892
 tf.data.experimental.cardinality,['dataset'],['cardinality'],[False],tensor,300
 tf.data.experimental.assert_cardinality,['expected_cardinality'],['cardinality'],[False],dataset,227
-tf.data.experimental.CsvDataset,"['filenames', 'record_defaults', 'compression_type', 'buffer_size', 'header', 'field_delim', 'use_quote_delim', 'na_value', 'select_cols', 'exclude_cols']","['tensor', 'dtype', '', 'bytes', 'false', 'character', 'false', 'nanan', 'select_cols', 'select_cols']","[False, True, True, True, True, True, True, True, True, True]",dataset,23189
 tf.data.experimental.get_next_as_optional,['iterator'],['tf.data.iterator'],[False],element,175
 tf.data.experimental.make_saveable_from_iterator,"['iterator', 'external_state_policy']","['iterator', 'default']","[False, False]",iterator,465
 tf.data.experimental.shuffle_and_repeat,"['buffer_size', 'count', 'seed']","['elements', 'count', 'behavior']","[False, True, True]",dataset,522
@@ -571,7 +524,6 @@ tf.data.experimental.DatasetInitializer,['dataset'],['key'],[False],None,320
 tf.data.experimental.ignore_errors,[],[],[],dataset,309
 tf.data.experimental.make_csv_dataset,"['file_pattern', 'batch_size', 'column_names', 'column_defaults', 'label_name', 'select_columns', 'field_delim', 'use_quote_delim', 'na_value', 'header', 'num_epochs', 'shuffle', 'shuffle_buffer_size', 'shuffle_seed', 'prefetch_buffer_size', 'num_parallel_reads', 'sloppy', 'num_rows_for_inference', 'compression_type', 'ignore_errors', 'encoding']","['csv', 'batch', 'column', 'tensor', 'tensor', 'column_names', 'string', 'true', 'nanan', 'bool', 'None', 'bool', 'buffer', 'randomization', 'autotune', '', 'true', 'None', '', 'true', 'utf8']","[False, False, True, True, True, True, True, True, False, False, False, False, False, False, False, False, False, False, True, True, False]",batch_size,1540
 tf.data.experimental.bucket_by_sequence_length,"['element_length_func', 'bucket_boundaries', 'bucket_batch_sizes', 'padded_shapes', 'padding_values', 'pad_to_bucket_boundary', 'no_padding', 'drop_remainder']","['dataset', 'list', 'list', 'dataset.output_shapes', 'defaults', 'false', 'bool', 'batch_size']","[False, False, False, False, False, False, False, True]",dataset,1425
-tf.data.experimental.TFRecordWriter,"['filename', 'compression_type']","['data', 'tf.io.tfrecordcompressiontype']","[False, True]",graph,595
 tf.data.experimental.dense_to_sparse_batch,"['batch_size', 'row_shape']","['batch', 'row_shape']","[False, False]",dataset,529
 tf.data.experimental.Counter,"['start', 'step', 'dtype']","['counter', 'counter', 'counter']","[True, True, True]",dataset,413
 tf.data.experimental.copy_to_device,"['target_device', 'source_device']","['device', 'input_dataset']","[False, False]",dataset,130
@@ -625,19 +577,11 @@ tf.strings.split,"['input', 'sep', 'maxsplit', 'name']","['tensor', 'd', 'int', 
 tf.strings.unicode_split,"['input', 'input_encoding', 'errors', 'replacement_char', 'name']","['tensor', 'encoding', 'replacement_char', 'input', 'name']","[False, False, False, False, True]",tensor,448
 tf.strings.to_hash_bucket_fast,"['input', 'num_buckets', 'name']","['tensor', 'int', 'name']","[False, False, True]",tensor,297
 tf.strings.unicode_decode,"['input', 'input_encoding', 'errors', 'replacement_char', 'replace_control_characters', 'name']","['tensor', 'encoding', 'replacement_char', 'input', 'replacement_char', 'name']","[False, False, False, False, False, True]",tensor,454
-tf.lite.TFLiteConverter,"['funcs', 'trackable_obj']","['concretefunctions', 'funcs']","[False, False]",data,1199
-tf.lite.Interpreter,"['model_path', 'model_content', 'experimental_delegates', 'num_threads', 'experimental_op_resolver_type', 'experimental_preserve_all_tensors', 'experimental_disable_delegate_clustering']","['file', 'content', 'tensor', 'conv', 'builtin', 'tensor', 'tf.print']","[False, False, False, False, False, False, False]",tensor,2447
 tf.lite.RepresentativeDataset,['input_gen'],['dataset'],[False],None,195
 tf.lite.experimental.load_delegate,"['library', 'options']","['tensor', 'None']","[False, False]",delegate,277
 tf.lite.experimental.Analyzer,"['model_path', 'model_content', 'gpu_compatibility', 'kwargs']","['path', 'model', 'compatibility', 'api']","[False, False, False, False]",output,436
 tf.lite.experimental.QuantizationDebugOptions,"['layer_debug_metrics', 'model_debug_metrics', 'layer_direct_compare_metrics', 'denylisted_ops', 'denylisted_nodes', 'fully_quantize']","['float', 'accuracy', 'layer_debug_metrics', 'list', 'tensor', 'body']","[False, False, False, False, False, False]",None,442
-tf.lite.experimental.QuantizationDebugger,"['quant_debug_model_path', 'quant_debug_model_content', 'float_model_path', 'float_model_content', 'debug_dataset', 'debug_options', 'converter']","['debug', 'content', 'file', 'float', 'dataset', 'debug', 'model']","[False, False, False, False, False, False, True]",model,497
 tf.lite.experimental.authoring.compatible,"['target', 'converter_target_spec', 'kwargs']","['tf.function', 'converter', '_compatible']","[False, False, False]",tf.lite.experimental.authoring._compatible,279
-tf.queue.FIFOQueue,"['capacity', 'dtypes', 'shapes', 'names', 'shared_name', 'name']","['bound', 'tensor', 'tensorshape', 'dtypes', 'name', 'name']","[False, False, True, True, True, True]",operation,1614
-tf.queue.RandomShuffleQueue,"['capacity', 'min_after_dequeue', 'dtypes', 'shapes', 'names', 'seed', 'shared_name', 'name']","['bound', 'int', 'tensor', 'tensorshape', 'dtypes', 'behavior', 'name', 'name']","[False, False, False, True, True, False, True, True]",operation,1659
-tf.queue.PriorityQueue,"['capacity', 'types', 'shapes', 'names', 'shared_name', 'name']","['bound', 'tensor', 'tensorshape', 'dtypes', 'name', 'name']","[False, False, True, True, True, True]",operation,1640
-tf.queue.QueueBase,"['dtypes', 'shapes', 'names', 'queue_ref']","['tensor', 'tensor', 'and', 'i.e']","[False, False, True, False]",operation,1678
-tf.queue.PaddingFIFOQueue,"['capacity', 'dtypes', 'shapes', 'names', 'shared_name', 'name']","['bound', 'tensor', 'tensorshape', 'dtypes', 'name', 'name']","[False, False, False, True, True, True]",operation,1695
 tf.debugging.assert_type,"['tensor', 'tf_type', 'message', 'name']","['tensor', 'dtypes.bool', 'default', 'defaults']","[False, False, False, False]",None,283
 tf.debugging.assert_less_equal,"['x', 'y', 'message', 'summarize', 'name']","['tensor', 'tensor', 'default', 'tensor', 'defaults']","[False, False, True, True, True]",invalidargumenterror,444
 tf.debugging.assert_non_negative,"['x', 'message', 'summarize', 'name']","['tensor', 'default', 'tensor', 'defaults']","[False, False, False, True]",invalidargumenterror,244
@@ -670,23 +614,15 @@ tf.errors.OpError,"['node_def', 'op', 'message', 'error_code', 'args']","['node_
 tf.test.assert_equal_graph_def,"['expected', 'actual']","['graphdef', 'graphdef']","[False, False]",None,143
 tf.test.compute_gradient,"['f', 'x', 'delta']","['function', 'arguments', 'jacobian']","[False, False, True]",argument,334
 tf.test.is_gpu_available,"['cuda_only', 'min_cuda_compute_capability']","['cuda', 'None']","[False, False]",device,362
-tf.test.Benchmark,['tensors'],['listtuple'],[False],tensor,648
-tf.test.TestCase,"['typeobj', 'function']","['data', 'argument']","[False, True]",None,9532
 tf.test.create_local_cluster,"['num_workers', 'num_ps', 'protocol', 'worker_config', 'ps_config']","['number', 'number', 'communication', 'tf.configproto', 'tf.configproto']","[False, False, False, True, True]",,474
 tf.test.benchmark_config,[],[],[],configproto,76
 tf.test.with_eager_op_as_function,"['cls', 'only_as_function']","['class', 'argument']","[False, False]",cls,93
 tf.experimental.dispatch_for_binary_elementwise_apis,"['x_type', 'y_type']","['annotation', 'annotation']","[False, False]",decorator,422
 tf.experimental.dispatch_for_binary_elementwise_assert_apis,"['x_type', 'y_type']","['annotation', 'annotation']","[False, False]",decorator,514
-tf.experimental.StructuredTensor,['field_name'],['string'],[False],tensor,4475
 tf.experimental.dispatch_for_api,"['api', 'signatures']","['api', 'annotations']","[False, False]",api,952
-tf.experimental.DynamicRaggedShape,"['row_partitions', 'inner_shape', 'dtype', 'validate', 'static_inner_shape']","['row_partitions', 'tensor', 'None', 'shape', 'tensor']","[False, False, False, False, False]",dynamicraggedshape,1950
 tf.experimental.function_executor_type,['executor_type'],['executor'],[False],None,122
 tf.experimental.dispatch_for_unary_elementwise_apis,['x_type'],['dispatch_for_api'],[False],decorator,483
-tf.experimental.Optional,['element_spec'],['element'],[True],value,879
 tf.experimental.register_filesystem_plugin,['plugin_location'],['file'],[False],None,100
-tf.experimental.ExtensionTypeSpec,['proto'],['experimental_as_proto'],[False],None,576
-tf.experimental.ExtensionTypeBatchEncoder,"['spec', 'batch_size']","['typespec', 'int']","[False, False]",typespec,979
-tf.experimental.RowPartition,"['row_splits', 'row_lengths', 'value_rowids', 'nrows', 'uniform_row_length', 'nvals', 'internal']","['tensor', 'tensor', 'tensor', 'tensor', 'tensor', 'tensor', 'constructor']","[False, False, False, False, False, False, False]",rowpartition,3504
 tf.experimental.unregister_dispatch_for,['dispatch_target'],['function'],[False],None,255
 tf.experimental.extension_type.as_dict,['value'],['extensiontype'],[False],value,129
 tf.experimental.dtensor.create_distributed_mesh,"['mesh_dims', 'mesh_name', 'local_devices', 'device_type', 'use_xla_spmd']","['or', 'defaults', 'defaults', 'cpu', 'dtensor']","[False, False, False, False, False]",clients,346
@@ -702,10 +638,8 @@ tf.experimental.dtensor.Mesh,"['dim_names', 'global_device_ids', 'local_device_i
 tf.experimental.dtensor.run_on,['mesh'],['default'],[False],None,184
 tf.experimental.dtensor.name_based_restore,"['mesh', 'checkpoint_prefix', 'name_tensor_dict']","['mesh', 'checkpoint', 'tensor']","[False, False, False]",dict,169
 tf.experimental.dtensor.is_dtensor,['tensor'],['object'],[False],tensor,99
-tf.experimental.dtensor.DVariable,"['value', 'use_locking', 'name', 'read_value']","['tensor', 'true', 'assignment', 'bool']","[False, False, False, False]",read_value,11793
 tf.experimental.dtensor.call_with_layout,"['fn', 'layout', 'args', 'kwargs']","['api', 'dtensor', 'fn', 'fn']","[False, True, False, False]",fn,195
 tf.experimental.dtensor.check_layout,"['tensor', 'layout']","['dtensor', 'layout']","[False, False]",None,102
-tf.experimental.dtensor.DTensorDataset,"['dataset', 'mesh', 'layouts', 'global_batch_size', 'dataset_already_batched', 'batch_dim', 'prefetch', 'tf_data_service_config']","['object', 'batches', 'None', 'batch', 'tensor', 'batch', 'batches', 'config']","[False, False, False, False, False, False, False, False]",dataset,22621
 tf.experimental.dtensor.relayout_like,"['tensor', 'layout_tensor', 'name']","['dtensor', 'tensor', 'name']","[False, False, False]",dtensor,303
 tf.experimental.dtensor.create_mesh,"['mesh_dims', 'mesh_name', 'devices', 'device_type', 'use_xla_spmd']","['or', 'defaults', 'defaults', 'devices', 'dtensor']","[False, False, False, False, False]",arguments,357
 tf.experimental.dtensor.enable_save_as_bf16,['variables'],['bfloat16'],[False],None,105
@@ -714,20 +648,15 @@ tf.experimental.dtensor.barrier,"['mesh', 'barrier_name', 'timeout_in_ms']","['b
 tf.experimental.dtensor.fetch_layout,['tensor'],['dtensor'],[False],layout,79
 tf.experimental.dtensor.create_tpu_mesh,"['mesh_dim_names', 'mesh_shape', 'mesh_name', 'ring_dims', 'ring_axes', 'ring_bounds', 'can_split_host_across_rings', 'build_ring_across_rings', 'rotate_ring_across_rings', 'use_xla_spmd']","['dimension', 'mesh', 'mesh', 'dimension', 'axes', 'axis', 'arguments', 'optional', 'optional', 'dtensor']","[False, False, False, True, True, True, True, True, True, False]",None,492
 tf.experimental.dtensor.initialize_accelerator_system,"['device_type', 'enable_coordination_service', 'num_logical_cpu_devices', 'experimental_reset_context']","['tensor', 'client', 'tensor', 'apis']","[False, False, False, False]",device_type,626
-tf.experimental.dtensor.DTensorCheckpoint,"['save_path', 'options']","['write', 'tf.train.checkpointoptions']","[False, True]",restore,1906
-tf.experimental.StructuredTensor.Spec,['proto'],['experimental_as_proto'],[False],None,560
-tf.experimental.DynamicRaggedShape.Spec,"['row_partitions', 'static_inner_shape', 'dtype']","['rowpartitionspec', 'flat_values', 'dtype']","[False, False, False]",None,695
 tf.experimental.dlpack.from_dlpack,['dlcapsule'],['tensor'],[False],tensor,84
 tf.experimental.dlpack.to_dlpack,['tf_tensor'],['tensor'],[False],tensor,120
 tf.experimental.numpy.experimental_enable_numpy_behavior,"['prefer_float32', 'dtype_conversion_mode']","['behavior', 'legacy']","[False, False]",None,236
-tf.experimental.tensorrt.Converter,"['input_saved_model_dir', 'input_saved_model_tags', 'input_saved_model_signature_key', 'use_dynamic_shape', 'dynamic_shape_profile_strategy', 'max_workspace_size_bytes', 'precision_mode', 'minimum_segment_size', 'maximum_cached_engines', 'use_calibration', 'allow_build_at_runtime', 'conversion_params']","['directory', 'list', 'graph', 'None', 'None', 'workspacesize', 'strings', 'nodes', 'None', 'tensor', 'building', 'instance']","[False, False, False, False, False, False, False, False, False, False, False, False]",function,2047
 tf.random.fold_in,"['seed', 'data', 'alg']","['tensor', 'int32', 'algorithm']","[False, False, False]",tensor,395
 tf.random.create_rng_state,"['seed', 'alg']","['array', 'algorithm']","[False, False]",algorithm,179
 tf.random.stateless_categorical,"['logits', 'num_samples', 'seed', 'dtype', 'name']","['batch_size', 'd', 'int32', 'int32', 'name']","[False, False, False, False, True]",batch_size,349
 tf.random.set_seed,['seed'],['int'],[False],None,1288
 tf.random.stateless_uniform,"['shape', 'seed', 'minval', 'maxval', 'dtype', 'name', 'alg']","['tensor', 'int32', 'dtype', 'dtype', 'float16', 'name', 'www.thesalmons.orgjohnrandom123papersrandom123sc11.pdf']","[False, False, False, False, False, True, False]",tensor,808
 tf.random.uniform,"['shape', 'minval', 'maxval', 'dtype', 'seed', 'name']","['tensor', 'dtype', 'dtype', 'float16', 'tensor', 'name']","[False, False, False, False, False, True]",tensor,706
-tf.random.Generator,"['copy_from', 'state', 'alg']","['generator', 'generator', 'and']","[False, False, False]",samples,3471
 tf.random.stateless_gamma,"['shape', 'seed', 'alpha', 'beta', 'dtype', 'name']","['tensor', 'int32', 'beta', 'alpha', 'alpha', 'name']","[False, False, False, False, False, True]",samples,914
 tf.random.stateless_poisson,"['shape', 'seed', 'lam', 'dtype', 'name']","['tensor', 'int32', 'shape', 'float', 'name']","[False, False, False, False, True]",samples,576
 tf.random.stateless_truncated_normal,"['shape', 'seed', 'mean', 'stddev', 'dtype', 'name', 'alg']","['tensor', 'int32', 'dtype', 'dtype', 'output', 'name', 'algorithm']","[False, False, False, False, False, True, False]",tensor,366
@@ -751,49 +680,15 @@ tf.random.normal,"['shape', 'mean', 'stddev', 'dtype', 'seed', 'name']","['tenso
 tf.random.experimental.index_shuffle,"['index', 'seed', 'max_index']","['tensor', 'tensor', 'tensor']","[False, False, False]",seed,956
 tf.random.experimental.stateless_shuffle,"['value', 'seed', 'alg', 'name']","['tensor', 'int32', 'algorithm', 'name']","[False, False, False, False]",tensor,406
 tf.distribute.DistributedDataset,[],[],[],data,1798
-tf.distribute.MultiWorkerMirroredStrategy,"['cluster_resolver', 'communication_options']","['none', 'apis']","[True, True]",tf.distribute.distributeddataset,6761
-tf.distribute.DistributedIterator,[],[],[],input,791
-tf.distribute.InputContext,"['num_input_pipelines', 'input_pipeline_id', 'num_replicas_in_sync']","['cluster', 'num_input_pipelines', 'number']","[False, False, False]",batch,295
 tf.distribute.in_cross_replica_context,[],[],[],true,165
-tf.distribute.MirroredStrategy,"['devices', 'cross_device_ops']","['none', 'crossdeviceops']","[False, True]",tf.distribute.distributeddataset,6853
-tf.distribute.NcclAllReduce,['num_packs'],['int'],[False],value_destination_pairs,685
-tf.distribute.Strategy,"['dataset_fn', 'options']","['function', 'dataset']","[False, False]",tf.distribute.distributeddataset,6844
-tf.distribute.Server,"['server_or_cluster_def', 'job_name', 'task_index', 'protocol', 'config', 'start']","['buffer', 'server_or_cluster_def', 'server_or_cluster_def', 'server_or_cluster_def', 'configuration', 'true']","[False, True, True, True, False, True]",tf.distribute.server,726
 tf.distribute.has_strategy,[],[],[],strategy.scope,109
-tf.distribute.OneDeviceStrategy,['device'],['cpu0'],[False],distributed,2955
 tf.distribute.get_strategy,[],[],[],strategy,140
-tf.distribute.ReductionToOneDevice,"['reduce_to_device', 'accumulation_fn']","['destinations', 'None']","[False, False]",value_destination_pairs,689
-tf.distribute.StrategyExtended,"['reduce_op', 'value_destination_pairs', 'options']","['allows', 'tf.distribute.strategy.reduce_to', 'constructor']","[False, False, False]",value_destination_pairs,2918
-tf.distribute.TPUStrategy,"['tpu_cluster_resolver', 'experimental_device_assignment', 'experimental_spmd_xla_partitioning']","['None', 'cluster', 'ceveat']","[False, True, False]",tf.distribute.distributeddataset,7558
-tf.distribute.HierarchicalCopyAllReduce,['num_packs'],['int'],[False],value_destination_pairs,743
 tf.distribute.experimental_set_strategy,['strategy'],['None'],[False],None,227
-tf.distribute.CrossDeviceOps,"['reduce_op', 'value_destination_pairs', 'options']","['tf.distribute.reduceop', 'descriptions', 'details']","[False, False, False]",value_destination_pairs,1085
-tf.distribute.ReplicaContext,"['strategy', 'replica_id_in_sync_group']","['tf.distribute.strategy', 'tensor']","[False, False]",value,2111
-tf.distribute.experimental.MultiWorkerMirroredStrategy,"['communication', 'cluster_resolver']","['auto', 'none']","[True, True]",tf.distribute.distributeddataset,6761
 tf.distribute.experimental.ValueContext,"['replica_id_in_sync_group', 'num_replicas_in_sync']","['num_replicas_in_sync', 'number']","[False, False]",None,281
 tf.distribute.experimental.CollectiveHints,"['bytes_per_pack', 'timeout_seconds']","['multiworkermirroredstrategy', 'float']","[False, False]",None,401
-tf.distribute.experimental.ParameterServerStrategy,"['cluster_resolver', 'variable_partitioner']","['object', 'none']","[False, False]",tf.distribute.distributeddataset,9610
-tf.distribute.experimental.PreemptionCheckpointHandler,"['cluster_resolver', 'checkpoint_or_checkpoint_manager', 'checkpoint_dir', 'termination_config']","['cluster_resolver', 'preemptioncheckpointhandler', 'preemptioncheckpointhandler', 'borg']","[False, False, False, True]",distributed_train_function,2044
-tf.distribute.experimental.CentralStorageStrategy,"['dataset_fn', 'options']","['function', 'dataset']","[False, False]",tf.distribute.distributeddataset,4390
-tf.distribute.experimental.TPUStrategy,"['tpu_cluster_resolver', 'device_assignment']","['cluster', 'cluster']","[False, True]",tf.distribute.distributeddataset,5251
 tf.distribute.experimental.CommunicationOptions,"['bytes_per_pack', 'timeout_seconds', 'implementation']","['tpustrategy', 'float', 'auto']","[False, False, False]",None,451
 tf.distribute.experimental.TerminationConfig,"['termination_watcher_fn', 'exit_fn', 'grace_period', 'save_fn']","['true', 'restart_code', 'borg', 'api']","[False, False, False, True]",None,803
-tf.distribute.experimental.partitioners.MaxSizePartitioner,"['max_shard_bytes', 'max_shards', 'bytes_per_string']","['shard', 'int', 'estimate']","[False, False, False]",axis,456
-tf.distribute.experimental.partitioners.FixedShardsPartitioner,['num_shards'],['int'],[False],axis,276
 tf.distribute.experimental.partitioners.Partitioner,"['shape', 'dtype', 'axis']","['partition', 'tf.dtypes.dtype', 'axis']","[False, False, False]",axis,240
-tf.distribute.experimental.partitioners.MinSizePartitioner,"['min_shard_bytes', 'max_shards', 'bytes_per_string']","['bytes', 'bound', 'estimate']","[False, False, False]",axis,414
-tf.distribute.experimental.rpc.Server,"['rpc_layer', 'address']","['client', 'address']","[False, False]",class,393
-tf.distribute.experimental.rpc.Client,"['rpc_layer', 'address', 'name', 'timeout_in_ms']","['client', 'address', 'client', 'client']","[False, False, False, False]",statusorresult,1121
-tf.distribute.experimental.coordinator.ClusterCoordinator,['strategy'],['object'],[False],iter,2151
-tf.distribute.experimental.coordinator.RemoteValue,[],[],[],remotevalue,536
-tf.distribute.cluster_resolver.ClusterResolver,"['task_type', 'task_id', 'rpc_layer']","['master', 'index', 'cluster']","[True, True, True]",cluster,1603
-tf.distribute.cluster_resolver.SlurmClusterResolver,"['jobs', 'port_base', 'gpus_per_node', 'gpus_per_task', 'tasks_per_node', 'auto_set_gpu', 'rpc_layer']","['worker', 'node', 'defaults', 'default', 'environment', 'cluster', 'defaults']","[False, False, False, False, False, False, False]",clusterspec,1635
-tf.distribute.cluster_resolver.GCEClusterResolver,"['project', 'zone', 'instance_group', 'port', 'task_type', 'task_id', 'rpc_layer', 'credentials', 'service']","['gce', 'gce', 'gce', 'default', 'gce', 'gce', 'instances', 'credentials', 'v1']","[False, False, False, False, False, False, False, False, False]",clusterspec,1680
-tf.distribute.cluster_resolver.KubernetesClusterResolver,"['job_to_label_mapping', 'tf_server_port', 'rpc_layer', 'override_client']","['', 'port', 'defaults', 'client']","[False, False, True, False]",clusterspec,1701
-tf.distribute.cluster_resolver.SimpleClusterResolver,"['task_type', 'task_id', 'rpc_layer']","['master', 'index', 'optional']","[True, True, True]",master,1282
-tf.distribute.cluster_resolver.TPUClusterResolver,"['tpu', 'zone', 'project', 'job_name', 'coordinator_name', 'coordinator_address', 'credentials', 'service', 'discovery_url']","['address', 'gce', 'cloud', 'belong', 'clusterspec', 'None', 'None', 'api', 'tpu_api_discovery_url']","[False, False, False, False, False, False, False, False, False]",None,2064
-tf.distribute.cluster_resolver.UnionResolver,"['args', 'kwargs']","['clusterresolver', 'index']","[False, True]",clusterresolvers,1696
-tf.distribute.cluster_resolver.TFConfigClusterResolver,"['task_type', 'task_id', 'rpc_layer', 'environment']","['environment', 'environment', 'layer', 'environment']","[True, True, True, True]",clusterspec,1491
 tf.xla.experimental.compile,"['computation', 'inputs']","['tensor', 'tensor']","[False, False]",tensor,536
 tf.xla.experimental.jit_scope,"['compile_ops', 'separate_compiled_gradients']","['node_def', 'compilation']","[False, False]",None,666
 tf.feature_column.shared_embeddings,"['categorical_columns', 'dimension', 'combiner', 'initializer', 'shared_embedding_collection_name', 'ckpt_to_load_from', 'tensor_name_in_ckpt', 'max_norm', 'trainable', 'use_safe_embedding_lookup']","['key', 'dimension', 'tf.embedding_lookup_sparse', 'truncated_normal_initializer', 'categorical_columns', 'tensor', 'tensor', 'none', 'default', 'tensor']","[False, False, False, False, True, False, False, False, False, False]",categorical_columns,1069
@@ -815,18 +710,14 @@ tf.feature_column.indicator_column,['categorical_column'],['categoricalcolumn'],
 tf.feature_column.sequence_numeric_column,"['key', 'shape', 'default_value', 'dtype', 'normalizer_fn']","['features', 'data', 'dtype', 'type', 'tensor']","[False, False, False, False, False]",sequencenumericcolumn,543
 tf.tpu.experimental.HardwareFeature,['tpu_hardware_feature_proto'],['feature'],[False],None,102
 tf.tpu.experimental.initialize_tpu_system,['cluster_resolver'],['cluster'],[False],cluster,135
-tf.tpu.experimental.DeviceAssignment,"['topology', 'core_assignment']","['topology', 'core_assignment']","[False, False]",list,522
-tf.tpu.experimental.Topology,"['serialized', 'mesh_shape', 'device_coordinates']","['topologyproto', 'none', 'none']","[False, False, False]",coordinates,628
 tf.tpu.experimental.shutdown_tpu_system,['cluster_resolver'],['cluster'],[False],None,132
 tf.tpu.experimental.embedding.Adagrad,"['learning_rate', 'initial_accumulator_value', 'use_gradient_accumulation', 'clip_weight_min', 'clip_weight_max', 'weight_decay_factor', 'multiply_weight_decay_factor_by_learning_rate', 'slot_variable_creation_fn', 'clipvalue', 'low_dimensional_packing_status']","['arguments', 'accumulator', 'false', 'infinity', 'infinity', 'None', 'weight_decay_factor', 'None', 'None', 'embedding']","[False, False, False, False, False, False, False, False, False, False]",None,796
-tf.tpu.experimental.embedding.TPUEmbedding,"['feature_config', 'optimizer', 'pipeline_execution_with_tensor_core']","['configs', 'None', 'computations']","[False, False, False]",tensor,3770
 tf.tpu.experimental.embedding.QuantizationConfig,"['num_buckets', 'lower', 'upper']","['buckets', 'bound', 'bound']","[False, False, False]",None,287
 tf.tpu.experimental.embedding.TableConfig,"['vocabulary_size', 'dim', 'initializer', 'optimizer', 'combiner', 'name', 'quantization_config']","['number', 'dimension', 'truncated_normal_initializer', 'class', 'sqrtn', 'must', 'class']","[False, False, False, True, False, True, False]",None,715
 tf.tpu.experimental.embedding.FTRL,"['learning_rate', 'learning_rate_power', 'l1_regularization_strength', 'l2_regularization_strength', 'beta', 'initial_accumulator_value', 'use_gradient_accumulation', 'clip_weight_min', 'clip_weight_max', 'weight_decay_factor', 'multiply_weight_decay_factor_by_learning_rate', 'slot_variable_creation_fn', 'clipvalue', 'multiply_linear_by_learning_rate', 'allow_zero_accumulator', 'low_dimensional_packing_status']","['arguments', 'float', 'float', 'float', 'float', 'accumulators', 'false', 'infinity', 'infinity', 'None', 'weight_decay_factor', 'None', 'None', 'accumulator', 'accumulator', 'embedding']","[False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False]",None,1104
 tf.tpu.experimental.embedding.serving_embedding_lookup,"['inputs', 'weights', 'tables', 'feature_config']","['raggedtensors', 'None', 'dict', 'featureconfig']","[False, False, False, False]",inputs,641
 tf.tpu.experimental.embedding.FeatureConfig,"['table', 'max_sequence_length', 'validate_weights_and_indices', 'output_shape', 'name']","['feature', 'feature', 'compute', 'tensor', 'must']","[False, False, False, True, True]",None,745
 tf.tpu.experimental.embedding.TPUEmbeddingV0,"['features', 'weights']","['raggedtensors', 'None']","[False, False]",inputs,901
-tf.tpu.experimental.embedding.TPUEmbeddingForServing,"['feature_config', 'optimizer', 'experimental_sparsecore_restore_info']","['configs', 'None', 'num_tpu_devices']","[False, False, False]",features,805
 tf.tpu.experimental.embedding.Adam,"['learning_rate', 'beta_1', 'beta_2', 'epsilon', 'lazy_adam', 'sum_inside_sqrt', 'use_gradient_accumulation', 'clip_weight_min', 'clip_weight_max', 'weight_decay_factor', 'multiply_weight_decay_factor_by_learning_rate', 'slot_variable_creation_fn', 'clipvalue', 'low_dimensional_packing_status']","['arguments', 'float', 'float', 'constant', 'adam', 'to', 'false', 'infinity', 'infinity', 'None', 'weight_decay_factor', 'None', 'None', 'embedding']","[False, False, False, False, False, False, False, False, False, False, False, False, False, False]",None,975
 tf.tpu.experimental.embedding.AdagradMomentum,"['learning_rate', 'momentum', 'use_nesterov', 'exponent', 'beta2', 'epsilon', 'use_gradient_accumulation', 'clip_weight_min', 'clip_weight_max', 'weight_decay_factor', 'multiply_weight_decay_factor_by_learning_rate', 'slot_variable_creation_fn', 'clipvalue', 'low_dimensional_packing_status']","['arguments', 'accumulator', 'al.', 'accumulator', 'accumulator', 'accumulator', 'false', 'infinity', 'infinity', 'None', 'weight_decay_factor', 'None', 'None', 'embedding']","[False, False, False, False, False, False, False, False, False, False, False, False, False, False]",None,878
 tf.tpu.experimental.embedding.SGD,"['learning_rate', 'use_gradient_accumulation', 'clip_weight_min', 'clip_weight_max', 'weight_decay_factor', 'multiply_weight_decay_factor_by_learning_rate', 'clipvalue', 'low_dimensional_packing_status']","['arguments', 'false', 'infinity', 'infinity', 'None', 'weight_decay_factor', 'None', 'embedding']","[False, False, False, False, False, False, False, False]",None,761
@@ -851,7 +742,6 @@ tf.raw_ops.RegexFullMatch,"['input', 'pattern', 'name']","['tensor', 'tensor', '
 tf.raw_ops.ResourceAccumulatorSetGlobalStep,"['handle', 'new_global_step', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",operation,139
 tf.raw_ops.ResourceSparseApplyProximalAdagrad,"['var', 'accum', 'lr', 'l1', 'l2', 'grad', 'indices', 'use_locking', 'name']","['tensor', 'tensor', 'tensor', 'tensor', 'tensor', 'tensor', 'tensor', 'tensor', 'name']","[False, False, False, False, False, False, False, True, True]",operation,472
 tf.raw_ops.LoadTPUEmbeddingRMSPropParameters,"['parameters', 'ms', 'mom', 'num_shards', 'shard_id', 'table_id', 'table_name', 'config', 'name']","['tensor', 'tensor', 'tensor', 'int', 'int', 'int', 'string', 'string', 'name']","[False, False, False, False, False, True, True, True, True]",operation,280
-tf.raw_ops.LogicalOr,"['x', 'y', 'name']","['bool', 'bool', 'name']","[False, False, True]",x,513
 tf.raw_ops.Sin,"['x', 'name']","['tensor', 'name']","[False, True]",tensor,245
 tf.raw_ops.DecodeCompressed,"['bytes', 'compression_type', 'name']","['tensor', 'string', 'name']","[False, True, True]",tensor,196
 tf.raw_ops.Real,"['input', 'Tout', 'name']","['tensor', 'defaults', 'name']","[False, True, True]",tensor,260
@@ -2000,7 +1890,6 @@ tf.raw_ops.SparseMatMul,"['a', 'b', 'transpose_a', 'transpose_b', 'a_is_sparse',
 tf.raw_ops.DataFormatVecPermute,"['x', 'src_format', 'dst_format', 'name']","['tensor', 'string', 'string', 'name']","[False, True, True, True]",tensor,407
 tf.raw_ops.SegmentProd,"['data', 'segment_ids', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,493
 tf.raw_ops.StatelessRandomPoisson,"['shape', 'seed', 'lam', 'dtype', 'name']","['tensor', 'tensor', 'tensor', 'output', 'name']","[False, False, False, False, True]",tensor,273
-tf.raw_ops.LogicalAnd,"['x', 'y', 'name']","['bool', 'bool', 'name']","[False, False, True]",x,513
 tf.raw_ops.QuantizedInstanceNorm,"['x', 'x_min', 'x_max', 'output_range_given', 'given_y_min', 'given_y_max', 'variance_epsilon', 'min_separation', 'name']","['tensor', 'tensor', 'tensor', 'bool', 'float', 'float', 'float', 'float', 'name']","[False, False, False, True, True, True, True, True, True]",tensor,390
 tf.raw_ops.DeviceIndex,"['device_names', 'name']","['strings', 'name']","[False, True]",tensor,150
 tf.raw_ops.DisableCopyOnRead,"['resource', 'name']","['tensor', 'name']","[False, True]",operation,138
@@ -2251,53 +2140,16 @@ tf.dtypes.DType,['other'],['dtype'],[False],other,849
 tf.dtypes.as_dtype,['type_value'],['object'],[False],dtype,242
 tf.dtypes.saturate_cast,"['value', 'dtype', 'name']","['tensor', 'dtype', 'name']","[False, False, True]",value,169
 tf.dtypes.complex,"['real', 'imag', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,297
-tf.estimator.BaselineClassifier,"['model_dir', 'n_classes', 'weight_column', 'label_vocabulary', 'optimizer', 'config', 'loss_reduction']","['checkpoints', 'class', 'numericcolumn', 'n_classes', 'ftrl', 'runconfig', 'tf.losses.reduction']","[False, False, False, True, False, False, False]",contains,3571
-tf.estimator.RegressionHead,"['weight_column', 'label_dimension', 'loss_reduction', 'loss_fn', 'inverse_link_fn', 'name']","['numericcolumn', 'tensor', 'tf.losses.reduction', 'mean_squared_error', 'defaults', 'name_scope']","[False, False, False, True, True, False]",estimatorspec,1669
-tf.estimator.GlobalStepWaiterHook,['wait_until_step'],['int'],[False],sessionrunargs,714
-tf.estimator.FeedFnHook,['feed_fn'],['dict'],[False],sessionrunargs,668
-tf.estimator.StepCounterHook,"['session', 'coord']","['session', 'coordinator']","[False, False]",sessionrunargs,659
-tf.estimator.DNNEstimator,"['head', 'hidden_units', 'feature_columns', 'model_dir', 'optimizer', 'activation_fn', 'dropout', 'config', 'warm_start_from', 'batch_norm']","['_head', 'ex', '_featurecolumn', 'checkpoints', 'adagrad', 'none', 'none', 'runconfig', 'warmstartsettings', 'batch']","[False, False, False, False, False, False, False, False, False, False]",contains,3969
 tf.estimator.SessionRunArgs,"['fetches', 'feed_dict', 'options']","['tensor', 'feed_dict', 'options']","[False, False, False]",None,301
-tf.estimator.LogisticRegressionHead,"['weight_column', 'loss_reduction', 'name']","['numericcolumn', 'tf.losses.reduction', 'name_scope']","[False, False, False]",estimatorspec,1251
-tf.estimator.FinalExporter,"['name', 'serving_input_receiver_fn', 'assets_extra', 'as_text']","['exporter', 'servinginputreceiver', 'pathtomy_asset_file.txt', 'false']","[False, False, True, False]",none,461
-tf.estimator.BaselineRegressor,"['model_dir', 'label_dimension', 'weight_column', 'optimizer', 'config', 'loss_reduction']","['checkpoints', 'tensor', '_numericcolumn', 'ftrl', 'runconfig', 'tf.losses.reduction']","[False, False, False, False, False, False]",contains,3460
 tf.estimator.SessionRunValues,"['results', 'options', 'run_metadata']","['tensor', 'runoptions', 'runmetadata']","[False, False, False]",None,305
-tf.estimator.StopAtStepHook,"['num_steps', 'last_step']","['number', 'step']","[False, False]",sessionrunargs,805
-tf.estimator.CheckpointSaverHook,"['checkpoint_dir', 'save_secs', 'save_steps', 'saver', 'checkpoint_basename', 'scaffold', 'listeners', 'save_graph_def']","['str', 'int', 'int', 'saver', 'str', 'scaffold', 'checkpointsaverlistener', 'checkpoint_dir']","[False, False, False, False, False, False, False, False]",sessionrunargs,867
 tf.estimator.EvalSpec,"['input_fn', 'steps', 'name', 'hooks', 'exporters', 'start_delay_secs', 'throttle_secs']","['tensor', 'none', 'tensor', 'tf.train.sessionrunhook', 'exporter', 'int', 'checkpoints']","[False, False, False, False, False, False, False]",None,587
-tf.estimator.MultiClassHead,"['n_classes', 'weight_column', 'label_vocabulary', 'loss_reduction', 'loss_fn', 'name']","['binaryclasshead', 'numericcolumn', 'label_vocabulary', 'tf.losses.reduction', 'function', 'name_scope']","[False, False, False, False, True, False]",estimatorspec,1759
 tf.estimator.regressor_parse_example_spec,"['feature_columns', 'label_key', 'label_dtype', 'label_default', 'label_dimension', 'weight_column']","['_featurecolumn', 'key', 'tf.dtype', 'tf.parse_example', 'tensor', 'tensor']","[False, False, False, False, False, False]",fixedlenfeature,911
 tf.estimator.add_metrics,"['estimator', 'metric_fn']","['object', 'tensor']","[False, False]",metrics,540
-tf.estimator.LinearRegressor,"['feature_columns', 'model_dir', 'label_dimension', 'weight_column', 'optimizer', 'config', 'warm_start_from', 'loss_reduction', 'sparse_combiner']","['featurecolumn', 'checkpoints', 'tensor', 'tensor', 'or', 'runconfig', 'warmstartsettings', 'tf.losses.reduction', 'tf.feature_column.linear_model']","[False, False, False, False, False, False, False, False, False]",contains,4014
-tf.estimator.RunConfig,"['model_dir', 'tf_random_seed', 'save_summary_steps', 'save_checkpoints_steps', 'save_checkpoints_secs', 'session_config', 'keep_checkpoint_max', 'keep_checkpoint_every_n_hours', 'log_step_count_steps', 'train_distribute', 'device_fn', 'protocol', 'eval_distribute', 'experimental_distribute', 'experimental_max_worker_delay_secs', 'session_creation_timeout_secs', 'checkpoint_save_graph_def']","['pathlike', 'consistency', 'save', 'save_checkpoints_secs', 'save_checkpoints_steps', 'none', 'none', 'checkpoint', 'frequency', 'experimental_distribute.train_distribute', 'operation', 'none', 'experimental_distribute.eval_distribute', 'tf.contrib.distribute.distributeconfig', 'default', 'initialization', 'checkpoint_dir']","[False, False, False, False, False, False, False, False, False, True, False, True, True, True, True, False, False]",runconfig,1484
-tf.estimator.Head,"['features', 'mode', 'logits', 'labels', 'optimizer', 'trainable_variables', 'train_op_fn', 'update_ops', 'regularization_losses']","['tensor', 'modekeys', 'tensor', 'tensor', 'loss', 'variable', 'tensor', 'batchnormalization', 'list']","[False, False, False, False, False, False, False, False, False]",estimatorspec,1664
-tf.estimator.SummarySaverHook,"['save_steps', 'save_secs', 'output_dir', 'summary_writer', 'scaffold', 'summary_op']","['int', 'int', 'string', 'summarywriter', 'scaffold', 'tensor']","[False, False, False, False, False, False]",sessionrunargs,869
-tf.estimator.LoggingTensorHook,"['tensors', 'every_n_iter', 'every_n_secs', 'at_end', 'formatter']","['tensor', 'tensor', 'tensor', 'tensor', 'tensor']","[False, False, False, False, False]",sessionrunargs,1037
-tf.estimator.DNNClassifier,"['hidden_units', 'feature_columns', 'model_dir', 'n_classes', 'weight_column', 'label_vocabulary', 'optimizer', 'activation_fn', 'dropout', 'config', 'warm_start_from', 'loss_reduction', 'batch_norm']","['ex', '_featurecolumn', 'checkpoints', 'classes', 'tensor', 'label_vocabulary', 'adagrad', 'none', 'none', 'runconfig', 'warmstartsettings', 'tf.losses.reduction', 'batch']","[False, False, False, False, False, False, False, False, False, False, False, False, False]",contains,4153
-tf.estimator.SecondOrStepTimer,['step'],['step'],[False],every_secs,351
-tf.estimator.DNNLinearCombinedRegressor,"['model_dir', 'linear_feature_columns', 'linear_optimizer', 'dnn_feature_columns', 'dnn_optimizer', 'dnn_hidden_units', 'dnn_activation_fn', 'dnn_dropout', 'label_dimension', 'weight_column', 'config', 'warm_start_from', 'loss_reduction', 'batch_norm', 'linear_sparse_combiner']","['checkpoints', 'featurecolumn', 'adagrad', 'featurecolumn', 'adagrad', 'layer', 'None', 'None', 'tensor', 'tensor', 'object', 'warmstartsettings', 'tf.losses.reduction', 'batch', 'tf.feature_column.linear_model']","[False, False, False, False, False, False, False, False, False, False, False, False, False, False, False]",contains,4266
-tf.estimator.NanTensorHook,"['loss_tensor', 'fail_on_nan_loss']","['tensor', 'bool']","[False, False]",sessionrunargs,697
 tf.estimator.EstimatorSpec,"['mode', 'predictions', 'loss', 'train_op', 'eval_metric_ops', 'export_outputs', 'training_chief_hooks', 'training_hooks', 'scaffold', 'evaluation_hooks', 'prediction_hooks']","['modekeys', 'tensor', 'tensor', 'op', 'tensor', 'savedmodel', 'tf.train.sessionrunhook', 'tf.train.sessionrunhook', 'tf.train.scaffold', 'tf.train.sessionrunhook', 'tf.train.sessionrunhook']","[False, False, False, False, False, False, False, False, False, False, False]",None,703
-tf.estimator.BestExporter,"['name', 'serving_input_receiver_fn', 'event_file_pattern', 'compare_fn', 'assets_extra', 'as_text', 'exports_to_keep']","['exporter', 'servinginputreceiver', 'None', 'best_eval_result', 'pathtomy_asset_file.txt', 'false', 'none']","[False, False, False, False, True, False, False]",none,633
-tf.estimator.Estimator,"['model_fn', 'model_dir', 'config', 'params', 'warm_start_from']","['features', 'pathlike', 'configuration', 'dict', 'None']","[True, False, False, False, True]",contains,3964
-tf.estimator.ProfilerHook,"['save_steps', 'save_secs', 'output_dir', 'show_dataflow', 'show_memory']","['int', 'int', 'string', 'tensor', 'tensor']","[False, False, False, False, False]",sessionrunargs,837
-tf.estimator.DNNRegressor,"['hidden_units', 'feature_columns', 'model_dir', 'label_dimension', 'weight_column', 'optimizer', 'activation_fn', 'dropout', 'config', 'warm_start_from', 'loss_reduction', 'batch_norm']","['ex', 'featurecolumn', 'checkpoints', 'tensor', 'tensor', 'adagrad', 'none', 'none', 'runconfig', 'warmstartsettings', 'tf.losses.reduction', 'batch']","[False, False, False, False, False, False, False, False, False, False, False, False]",contains,4072
-tf.estimator.DNNLinearCombinedClassifier,"['model_dir', 'linear_feature_columns', 'linear_optimizer', 'dnn_feature_columns', 'dnn_optimizer', 'dnn_hidden_units', 'dnn_activation_fn', 'dnn_dropout', 'n_classes', 'weight_column', 'label_vocabulary', 'config', 'warm_start_from', 'loss_reduction', 'batch_norm', 'linear_sparse_combiner']","['checkpoints', 'featurecolumn', 'adagrad', 'featurecolumn', 'adagrad', 'layer', 'None', 'None', 'classes', 'tensor', 'label_vocabulary', 'object', 'warmstartsettings', 'tf.losses.reduction', 'batch', 'tf.feature_column.linear_model']","[False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False]",contains,4345
-tf.estimator.LatestExporter,"['name', 'serving_input_receiver_fn', 'assets_extra', 'as_text', 'exports_to_keep']","['exporter', 'servinginputreceiver', 'pathtomy_asset_file.txt', 'false', 'none']","[False, False, True, False, False]",none,493
-tf.estimator.BaselineEstimator,"['head', 'model_dir', 'optimizer', 'config']","['head', 'checkpoints', 'ftrl', 'runconfig']","[False, False, False, False]",contains,3390
 tf.estimator.train_and_evaluate,"['estimator', 'train_spec', 'eval_spec']","['estimator', 'trainspec', 'evalspec']","[False, False, False]",evaluate,1549
-tf.estimator.LinearEstimator,"['head', 'feature_columns', 'model_dir', 'optimizer', 'config', 'sparse_combiner', 'warm_start_from']","['head', 'featurecolumn', 'checkpoints', 'adagrad', 'runconfig', 'tf.feature_column.linear_model', 'warmstartsettings']","[False, False, False, False, False, False, False]",contains,3833
 tf.estimator.TrainSpec,"['input_fn', 'max_steps', 'hooks', 'saving_listeners']","['tensor', 'none', 'tf.train.sessionrunhook', 'chief']","[False, False, False, False]",None,521
 tf.estimator.classifier_parse_example_spec,"['feature_columns', 'label_key', 'label_dtype', 'label_default', 'weight_column']","['featurecolumn', 'key', 'tf.dtype', 'label_key', 'tensor']","[False, False, False, False, False]",fixedlenfeature,1005
-tf.estimator.BinaryClassHead,"['weight_column', 'thresholds', 'label_vocabulary', 'loss_reduction', 'loss_fn', 'name']","['numericcolumn', 'true', 'label_vocabulary', 'tf.losses.reduction', 'function', 'name_scope']","[False, False, False, False, True, False]",estimatorspec,1808
-tf.estimator.MultiLabelHead,"['n_classes', 'weight_column', 'thresholds', 'label_vocabulary', 'loss_reduction', 'loss_fn', 'classes_for_class_based_metrics', 'name']","['binaryclasshead', 'numericcolumn', 'true', 'string', 'tf.losses.reduction', 'function', 'label_vocabulary', 'name_scope']","[False, False, False, False, False, True, False, False]",estimatorspec,1943
-tf.estimator.FinalOpsHook,"['final_ops', 'final_ops_feed_dict']","['tensor', 'final_ops_dict']","[False, False]",sessionrunargs,703
-tf.estimator.LinearClassifier,"['feature_columns', 'model_dir', 'n_classes', 'weight_column', 'label_vocabulary', 'optimizer', 'config', 'warm_start_from', 'loss_reduction', 'sparse_combiner']","['featurecolumn', 'checkpoints', 'class', 'tensor', 'label_vocabulary', 'or', 'runconfig', 'warmstartsettings', 'tf.losses.reduction', 'tf.feature_column.linear_model']","[False, False, False, False, False, False, False, False, False, False]",contains,4131
-tf.estimator.SessionRunHook,"['session', 'coord']","['session', 'coordinator']","[False, False]",sessionrunargs,654
-tf.estimator.PoissonRegressionHead,"['weight_column', 'label_dimension', 'loss_reduction', 'compute_full_loss', 'name']","['numericcolumn', 'tensor', 'tf.losses.reduction', 'documentation', 'name_scope']","[False, False, False, False, False]",estimatorspec,1307
 tf.estimator.Exporter,"['estimator', 'export_path', 'checkpoint_path', 'eval_result', 'is_the_final_export']","['estimator', 'directory', 'checkpoint', 'checkpoint', 'exporter']","[False, False, False, False, False]",none,278
-tf.estimator.MultiHead,"['heads', 'head_weights']","['head', 'heads']","[False, True]",model_fn.estimatorspec,2164
-tf.estimator.DNNLinearCombinedEstimator,"['head', 'model_dir', 'linear_feature_columns', 'linear_optimizer', 'dnn_feature_columns', 'dnn_optimizer', 'dnn_hidden_units', 'dnn_activation_fn', 'dnn_dropout', 'config', 'batch_norm', 'linear_sparse_combiner']","['head', 'checkpoints', 'featurecolumn', 'adagrad', 'featurecolumn', 'adagrad', 'layer', 'None', 'None', 'object', 'batch', 'tf.feature_column.linear_model']","[False, False, False, False, False, False, False, False, False, False, False, False]",contains,4027
 tf.graph_util.import_graph_def,"['graph_def', 'input_map', 'return_elements', 'name', 'op_dict', 'producer_op_list']","['graphdef', 'tensor', 'tensor', 'graph_def', 'optional', 'oplist']","[False, False, False, True, True, True]",operation,578
 tf.io.serialize_many_sparse,"['sp_input', 'out_type', 'name']","['r', 'dtype', 'tensor']","[False, False, True]",tensor,220
 tf.io.match_filenames_once,"['pattern', 'name']","['tensor', 'name']","[False, True]",files,146
@@ -2326,18 +2178,15 @@ tf.io.decode_base64,"['input', 'name']","['tensor', 'name']","[False, True]",ten
 tf.io.serialize_tensor,"['tensor', 'name']","['tf.tensor', 'name']","[False, True]",dtype,512
 tf.io.encode_png,"['image', 'compression', 'name']","['tensor', 'int', 'name']","[False, True, True]",tensor,260
 tf.io.parse_tensor,"['serialized', 'out_type', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,176
-tf.io.TFRecordOptions,"['compression_type', 'flush_mode', 'input_buffer_size', 'output_buffer_size', 'window_bits', 'compression_level', 'compression_method', 'mem_level', 'compression_strategy']","['', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none']","[False, False, False, False, False, False, False, False, False]",,323
 tf.io.extract_jpeg_shape,"['contents', 'output_type', 'name']","['tensor', 'defaults', 'name']","[False, True, True]",tensor,221
 tf.io.parse_example,"['serialized', 'features', 'example_names', 'name']","['example', 'fixedlenfeature', 'batch', 'name']","[False, False, True, True]",dict,1591
 tf.io.deserialize_many_sparse,"['serialized_sparse', 'dtype', 'rank', 'name']","['tensor', 'dtype', 'sparsetensor', 'tensor']","[False, False, True, True]",sparsetensor,464
 tf.io.decode_compressed,"['bytes', 'compression_type', 'name']","['tensor', 'string', 'name']","[False, True, True]",tensor,224
-tf.io.TFRecordWriter,"['path', 'options']","['file', 'tfrecordcompressiontype']","[False, True]",None,727
 tf.io.encode_proto,"['sizes', 'values', 'field_names', 'message_type', 'descriptor_source', 'name']","['tensor', 'tensor', 'strings', 'string', 'string', 'name']","[False, False, False, False, True, True]",tensor,605
 tf.io.gfile.join,"['path', 'paths']","['directory', 'paths']","[False, False]",path,295
 tf.io.gfile.get_registered_schemes,[],[],[],[,239
 tf.io.gfile.glob,['pattern'],['glob'],[False],filenames,464
 tf.io.gfile.rmtree,['path'],['path'],[False],None,78
-tf.io.gfile.GFile,['n'],['n'],[False],n,1404
 tf.io.gfile.walk,"['top', 'topdown', 'onerror']","['directory', 'bool', 'argument']","[False, False, True]",None,199
 tf.io.gfile.makedirs,['path'],['directory'],[False],None,101
 tf.io.gfile.mkdir,['path'],['directory'],[False],None,123
@@ -2381,57 +2230,37 @@ tf.config.optimizer.get_experimental_options,[],[],[],dict,112
 tf.config.optimizer.set_experimental_options,['options'],['tensor'],[False],None,379
 tf.linalg.logm,"['input', 'name']","['tensor', 'name']","[False, True]",tensor,311
 tf.linalg.det,"['input', 'name']","['tensor', 'name']","[False, True]",tensor,214
-tf.linalg.LinearOperatorHouseholder,"['reflection_axis', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['tensor', 'operator', 'operator', 'x', 'batch', 'linearoperator']","[False, False, False, False, False, False]",tensor,4223
-tf.linalg.LinearOperatorBlockDiag,"['operators', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['linearoperator', 'operator', 'operator', 'x', 'valueerror', 'linearoperator']","[False, False, False, False, False, False]",tensor,4821
 tf.linalg.diag_part,"['input', 'name', 'k', 'padding_value', 'align']","['tensor', 'name', 'k', 'area', 'max_diag_len']","[False, True, False, False, False]",input,1357
-tf.linalg.LinearOperatorTridiag,"['diagonals', 'diagonals_format', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['tensor', 'matrix', 'operator', 'diag.dtype', 'x', 'batch', 'linearoperator']","[False, False, False, False, False, False, False]",tensor,4612
 tf.linalg.triangular_solve,"['matrix', 'rhs', 'lower', 'adjoint', 'name']","['tensor', 'tensor', 'bool', 'bool', 'name']","[False, False, True, True, True]",tensor,609
 tf.linalg.cross,"['a', 'b', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,280
-tf.linalg.LinearOperatorIdentity,"['num_rows', 'batch_shape', 'dtype', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'assert_proper_shapes', 'name']","['tensor', 'd', 'data', 'operator', 'operator', 'x', 'batch', 'bool', 'linearoperator']","[False, True, False, False, False, False, False, False, False]",tensor,4745
 tf.linalg.band_part,"['input', 'num_lower', 'num_upper', 'name']","['tensor', 'tensor', 'tensor', 'name']","[False, False, False, True]",tensor,601
 tf.linalg.tensor_diag,"['diagonal', 'name']","['tensor', 'name']","[False, True]",tensor,347
 tf.linalg.diag,"['diagonal', 'name', 'k', 'num_rows', 'num_cols', 'padding_value', 'align']","['tensor', 'name', 'k', 'd_lower', 'd_lower', 'area', 'max_diag_len']","[False, True, False, False, False, False, False]",diagonal,1715
 tf.linalg.pinv,"['a', 'rcond', 'validate_args', 'name']","['float', 'tensor', 'true', 'str']","[False, False, False, False]",a_pinv,816
 tf.linalg.matvec,"['a', 'b', 'transpose_a', 'adjoint_a', 'a_is_sparse', 'b_is_sparse', 'name']","['tensor', 'tensor', 'true', 'true', 'true', 'true', 'name']","[False, False, False, False, False, False, True]",tensor,798
-tf.linalg.LinearOperatorDiag,"['diag', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['tensor', 'operator', 'diag.dtype', 'x', 'batch', 'linearoperator']","[False, False, False, False, False, False]",tensor,4423
 tf.linalg.solve,"['matrix', 'rhs', 'adjoint', 'name']","['tensor', 'tensor', 'bool', 'name']","[False, False, True, True]",tensor,382
 tf.linalg.global_norm,"['t_list', 'name']","['tensors', 'name']","[False, True]",tensor,198
-tf.linalg.LinearOperatorCirculant,"['spectrum', 'input_output_dtype', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['tensor', 'dtype', 'operator', 'spectrum', 'x', 'batch', 'class']","[False, False, False, False, False, False, False]",tensor,5643
-tf.linalg.LinearOperatorZeros,"['num_rows', 'num_columns', 'batch_shape', 'dtype', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'assert_proper_shapes', 'name']","['tensor', 'tensor', 'd', 'data', 'operator', 'operator', 'x', 'batch', 'bool', 'linearoperator']","[False, False, True, False, False, False, False, False, False, False]",tensor,4577
 tf.linalg.eig,"['tensor', 'name']","['tensor', 'name']","[False, True]",e,253
-tf.linalg.LinearOperatorCirculant2D,"['spectrum', 'input_output_dtype', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['tensor', 'dtype', 'operator', 'spectrum', 'x', 'batch', 'class']","[False, False, False, False, False, False, False]",tensor,5091
 tf.linalg.eigh,"['tensor', 'name']","['tensor', 'name']","[False, True]",e,258
 tf.linalg.normalize,"['tensor', 'ord', 'axis', 'name']","['tensor', 'tensor', 'tensor', 'name']","[False, False, False, False]",tensor,631
-tf.linalg.LinearOperator,"['dtype', 'graph_parents', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name', 'parameters']","['linearoperator', 'tensor', 'operator', 'dtype', 'x', 'batch', 'linearoperator', 'dict']","[False, False, False, False, False, False, False, False]",tensor,4534
 tf.linalg.sqrtm,"['input', 'name']","['tensor', 'name']","[False, True]",tensor,350
 tf.linalg.lu,"['input', 'output_idx_type', 'name']","['tensor', 'defaults', 'name']","[False, True, True]",tensor,420
 tf.linalg.slogdet,"['input', 'name']","['tensor', 'name']","[False, True]",tensor,294
 tf.linalg.logdet,"['matrix', 'name']","['tensor', 'op']","[False, False]",matrix,218
 tf.linalg.cholesky_solve,"['chol', 'rhs', 'name']","['tensor', 'tensor', 'op']","[False, False, False]",k,474
-tf.linalg.LinearOperatorKronecker,"['operators', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['linearoperator', 'operator', 'operator', 'x', 'batch', 'linearoperator']","[False, False, False, False, False, False]",tensor,4263
-tf.linalg.LinearOperatorComposition,"['operators', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['linearoperator', 'operator', 'operator', 'x', 'batch', 'linearoperator']","[False, False, False, False, False, False]",tensor,4312
 tf.linalg.eigvalsh,"['tensor', 'name']","['tensor', 'name']","[False, True]",tensor,226
-tf.linalg.LinearOperatorPermutation,"['perm', 'dtype', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['integer', 'dtype', 'operator', 'operator', 'x', 'batch', 'linearoperator']","[False, False, False, False, False, False, False]",tensor,4402
 tf.linalg.tensor_diag_part,"['input', 'name']","['tensor', 'name']","[False, True]",input,363
 tf.linalg.lstsq,"['matrix', 'rhs', 'l2_regularizer', 'fast', 'name']","['tensor', 'tensor', 'double', 'true', 'name']","[False, False, False, False, True]",output,845
 tf.linalg.set_diag,"['input', 'diagonal', 'name', 'k', 'align']","['tensor', 'tensor', 'name', 'k', 'max_diag_len']","[False, False, True, False, False]",None,1534
-tf.linalg.LinearOperatorLowerTriangular,"['tril', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['with', 'elements', 'linearoperatordiag', 'x', 'batch', 'linearoperator']","[False, False, False, False, False, False]",tensor,4347
 tf.linalg.inv,"['input', 'adjoint', 'name']","['tensor', 'bool', 'name']","[False, True, True]",tensor,304
 tf.linalg.matrix_rank,"['a', 'tol', 'validate_args', 'name']","['float', 'none', 'true', 'str']","[False, False, False, False]",matrix_rank,228
-tf.linalg.LinearOperatorScaledIdentity,"['num_rows', 'multiplier', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'assert_proper_shapes', 'name']","['tensor', 'tensor', 'operator', 'operator', 'x', 'batch', 'bool', 'linearoperator']","[False, False, False, False, False, False, False, False]",tensor,4473
-tf.linalg.LinearOperatorBlockLowerTriangular,"['operators', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['linearoperator', 'operator', 'operator', 'x', 'valueerror', 'linearoperator']","[False, False, False, False, False, False]",tensor,5520
-tf.linalg.LinearOperatorInversion,"['operator', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['linearoperator', 'operator', 'operator', 'x', 'batch', 'linearoperator']","[False, False, False, False, False, False]",tensor,3997
 tf.linalg.matmul,"['a', 'b', 'transpose_a', 'transpose_b', 'adjoint_a', 'adjoint_b', 'a_is_sparse', 'b_is_sparse', 'output_type', 'name']","['float16', 'a', 'true', 'true', 'true', 'true', 'true', 'true', 'tensor', 'name']","[False, False, False, False, False, False, False, False, False, True]",a,1036
-tf.linalg.LinearOperatorCirculant3D,"['spectrum', 'input_output_dtype', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['tensor', 'dtype', 'operator', 'spectrum', 'definite', 'batch', 'class']","[False, False, False, False, False, False, False]",tensor,4840
 tf.linalg.banded_triangular_solve,"['bands', 'rhs', 'lower', 'adjoint', 'name']","['tensor', 'tensor', 'bool', 'bool', 'op']","[False, False, True, True, True]",tensor,818
 tf.linalg.cholesky,"['input', 'name']","['tensor', 'name']","[False, True]",tensor,296
 tf.linalg.tridiagonal_solve,"['diagonals', 'rhs', 'diagonals_format', 'transpose_rhs', 'conjugate_rhs', 'name', 'partial_pivoting', 'perturb_singular']","['tensor', 'tensor', 'matrix', 'true', 'true', 'op', 'true', 'false']","[False, False, False, False, False, True, False, False]",tensor,1322
 tf.linalg.matrix_transpose,"['a', 'name', 'conjugate']","['tensor', 'name', 'true']","[False, True, True]",tensor,464
 tf.linalg.lu_solve,"['lower_upper', 'perm', 'rhs', 'validate_args', 'name']","['lu', 'p', 'tensor', 'bool', 'str']","[False, False, False, False, False]",x,462
 tf.linalg.qr,"['input', 'full_matrices', 'name']","['tensor', 'bool', 'name']","[False, True, True]",tensor,421
-tf.linalg.LinearOperatorLowRankUpdate,"['base_operator', 'u', 'diag_update', 'v', 'is_diag_update_positive', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['b1', 'tensor', 'tensor', 'tensor', 'bool', 'none', 'none', 'none', 'batch', 'linearoperator']","[False, False, True, True, False, False, False, False, False, False]",tensor,4914
-tf.linalg.LinearOperatorToeplitz,"['col', 'row', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['tensor', 'tensor', 'operator', 'diag.dtype', 'x', 'batch', 'linearoperator']","[False, False, False, False, False, False, False]",tensor,4373
-tf.linalg.LinearOperatorFullMatrix,"['matrix', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['with', 'operator', 'operator', 'x', 'batch', 'linearoperator']","[False, False, False, False, False, False]",tensor,4327
 tf.linalg.eigh_tridiagonal,"['alpha', 'beta', 'eigvals_only', 'select', 'select_range', 'tol', 'name']","['tensor', 'tensor', 'default', 'select_range', 'tensor', 'None', 'name']","[False, False, False, True, False, True, True]",eig_vals,618
 tf.linalg.trace,"['x', 'name']","['tensor', 'name']","[False, True]",tensor,358
 tf.linalg.expm,"['input', 'name']","['tensor', 'op']","[False, True]",exponential,295
@@ -2441,15 +2270,10 @@ tf.linalg.adjoint,"['matrix', 'name']","['tensor', 'op']","[False, True]",a.k.a,
 tf.linalg.lu_matrix_inverse,"['lower_upper', 'perm', 'validate_args', 'name']","['lu', 'p', 'bool', 'str']","[False, False, False, False]",inv_x,458
 tf.linalg.lu_reconstruct,"['lower_upper', 'perm', 'validate_args', 'name']","['lu', 'p', 'bool', 'str']","[False, False, False, False]",x,366
 tf.linalg.tridiagonal_matmul,"['diagonals', 'rhs', 'diagonals_format', 'name']","['tensor', 'tensor', 'sequence', 'op']","[False, False, False, True]",tensor,556
-tf.linalg.LinearOperatorAdjoint,"['operator', 'is_non_singular', 'is_self_adjoint', 'is_positive_definite', 'is_square', 'name']","['linearoperator', 'operator', 'operator', 'x', 'batch', 'linearoperator']","[False, False, False, False, False, False]",tensor,3947
 tf.linalg.experimental.conjugate_gradient,"['operator', 'rhs', 'preconditioner', 'x', 'tol', 'max_iter', 'name']","['linearoperator', 'n', 'linearoperator', 'guess', 'float', 'int', 'name']","[False, False, False, False, False, False, False]",output,534
-tf.types.experimental.TraceType,"['value', 'cast_context']","['input', 'context']","[False, False]",tracetype,1289
 tf.types.experimental.Callable,"['args', 'kwargs']","['argument', 'arguments']","[False, False]",execution,191
 tf.types.experimental.SupportsTracingProtocol,['context'],['context'],[False],object,182
 tf.types.experimental.ConcreteFunction,"['args', 'kwargs']","['argument', 'arguments']","[False, False]",execution,216
-tf.types.experimental.PolymorphicFunction,"['args', 'kwargs']","['args', 'args']","[False, False]",tensor,1866
-tf.types.experimental.AtomicFunction,"['args', 'kwargs', 'captures']","['arguments', 'arguments', 'tensor']","[False, False, False]",inputs,269
-tf.sparse.SparseTensor,"['indices', 'values', 'dense_shape']","['tensor', 'tensor', 'tensor']","[False, False, False]",sparsetensorvalue,2191
 tf.sparse.eye,"['num_rows', 'num_columns', 'dtype', 'name']","['tensor', 'tensor', 'tensor', 'op']","[False, True, False, False]",sparsetensor,190
 tf.sparse.expand_dims,"['sp_input', 'axis', 'name']","['sparsetensor', 'input', 'sparsetensor']","[False, False, False]",sparsetensor,640
 tf.sparse.slice,"['sp_input', 'start', 'size', 'name']","['sparsetensor', 'tensor', 'tensor', 'name']","[False, False, False, True]",sparsetensor,249
@@ -2488,7 +2312,6 @@ tf.compat.dimension_at_index,"['shape', 'index']","['instance', 'index']","[Fals
 tf.compat.forward_compatible,"['year', 'month', 'day']","['int', 'int', 'int']","[False, False, False]",caller,456
 tf.compat.as_text,"['bytes_or_text', 'encoding']","['bytes', 'charset']","[False, False]",unicode,155
 tf.compat.v1.serialize_many_sparse,"['sp_input', 'name', 'out_type']","['r', 'tensor', 'dtype']","[False, True, False]",tensor,248
-tf.compat.v1.DeviceSpec,"['job', 'replica', 'task', 'device_type', 'device_index']","['job', 'index', 'index', 'cpu', 'device']","[True, True, True, True, True]",devicespec,1339
 tf.compat.v1.gather_nd,"['params', 'indices', 'name', 'batch_dims']","['tensor', 'tensor', 'name', 'tensor']","[False, False, True, False]",tensor,2590
 tf.compat.v1.sparse_merge,"['sp_ids', 'sp_values', 'vocab_size', 'name', 'already_sorted']","['sparsetensor', 'sparsetensor', 'int64', 'tensor', 'sp_values']","[False, False, False, True, True]",sparsetensor,1107
 tf.compat.v1.div,"['x', 'y', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",quotient,304
@@ -2508,7 +2331,6 @@ tf.compat.v1.norm,"['tensor', 'ord', 'axis', 'keepdims', 'name', 'keep_dims']","
 tf.compat.v1.executing_eagerly,[],[],[],true,397
 tf.compat.v1.scatter_min,"['ref', 'indices', 'updates', 'use_locking', 'name']","['tensor', 'tensor', 'tensor', 'bool', 'name']","[False, False, False, True, True]",tensor,453
 tf.compat.v1.sparse_reduce_sum,"['sp_input', 'axis', 'keepdims', 'reduction_axes', 'keep_dims']","['sparsetensor', 'none', 'dimensions', 'axis', 'keepdims']","[False, False, False, False, False]",tensor,535
-tf.compat.v1.ConditionalAccumulator,"['dtype', 'shape', 'shared_name', 'name', 'reduction_type']","['datatype', 'gradients', 'accumulator', 'accumulator', 'gradient']","[False, False, True, True, False]",accumulator,553
 tf.compat.v1.verify_tensor_all_finite,"['t', 'msg', 'name', 'x', 'message']","['tensor', 'failure', 'name', 'alias', 'alias']","[False, False, True, False, False]",tensor,146
 tf.compat.v1.string_to_hash_bucket,"['string_tensor', 'num_buckets', 'name']","['tensor', 'int', 'name']","[False, False, True]",tensor,201
 tf.compat.v1.hessians,"['ys', 'xs', 'name', 'colocate_gradients_with_ops', 'gate_gradients', 'aggregation_method']","['tensor', 'tensor', 'hessians', 'details', 'details', 'details']","[False, False, True, False, False, False]",x,289
@@ -2518,7 +2340,6 @@ tf.compat.v1.cond,"['pred', 'true_fn', 'false_fn', 'strict', 'name']","['true_fn
 tf.compat.v1.reduce_min,"['input_tensor', 'axis', 'keepdims', 'name', 'reduction_indices', 'keep_dims']","['tensor', 'tensor', 'dimensions', 'name', 'axis', 'keepdims']","[False, False, False, True, False, False]",tensor,483
 tf.compat.v1.global_variables,['scope'],['name'],[True],variable,321
 tf.compat.v1.assert_scalar,"['tensor', 'name', 'message']","['tensor', 'defaults', 'default']","[False, False, False]",tensor,189
-tf.compat.v1.ones_initializer,['config'],['get_config'],[False],initializer,394
 tf.compat.v1.pad,"['tensor', 'paddings', 'mode', 'name', 'constant_values']","['tensor', 'tensor', 'constant', 'name', 'tensor']","[False, False, False, True, False]",tensor,659
 tf.compat.v1.convert_to_tensor,"['value', 'dtype', 'name', 'preferred_dtype', 'dtype_hint']","['tensor', 'tensor', 'tensor', 'tensor', 'meaning']","[False, True, True, True, False]",tensor,525
 tf.compat.v1.get_session_tensor,"['handle', 'dtype', 'name']","['tensor', 'tensor', 'tensor']","[False, False, True]",tensor,242
@@ -2533,7 +2354,6 @@ tf.compat.v1.variable_creator_scope,['variable_creator'],['creator'],[False],Non
 tf.compat.v1.parse_single_example,"['serialized', 'features', 'name', 'example_names']","['example', 'fixedlenfeature', 'name', 'a']","[False, False, True, True]",dict,267
 tf.compat.v1.reduce_all,"['input_tensor', 'axis', 'keepdims', 'name', 'reduction_indices', 'keep_dims']","['tensor', 'tensor', 'dimensions', 'name', 'axis', 'keepdims']","[False, False, False, True, False, False]",tensor,395
 tf.compat.v1.gradients,"['ys', 'xs', 'grad_ys', 'name', 'colocate_gradients_with_ops', 'gate_gradients', 'aggregation_method', 'stop_gradients', 'unconnected_gradients']","['tensor', 'tensor', 'tensor', 'gradients', 'gradients', 'conditions', 'aggregationmethod', 'tensor', 'tensor']","[False, False, True, True, False, False, False, True, True]",tensor,1102
-tf.compat.v1.TextLineReader,"['skip_header_lines', 'name']","['beginning', 'name']","[True, True]",int64,678
 tf.compat.v1.is_variable_initialized,['variable'],['variable'],[False],true,111
 tf.compat.v1.to_int32,"['x', 'name']","['tensor', 'name']","[False, True]",tensor,319
 tf.compat.v1.sparse_segment_sum,"['data', 'indices', 'segment_ids', 'name', 'num_segments', 'sparse_gradient']","['tensor', 'tensor', 'tensor', 'name', 'tensor', 'bool']","[False, False, False, True, True, True]",tensor,671
@@ -2544,21 +2364,16 @@ tf.compat.v1.assert_rank_at_least,"['x', 'rank', 'data', 'summarize', 'message',
 tf.compat.v1.wrap_function,"['fn', 'signature', 'name']","['function', 'arguments', 'function']","[False, False, True]",function,514
 tf.compat.v1.get_collection_ref,['key'],['graphkeys'],[False],name,141
 tf.compat.v1.sparse_matmul,"['a', 'b', 'transpose_a', 'transpose_b', 'a_is_sparse', 'b_is_sparse', 'name']","['tensor', 'tensor', 'bool', 'bool', 'bool', 'bool', 'name']","[False, False, True, True, True, True, True]",tensor,392
-tf.compat.v1.LMDBReader,"['name', 'options']","['name', 'lmdbrecordoptions']","[True, True]",int64,654
 tf.compat.v1.to_complex64,"['x', 'name']","['tensor', 'name']","[False, True]",tensor,329
 tf.compat.v1.py_func,"['func', 'inp', 'Tout', 'stateful', 'name']","['tensor', 'tensor', 'tensor', 'bool', 'name']","[False, False, False, False, True]",tensor,1047
-tf.compat.v1.TFRecordReader,"['name', 'options']","['name', 'object']","[True, True]",int64,654
 tf.compat.v1.shape,"['input', 'name', 'out_type']","['tensor', 'name', 'int32']","[False, True, True]",tensor,185
 tf.compat.v1.get_local_variable,"['name', 'shape', 'dtype', 'initializer', 'regularizer', 'collections', 'caching_device', 'partitioner', 'validate_shape', 'use_resource', 'custom_getter', 'constraint', 'synchronization', 'aggregation']","['name', 'shape', 'dt_float', 'false', 'tf.graphkeys.regularization_losses', 'collections', 'none', 'tensorshape', 'default', 'argument', 'custom_getter', 'optimizer', 'auto', 'class']","[False, False, False, False, False, False, True, True, False, False, False, True, False, False]",variable,1492
 tf.compat.v1.foldr,"['fn', 'elems', 'initializer', 'parallel_iterations', 'back_prop', 'swap_memory', 'name']","['None', 'tensor', 'tensor', 'iterations', 'enables', 'gpucpu', 'tensor']","[False, False, True, True, True, True, True]",tensor,516
-tf.compat.v1.InteractiveSession,"['target', 'graph', 'config']","['defaults', 'graph', 'configproto']","[True, True, True]",context,2954
-tf.compat.v1.constant_initializer,"['value', 'dtype', 'verify_shape']","['value', 'dtype', 'tensor']","[False, False, False]",initializer,1752
 tf.compat.v1.boolean_mask,"['tensor', 'mask', 'name', 'axis']","['tensor', 'bool', 'name', 'tensor']","[False, False, True, False]",tensor,489
 tf.compat.v1.clip_by_average_norm,"['t', 'clip_norm', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,285
 tf.compat.v1.count_nonzero,"['input_tensor', 'axis', 'keepdims', 'dtype', 'name', 'reduction_indices', 'keep_dims', 'input']","['tensor', 'tensor', 'dimensions', 'defaults', 'name', 'axis', 'keepdims', 'tensor']","[False, False, False, False, True, False, False, False]",tensor,612
 tf.compat.v1.fixed_size_partitioner,"['num_shards', 'axis']","['int', 'int']","[False, False]",partitioner,382
 tf.compat.v1.scatter_update,"['ref', 'indices', 'updates', 'use_locking', 'name']","['variable', 'tensor', 'tensor', 'bool', 'name']","[False, False, False, True, True]",ref,380
-tf.compat.v1.IdentityReader,['name'],['name'],[True],int64,670
 tf.compat.v1.add_to_collection,"['name', 'value']","['graphkeys', 'collection']","[False, False]",None,122
 tf.compat.v1.batch_scatter_update,"['ref', 'indices', 'updates', 'use_locking', 'name']","['variable', 'indices', 'ref', 'bool', 'name']","[False, False, False, False, True]",variable,475
 tf.compat.v1.sparse_segment_mean,"['data', 'indices', 'segment_ids', 'name', 'num_segments', 'sparse_gradient']","['tensor', 'tensor', 'tensor', 'name', 'tensor', 'bool']","[False, False, False, True, True, True]",tensor,361
@@ -2574,24 +2389,18 @@ tf.compat.v1.case,"['pred_fn_pairs', 'default', 'exclusive', 'strict', 'name']",
 tf.compat.v1.assign_sub,"['ref', 'value', 'use_locking', 'name']","['tensor', 'tensor', 'bool', 'name']","[False, False, True, True]",ref,725
 tf.compat.v1.scan,"['fn', 'elems', 'initializer', 'parallel_iterations', 'back_prop', 'swap_memory', 'infer_shape', 'reverse', 'name']","['initializer', 'tensor', 'tensor', 'iterations', 'enables', 'gpucpu', 'disables', 'tensor', 'tensor']","[False, False, True, True, True, True, True, True, True]",tensor,1109
 tf.compat.v1.executing_eagerly_outside_functions,[],[],[],bool,209
-tf.compat.v1.random_uniform_initializer,"['minval', 'maxval', 'seed', 'dtype']","['tensor', 'tensor', 'behavior', 'dtype']","[False, False, False, False]",initializer,800
 tf.compat.v1.assert_rank,"['x', 'rank', 'data', 'summarize', 'message', 'name']","['tensor', 'tensor', 'tensor', 'tensor', 'default', 'defaults']","[False, False, False, False, False, True]",invalidargumenterror,250
 tf.compat.v1.confusion_matrix,"['labels', 'predictions', 'num_classes', 'dtype', 'name', 'weights']","['tensor', 'tensor', 'array', 'confusion', 'name', 'tensor']","[False, False, False, False, False, True]",tensor,501
-tf.compat.v1.FixedLengthRecordReader,"['record_bytes', 'header_bytes', 'footer_bytes', 'hop_bytes', 'name', 'encoding']","['int', 'defaults', 'defaults', 'defaults', 'name', 'None']","[False, True, True, True, True, False]",int64,714
 tf.compat.v1.string_split,"['source', 'sep', 'skip_empty', 'delimiter', 'result_type', 'name']","['d', 'd', 'bool', 'sep', 'tensor', 'name']","[False, False, False, False, False, True]",sparsetensor,543
-tf.compat.v1.glorot_uniform_initializer,"['seed', 'dtype']","['behavior', 'dtype']","[False, False]",initializer,399
-tf.compat.v1.Dimension,['other'],['dimension'],[False],other,2802
 tf.compat.v1.assert_rank_in,"['x', 'ranks', 'data', 'summarize', 'message', 'name']","['tensor', 'tensor', 'tensor', 'tensor', 'default', 'defaults']","[False, False, False, False, False, True]",invalidargumenterror,259
 tf.compat.v1.tables_initializer,['name'],['initialization'],[True],noop,457
 tf.compat.v1.serialize_sparse,"['sp_input', 'name', 'out_type']","['sparsetensor', 'tensor', 'dtype']","[False, True, False]",tensor,175
 tf.compat.v1.random_poisson,"['lam', 'shape', 'dtype', 'seed', 'name']","['dtype', 'array', 'float16', 'behavior', 'name']","[False, False, False, False, True]",samples,401
 tf.compat.v1.variable_axis_size_partitioner,"['max_shard_bytes', 'axis', 'bytes_per_string_element', 'max_shards']","['shard', 'axis', 'variable', 'max_shard_bytes']","[False, False, False, False]",partitioner,288
 tf.compat.v1.assert_equal,"['x', 'y', 'data', 'summarize', 'message', 'name']","['tensor', 'tensor', 'tensor', 'tensor', 'default', 'defaults']","[False, False, False, False, False, True]",invalidargumenterror,898
-tf.compat.v1.SparseConditionalAccumulator,"['dtype', 'shape', 'shared_name', 'name', 'reduction_type']","['datatype', 'gradients', 'accumulator', 'accumulator', 'gradient']","[False, False, True, True, False]",accumulator,1009
 tf.compat.v1.gather,"['params', 'indices', 'validate_indices', 'axis', 'batch_dims', 'name']","['tensor', 'tensor', 'bound', 'tensor', 'integer', 'name']","[False, False, False, False, False, True]",tensor,1985
 tf.compat.v1.local_variables,['scope'],['name'],[True],variable,209
 tf.compat.v1.add_to_collections,"['names', 'value']","['graphkeys', 'collections']","[False, False]",None,119
-tf.compat.v1.ConditionalAccumulatorBase,"['dtype', 'shape', 'accumulator_ref']","['datatype', 'gradients', 'accumulator']","[False, False, False]",accumulator,280
 tf.compat.v1.assert_none_equal,"['x', 'y', 'data', 'summarize', 'message', 'name']","['tensor', 'tensor', 'tensor', 'tensor', 'default', 'defaults']","[False, False, False, False, False, True]",invalidargumenterror,898
 tf.compat.v1.create_partitioned_variables,"['shape', 'slicing', 'initializer', 'dtype', 'trainable', 'collections', 'name', 'reuse']","['integers', 'shape', 'tensor', 'initializer', 'graphkeys.trainable_variables', 'collections', 'defaults', 'none']","[False, False, False, False, False, False, True, False]",list,498
 tf.compat.v1.assert_less,"['x', 'y', 'data', 'summarize', 'message', 'name']","['tensor', 'tensor', 'tensor', 'tensor', 'default', 'defaults']","[False, False, False, False, False, True]",invalidargumenterror,891
@@ -2600,20 +2409,15 @@ tf.compat.v1.placeholder,"['dtype', 'shape', 'name']","['tensor', 'tensor', 'nam
 tf.compat.v1.sparse_reduce_max_sparse,"['sp_input', 'axis', 'keepdims', 'reduction_axes', 'keep_dims']","['sparsetensor', 'none', 'dimensions', 'axis', 'keepdims']","[False, False, False, False, False]",sparsetensor,334
 tf.compat.v1.report_uninitialized_variables,"['var_list', 'name']","['variable', 'operation']","[False, True]",tensor,190
 tf.compat.v1.constant,"['value', 'dtype', 'shape', 'name', 'verify_shape']","['dtype', 'tensor', 'tensor', 'tensor', 'bool']","[False, False, True, True, False]",tensor,509
-tf.compat.v1.zeros_initializer,['config'],['get_config'],[False],initializer,976
 tf.compat.v1.depth_to_space,"['input', 'block_size', 'data_format', 'name']","['tensor', 'int', 'string', 'name']","[False, False, True, True]",tensor,949
 tf.compat.v1.device,['device_name_or_function'],['context'],[False],context,102
 tf.compat.v1.moving_average_variables,['scope'],['name'],[True],list,166
 tf.compat.v1.assert_variables_initialized,['var_list'],['variable'],[False],None,208
-tf.compat.v1.random_normal_initializer,"['mean', 'stddev', 'seed', 'dtype']","['tensor', 'tensor', 'behavior', 'dtype']","[False, False, False, False]",initializer,788
 tf.compat.v1.Print,"['input_', 'data', 'message', 'first_n', 'summarize', 'name']","['tensor', 'tensor', 'error', 'first_n', 'tensor', 'name']","[False, False, False, False, False, True]",tensor,544
 tf.compat.v1.to_float,"['x', 'name']","['tensor', 'name']","[False, True]",tensor,323
 tf.compat.v1.reverse_sequence,"['input', 'seq_lengths', 'seq_axis', 'batch_axis', 'name']","['tensor', 'tensor', 'int', 'int', 'name']","[False, False, False, True, True]",input,466
-tf.compat.v1.truncated_normal_initializer,"['mean', 'stddev', 'seed', 'dtype']","['tensor', 'tensor', 'behavior', 'dtype']","[False, False, False, False]",initializer,827
 tf.compat.v1.sparse_split,"['keyword_required', 'sp_input', 'num_split', 'axis', 'name', 'split_dim']","['argument', 'sparsetensor', 'int', 'int32', 'name', 'axis']","[False, False, False, False, True, False]",num_split,375
 tf.compat.v1.decode_raw,"['input_bytes', 'out_type', 'little_endian', 'name', 'bytes']","['array', 'dtype', 'input_bytes', 'name', 'input_bytes']","[False, False, False, True, False]",tensor,245
-tf.compat.v1.ReaderBase,"['reader_ref', 'supports_serialize']","['operation', 'implementation']","[False, False]",int64,761
-tf.compat.v1.Variable,"['initial_value', 'trainable', 'collections', 'validate_shape', 'caching_device', 'name', 'variable_def', 'dtype', 'expected_shape', 'import_scope', 'constraint', 'use_resource', 'synchronization', 'aggregation', 'shape']","['tensor', 'true', 'collections', 'false', 'none', 'defaults', 'variabledef', 'tensor', 'shape', 'string', 'optimizer', 'resource', 'auto', 'class', 'initial_value']","[False, False, False, False, True, True, False, False, False, True, True, False, False, False, True]",read_value,13374
 tf.compat.v1.setdiff1d,"['x', 'y', 'out_idx', 'name']","['tensor', 'tensor', 'defaults', 'name']","[False, False, True, True]",tensor,343
 tf.compat.v1.multinomial,"['logits', 'num_samples', 'seed', 'name', 'output_dtype']","['batch_size', 'd', 'behavior', 'name', 'int32']","[False, False, False, True, False]",batch_size,294
 tf.compat.v1.space_to_batch,"['input', 'paddings', 'block_size', 'name']","['tensor', 'tensor', 'int', 'name']","[False, False, False, True]",tensor,1085
@@ -2621,15 +2425,12 @@ tf.compat.v1.space_to_depth,"['input', 'block_size', 'data_format', 'name']","['
 tf.compat.v1.sparse_to_dense,"['sparse_indices', 'output_shape', 'sparse_values', 'default_value', 'validate_indices', 'name']","['tensor', 'tensor', 'tensor', 'tensor', 'indices', 'name']","[False, False, False, False, False, True]",tensor,466
 tf.compat.v1.count_up_to,"['ref', 'limit', 'name']","['int32', 'int', 'name']","[False, False, True]",tensor,189
 tf.compat.v1.get_session_handle,"['data', 'name']","['tensor', 'tensor']","[False, True]",tensor,240
-tf.compat.v1.Session,"['target', 'graph', 'config']","['defaults', 'graph', 'tensor']","[True, True, True]",context,3493
 tf.compat.v1.delete_session_tensor,"['handle', 'name']","['tensor', 'tensor']","[False, True]",tensor,128
 tf.compat.v1.size,"['input', 'name', 'out_type']","['tensor', 'name', 'tf_shape_default_int64']","[False, True, True]",tensor,231
 tf.compat.v1.ones_like,"['tensor', 'dtype', 'name', 'optimize']","['tensor', 'tensor', 'name', 'tensor']","[False, False, True, False]",tensor,269
 tf.compat.v1.assign_add,"['ref', 'value', 'use_locking', 'name']","['tensor', 'tensor', 'bool', 'name']","[False, False, True, True]",ref,725
 tf.compat.v1.container,['container_name'],['container'],[False],container,75
 tf.compat.v1.assert_greater_equal,"['x', 'y', 'data', 'summarize', 'message', 'name']","['tensor', 'tensor', 'tensor', 'tensor', 'default', 'defaults']","[False, False, False, False, False, True]",invalidargumenterror,898
-tf.compat.v1.uniform_unit_scaling_initializer,"['factor', 'seed', 'dtype']","['float', 'behavior', 'dtype']","[False, False, False]",initializer,555
-tf.compat.v1.orthogonal_initializer,"['gain', 'seed', 'dtype']","['factor', 'behavior', 'dtype']","[False, False, False]",initializer,478
 tf.compat.v1.reduce_any,"['input_tensor', 'axis', 'keepdims', 'name', 'reduction_indices', 'keep_dims']","['tensor', 'tensor', 'dimensions', 'name', 'axis', 'keepdims']","[False, False, False, True, False, False]",tensor,389
 tf.compat.v1.transpose,"['a', 'perm', 'name', 'conjugate']","['tensor', 'a', 'name', 'true']","[False, False, True, True]",tensor,591
 tf.compat.v1.scatter_max,"['ref', 'indices', 'updates', 'use_locking', 'name']","['tensor', 'tensor', 'tensor', 'bool', 'name']","[False, False, False, True, True]",tensor,453
@@ -2656,7 +2457,6 @@ tf.compat.v1.scatter_nd_add,"['ref', 'indices', 'updates', 'use_locking', 'name'
 tf.compat.v1.reduce_prod,"['input_tensor', 'axis', 'keepdims', 'name', 'reduction_indices', 'keep_dims']","['tensor', 'tensor', 'dimensions', 'name', 'axis', 'keepdims']","[False, False, False, True, False, False]",tensor,379
 tf.compat.v1.bincount,"['arr', 'weights', 'minlength', 'maxlength', 'dtype']","['tensor', 'arr', 'minlength', 'arr', 'weights']","[False, False, False, False, False]",weights,307
 tf.compat.v1.sparse_segment_sqrt_n,"['data', 'indices', 'segment_ids', 'name', 'num_segments', 'sparse_gradient']","['tensor', 'tensor', 'tensor', 'name', 'tensor', 'bool']","[False, False, False, True, True, True]",tensor,286
-tf.compat.v1.WholeFileReader,['name'],['name'],[True],int64,676
 tf.compat.v1.global_variables_initializer,[],[],[],graph,179
 tf.compat.v1.assert_integer,"['x', 'message', 'name']","['tensor', 'default', 'defaults']","[False, False, True]",no_op,186
 tf.compat.v1.assert_near,"['x', 'y', 'rtol', 'atol', 'data', 'summarize', 'message', 'name']","['tensor', 'tensor', 'tensor', 'tensor', 'tensor', 'tensor', 'default', 'defaults']","[False, False, False, False, False, False, False, True]",invalidargumenterror,501
@@ -2672,11 +2472,9 @@ tf.compat.v1.name_scope,"['name', 'default_name', 'values']","['argument', 'name
 tf.compat.v1.reduce_sum,"['input_tensor', 'axis', 'keepdims', 'name', 'reduction_indices', 'keep_dims']","['tensor', 'tensor', 'dimensions', 'name', 'axis', 'keepdims']","[False, False, False, True, False, False]",tensor,738
 tf.compat.v1.foldl,"['fn', 'elems', 'initializer', 'parallel_iterations', 'back_prop', 'swap_memory', 'name']","['None', 'tensor', 'tensor', 'iterations', 'enables', 'gpucpu', 'tensor']","[False, False, True, True, True, True, True]",tensor,525
 tf.compat.v1.get_default_session,[],[],[],session,124
-tf.compat.v1.glorot_normal_initializer,"['seed', 'dtype']","['behavior', 'dtype']","[False, False]",initializer,404
 tf.compat.v1.tuple,"['tensors', 'name', 'control_inputs']","['tensor', 'name_scope', 'list']","[False, True, False]",tensor,249
 tf.compat.v1.load_file_system_library,['library_filename'],['file'],[False],None,141
 tf.compat.v1.local_variables_initializer,[],[],[],graph,182
-tf.compat.v1.variance_scaling_initializer,"['scale', 'mode', 'distribution', 'seed', 'dtype']","['float', 'fan_avg', 'distribution', 'behavior', 'dtype']","[False, False, False, False, False]",initializer,972
 tf.compat.v1.get_collection,"['key', 'scope']","['graphkeys', 'name']","[False, True]",name,208
 tf.compat.v1.to_double,"['x', 'name']","['tensor', 'name']","[False, True]",tensor,323
 tf.compat.v1.squeeze,"['input', 'axis', 'name', 'squeeze_dims']","['tensor', 'ints', 'name', 'argument']","[False, True, True, False]",tensor,500
@@ -2690,16 +2488,11 @@ tf.compat.v1.image.extract_glimpse,"['input', 'size', 'offsets', 'centered', 'no
 tf.compat.v1.image.resize,"['images', 'size', 'method', 'align_corners', 'preserve_aspect_ratio', 'name']","['batch', 'elements', 'defaults', 'tensor', 'images', 'name']","[False, False, False, False, False, True]",images,529
 tf.compat.v1.image.extract_image_patches,"['images', 'ksizes', 'strides', 'rates', 'padding', 'name']","['tensor', 'ints', 'ints', 'ints', 'string', 'name']","[False, False, False, False, False, True]",tensor,413
 tf.compat.v1.mixed_precision.enable_mixed_precision_graph_rewrite,"['opt', 'loss_scale']","['tf.train.optimizer', 'tf.mixed_precision.experimental.lossscale']","[False, False]",opt,1031
-tf.compat.v1.mixed_precision.MixedPrecisionLossScaleOptimizer,"['use_locking', 'name']","['bool', 'accumulators']","[False, False]",operation,1278
-tf.compat.v1.mixed_precision.FixedLossScale,['loss_scale_value'],['float'],[False],update_op,519
 tf.compat.v1.mixed_precision.DynamicLossScale,"['initial_loss_scale', 'increment_period', 'multiplier']","['float', 'increment_period', 'loss']","[False, False, False]",None,420
 tf.compat.v1.mixed_precision.LossScale,['grads'],['function'],[False],update_op,648
-tf.compat.v1.lookup.StaticHashTable,"['initializer', 'default_value', 'name', 'experimental_is_anonymous']","['hashtable', 'key', 'name', 'default']","[False, False, True, False]",tensor,848
-tf.compat.v1.lookup.StaticVocabularyTable,"['initializer', 'num_oov_buckets', 'lookup_key_dtype', 'name', 'experimental_is_anonymous']","['tableinitializerbase', 'statichashtable', 'lookup', 'name', 'default']","[False, False, False, True, False]",sparsetensor,1115
 tf.compat.v1.summary.initialize,"['graph', 'session']","['default', 'tf.session.run']","[False, False]",None,222
 tf.compat.v1.summary.image,"['name', 'tensor', 'max_outputs', 'collections', 'family']","['name', 'uint8', 'batch', '_ops.graphkeys.summaries', 'display']","[False, False, False, True, True]",tensor,1040
 tf.compat.v1.summary.histogram,"['name', 'values', 'collections', 'family']","['name', 'tensor', 'collections', 'display']","[False, False, True, True]",tensor,754
-tf.compat.v1.summary.FileWriter,"['logdir', 'graph', 'max_queue', 'flush_secs', 'graph_def', 'filename_suffix', 'session']","['directory', 'graph', 'events', 'events', 'graph', 'suffix', 'details']","[False, False, False, False, False, False, False]",None,1573
 tf.compat.v1.summary.scalar,"['name', 'tensor', 'collections', 'family']","['name', 'tensor', 'collections', 'display']","[False, False, True, True]",tensor,738
 tf.compat.v1.summary.tensor_summary,"['name', 'tensor', 'summary_description', 'collections', 'summary_metadata', 'family', 'display_name']","['case', 'tensor', 'description', 'collections', 'optional', 'display', 'data']","[False, False, False, True, True, True, False]",tensor,270
 tf.compat.v1.summary.merge,"['inputs', 'collections', 'name']","['string', 'collections', 'name']","[False, True, True]",tensor,608
@@ -2711,8 +2504,6 @@ tf.compat.v1.summary.text,"['name', 'tensor', 'collections']","['name', 'tensor'
 tf.compat.v1.profiler.write_op_log,"['graph', 'log_dir', 'op_log', 'run_meta', 'add_trace']","['None', 'directory', 'oplogproto', 'computation', 'code']","[False, False, True, True, False]",None,229
 tf.compat.v1.profiler.profile,"['graph', 'run_meta', 'op_log', 'cmd', 'options']","['None', 'tensor', 'tensor', 'graph', 'coreprofilerg3docoptions.md']","[False, True, False, False, False]",cmd,316
 tf.compat.v1.profiler.advise,"['graph', 'run_meta', 'options']","['None', 'tensor', 'all_advice']","[False, True, False]",adviceproto,146
-tf.compat.v1.profiler.ProfileOptionBuilder,['options'],['dict'],[True],self,1835
-tf.compat.v1.profiler.Profiler,"['graph', 'op_log']","['None', 'tensor']","[False, True]",advise,688
 tf.compat.v1.nn.embedding_lookup,"['params', 'ids', 'partition_strategy', 'name', 'validate_indices', 'max_norm']","['tensor', 'tensor', 'and', 'name', 'indices', 'none']","[False, False, False, True, False, False]",tensor,651
 tf.compat.v1.nn.max_pool_with_argmax,"['input', 'ksize', 'strides', 'padding', 'Targmax', 'include_batch_in_index', 'name']","['tensor', 'tensor', 'tensor', 'string', 'defaults', 'bool', 'name']","[False, False, False, False, True, True, True]",tensor,497
 tf.compat.v1.nn.ctc_loss,"['labels', 'inputs', 'sequence_length', 'preprocess_collapse_repeated', 'ctc_merge_repeated', 'ignore_longer_outputs_than_inputs', 'time_major', 'logits']","['int32', 'float', 'int32', 'bool', 'bool', 'bool', 'inputs', 'alias']","[False, False, False, False, False, False, False, False]",float,967
@@ -2770,15 +2561,6 @@ tf.compat.v1.nn.sufficient_statistics,"['x', 'axes', 'shift', 'keep_dims', 'name
 tf.compat.v1.nn.raw_rnn,"['cell', 'loop_fn', 'parallel_iterations', 'swap_memory', 'scope']","['instance', 'tensor', 'computations', 'tensor', 'defaults']","[False, False, False, False, False]",emit_ta,1831
 tf.compat.v1.nn.conv3d_transpose,"['value', 'filter', 'output_shape', 'strides', 'padding', 'data_format', 'name', 'input', 'filters', 'dilations']","['tensor', 'tensor', 'tensor', 'tensor', 'or', 'tensor', 'tensor', 'alias', 'alias', 'tensor']","[False, False, False, False, False, False, True, False, False, False]",tensor,592
 tf.compat.v1.nn.static_bidirectional_rnn,"['cell_fw', 'cell_bw', 'inputs', 'initial_state_fw', 'initial_state_bw', 'dtype', 'sequence_length', 'scope']","['direction', 'direction', 'tensor', 'tensor', 'initial_state_fw', 'data', 'batch_size', 'bidirectional_rnn']","[False, False, False, True, True, True, True, False]",t,551
-tf.compat.v1.nn.rnn_cell.MultiRNNCell,"['cells', 'state_is_tuple']","['list', 'axis']","[False, False]",tensor,503
-tf.compat.v1.nn.rnn_cell.DeviceWrapper,"['cell', 'device', 'kwargs']","['rnncell', 'device', 'arguments']","[False, False, False]",tensor,423
-tf.compat.v1.nn.rnn_cell.DropoutWrapper,"['cell', 'input_keep_prob', 'output_keep_prob', 'state_keep_prob', 'variational_recurrent', 'input_size', 'dtype', 'seed', 'dropout_state_filter_visitor', 'kwargs']","['projection', 'float', 'float', 'state_keep_prob', 'true', 'tensor', 'tensor', 'int', 'true', 'arguments']","[False, False, False, False, False, True, True, True, True, False]",tensor,972
-tf.compat.v1.nn.rnn_cell.ResidualWrapper,"['cell', 'residual_fn', 'kwargs']","['rnncell', 'cell', 'arguments']","[False, True, False]",tensor,460
-tf.compat.v1.nn.rnn_cell.LSTMCell,"['num_units', 'use_peepholes', 'cell_clip', 'initializer', 'num_proj', 'proj_clip', 'num_unit_shards', 'num_proj_shards', 'forget_bias', 'state_is_tuple', 'activation', 'reuse', 'name', 'dtype', 'kwargs']","['cell', 'bool', 'float', 'initializer', 'None', 'and', 'jan.', 'jan.', '', 'c_state', 'tanh', 'true', 'cases', 'none', 'trainable']","[False, False, True, True, True, True, False, False, False, False, False, True, False, False, False]",tensor,1137
-tf.compat.v1.nn.rnn_cell.BasicLSTMCell,"['num_units', 'forget_bias', 'state_is_tuple', 'activation', 'reuse', 'name', 'dtype', 'kwargs']","['cell', '', 'c_state', 'tanh', 'true', 'cases', 'none', 'trainable']","[False, False, False, False, True, False, False, False]",tensor,823
-tf.compat.v1.nn.rnn_cell.BasicRNNCell,"['num_units', 'activation', 'reuse', 'name', 'dtype', 'kwargs']","['cell', 'tanh', 'true', 'cases', 'none', 'trainable']","[False, False, True, False, False, False]",tensor,577
-tf.compat.v1.nn.rnn_cell.RNNCell,['inputs'],['tensor'],[False],tensor,580
-tf.compat.v1.nn.rnn_cell.GRUCell,"['num_units', 'activation', 'reuse', 'kernel_initializer', 'bias_initializer', 'name', 'dtype', 'kwargs']","['cell', 'tanh', 'true', 'initializer', 'bias', 'cases', 'none', 'trainable']","[False, False, True, True, True, False, False, False]",tensor,701
 tf.compat.v1.math.floor,"['x', 'name']","['tensor', 'name']","[False, True]",tensor,212
 tf.compat.v1.math.tan,"['x', 'name']","['tensor', 'name']","[False, True]",tensor,258
 tf.compat.v1.math.erfinv,"['x', 'name']","['tensor', 'name']","[False, True]",x,100
@@ -2874,23 +2656,15 @@ tf.compat.v1.losses.compute_weighted_loss,"['losses', 'weights', 'scope', 'loss_
 tf.compat.v1.losses.log_loss,"['labels', 'predictions', 'weights', 'epsilon', 'scope', 'loss_collection', 'reduction']","['tensor', 'outputs', 'tensor', 'increment', 'loss', 'collection', 'loss']","[False, False, True, False, False, False, False]",tensor,405
 tf.compat.v1.losses.sigmoid_cross_entropy,"['multi_class_labels', 'logits', 'weights', 'label_smoothing', 'scope', 'loss_collection', 'reduction']","['batch_size', 'float', 'tensor', '', 'loss', 'collection', 'loss']","[False, False, True, False, False, False, False]",tensor,426
 tf.compat.v1.losses.hinge_loss,"['labels', 'logits', 'weights', 'scope', 'loss_collection', 'reduction']","['tensor', 'tensor', 'tensor', 'loss', 'collection', 'loss']","[False, False, True, False, False, False]",tensor,362
-tf.compat.v1.data.Iterator,"['iterator_resource', 'initializer', 'output_types', 'output_shapes', 'output_classes']","['iterator', 'iterator', 'component', 'component', 'type']","[False, False, False, False, False]",iterator,1811
-tf.compat.v1.data.FixedLengthRecordDataset,"['filenames', 'record_bytes', 'header_bytes', 'footer_bytes', 'buffer_size', 'compression_type', 'num_parallel_reads', 'name']","['tensor', 'bytes', 'bytes', 'bytes', 'bytes', '', 'none', 'name']","[False, False, True, True, True, True, True, True]",dataset,23921
-tf.compat.v1.data.Dataset,['variant_tensor'],['tensor'],[False],dataset,23681
 tf.compat.v1.data.get_output_types,['dataset_or_iterator'],['tf.data.dataset'],[False],components,198
 tf.compat.v1.data.make_initializable_iterator,"['dataset', 'shared_name']","['tf.data.dataset', 'devices']","[False, True]",dataset,383
 tf.compat.v1.data.make_one_shot_iterator,['dataset'],['tf.data.dataset'],[False],dataset,290
 tf.compat.v1.data.get_output_classes,['dataset_or_iterator'],['tf.data.dataset'],[False],type,200
-tf.compat.v1.data.TFRecordDataset,"['filenames', 'compression_type', 'buffer_size', 'num_parallel_reads', 'name']","['tensor', '', 'none', 'none', 'name']","[False, True, True, True, True]",dataset,23903
 tf.compat.v1.data.get_output_shapes,['dataset_or_iterator'],['tf.data.dataset'],[False],components,199
-tf.compat.v1.data.TextLineDataset,"['filenames', 'compression_type', 'buffer_size', 'num_parallel_reads', 'name']","['tensor', '', 'bytes', 'none', 'name']","[False, True, True, True, True]",dataset,23877
 tf.compat.v1.data.experimental.map_and_batch_with_legacy_function,"['map_func', 'batch_size', 'num_parallel_batches', 'drop_remainder', 'num_parallel_calls']","['tensor', 'batch', 'batches', 'batch', 'calls']","[False, False, True, True, True]",dataset,386
-tf.compat.v1.data.experimental.SqlDataset,"['driver_name', 'data_source_name', 'query', 'output_types']","['tensor', 'tensor', 'tensor', 'query']","[False, False, False, False]",dataset,23743
 tf.compat.v1.data.experimental.make_batched_features_dataset,"['file_pattern', 'batch_size', 'features', 'reader', 'label_key', 'reader_args', 'num_epochs', 'shuffle', 'shuffle_buffer_size', 'shuffle_seed', 'prefetch_buffer_size', 'reader_num_threads', 'parser_num_threads', 'sloppy_ordering', 'drop_final_batch']","['example', 'batch', 'dict', 'tensor', 'tf.examples', 'arguments', 'none', 'true', 'a', 'randomization', 'autotune', 'example', 'tensor', 'true', 'true']","[False, False, False, True, True, False, False, False, False, False, False, False, False, False, False]",dict,937
 tf.compat.v1.data.experimental.choose_from_datasets,"['datasets', 'choice_dataset', 'stop_on_empty_dataset']","['list', 'tensor', 'true']","[False, False, False]",datasets,479
-tf.compat.v1.data.experimental.RandomDataset,['transformation_func'],['dataset'],[False],dataset,23648
 tf.compat.v1.data.experimental.sample_from_datasets,"['datasets', 'weights', 'seed', 'stop_on_empty_dataset']","['list', 'datasets', 'behavior', 'true']","[False, True, True, False]",datasets,533
-tf.compat.v1.data.experimental.CsvDataset,"['filenames', 'record_defaults', 'compression_type', 'buffer_size', 'header', 'field_delim', 'use_quote_delim', 'na_value', 'select_cols']","['tensor', 'dtype', '', 'bytes', 'false', 'character', 'false', 'nanan', 'select_cols']","[False, True, True, True, True, True, True, True, True]",dataset,24114
 tf.compat.v1.data.experimental.make_csv_dataset,"['file_pattern', 'batch_size', 'column_names', 'column_defaults', 'label_name', 'select_columns', 'field_delim', 'use_quote_delim', 'na_value', 'header', 'num_epochs', 'shuffle', 'shuffle_buffer_size', 'shuffle_seed', 'prefetch_buffer_size', 'num_parallel_reads', 'sloppy', 'num_rows_for_inference', 'compression_type', 'ignore_errors', 'encoding']","['csv', 'batch', 'column', 'tensor', 'tensor', 'column_names', 'string', 'true', 'nanan', 'bool', 'None', 'bool', 'buffer', 'randomization', 'autotune', '', 'true', 'None', '', 'true', 'utf8']","[False, False, True, True, True, True, True, True, False, False, False, False, False, False, False, False, False, False, True, True, False]",batch_size,1548
 tf.compat.v1.data.experimental.Counter,"['start', 'step', 'dtype']","['counter', 'counter', 'counter']","[True, True, True]",dataset,421
 tf.compat.v1.ragged.RaggedTensorValue,"['values', 'row_splits']","['array', 'array']","[False, False]",None,219
@@ -2904,26 +2678,20 @@ tf.compat.v1.saved_model.simple_save,"['session', 'export_dir', 'inputs', 'outpu
 tf.compat.v1.saved_model.load,"['sess', 'tags', 'export_dir', 'import_scope', 'saver_kwargs']","['session', 'metagraphdef', 'buffer', 'tensor', 'arguments']","[False, False, False, True, True]",metagraphdef,744
 tf.compat.v1.saved_model.contains_saved_model,['export_dir'],['absolute'],[False],directory,173
 tf.compat.v1.saved_model.main_op_with_restore,['restore_op_name'],['graph'],[False],load,200
-tf.compat.v1.saved_model.Builder,"['tags', 'signature_def_map', 'assets_collection', 'clear_devices', 'init_op', 'train_op', 'saver']","['def', 'def', 'assets', 'default', 'graph', 'graph', 'None']","[False, False, False, False, False, False, False]",buffer,1200
 tf.compat.v1.saved_model.regression_signature_def,"['examples', 'predictions']","['tensor', 'tensor']","[False, False]",signature_def,154
 tf.compat.v1.saved_model.predict_signature_def,"['inputs', 'outputs']","['tensor', 'tensor']","[False, False]",signature_def,149
 tf.compat.v1.saved_model.get_tensor_from_tensor_info,"['tensor_info', 'graph', 'import_scope']","['compositetensor', 'tensor', 'tensor']","[False, False, False]",tensor,246
 tf.compat.v1.saved_model.classification_signature_def,"['examples', 'classes', 'scores']","['tensor', 'tensor', 'tensor']","[False, False, False]",signature_def,183
 tf.compat.v1.saved_model.main_op.main_op,[],[],[],load,149
-tf.compat.v1.saved_model.signature_def_utils.MethodNameUpdater,['export_dir'],['directory'],[False],None,474
 tf.compat.v1.strings.substr,"['input', 'pos', 'len', 'unit', 'name']","['tensor', 'tensor', 'tensor', 'string', 'name']","[False, False, False, True, True]",tensor,889
 tf.compat.v1.strings.length,"['input', 'name', 'unit']","['tensor', 'name', 'string']","[False, True, True]",tensor,315
 tf.compat.v1.strings.split,"['input', 'sep', 'maxsplit', 'result_type', 'source', 'name']","['tensor', 'd', 'int', 'tensor', 'alias', 'name']","[False, False, False, False, False, True]",sparsetensor,553
-tf.compat.v1.lite.OpHint,"['function_name', 'level', 'children_inputs_mappings', 'kwargs']","['custom', 'level', 'child_input_index', 'arguments']","[False, False, False, False]",tensor,884
-tf.compat.v1.lite.TFLiteConverter,"['graph_def', 'input_tensors', 'output_tensors', 'input_arrays_with_shape', 'output_arrays', 'experimental_debug_info_func']","['frozen', 'tensor', 'tensor', 'tensor', 'tensor', 'graph_def']","[False, False, False, False, False, False]",output_format,2101
 tf.compat.v1.lite.toco_convert,[],[],[],array,205
 tf.compat.v1.lite.experimental.convert_op_hints_to_stubs,"['session', 'graph_def', 'write_callback']","['graph', 'def', 'function']","[False, False, True]",call,224
-tf.compat.v1.lite.OpHint.OpHintArgumentTracker,"['function_name', 'unique_function_id', 'node_name_prefix', 'attr_name', 'level', 'children_inputs_mappings']","['arguments', 'arguments', 'identities', 'attribute', 'level', 'children']","[False, False, False, False, False, False]",tensor,370
 tf.compat.v1.manip.reshape,"['tensor', 'shape', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,928
 tf.compat.v1.gfile.DeleteRecursively,['dirname'],['directory'],[False],None,59
 tf.compat.v1.gfile.MkDir,['dirname'],['directory'],[False],None,97
 tf.compat.v1.gfile.ListDirectory,['dirname'],['directory'],[False],filename1,101
-tf.compat.v1.gfile.FastGFile,['n'],['n'],[False],n,678
 tf.compat.v1.gfile.MakeDirs,['dirname'],['directory'],[False],None,79
 tf.compat.v1.gfile.Stat,['filename'],['file'],[False],filestatistics,71
 tf.compat.v1.gfile.IsDirectory,['dirname'],['directory'],[False],directory,68
@@ -2939,20 +2707,10 @@ tf.compat.v1.test.assert_equal_graph_def,"['actual', 'expected', 'checkpoint_v2'
 tf.compat.v1.test.compute_gradient,"['x', 'x_shape', 'y', 'y_shape', 'x_init_value', 'delta', 'init_targets', 'extra_feed_dict']","['tensor', 'array', 'tensor', 'array', 'tensor', 'amount', 'list', 'tensor']","[False, False, False, False, True, True, False, False]",arrays,522
 tf.compat.v1.test.get_temp_dir,[],[],[],directory,168
 tf.compat.v1.test.compute_gradient_error,"['x', 'x_shape', 'y', 'y_shape', 'x_init_value', 'delta', 'init_targets', 'extra_feed_dict']","['tensor', 'array', 'tensor', 'array', 'tensor', 'amount', 'list', 'tensor']","[False, False, False, False, True, True, False, False]",error,384
-tf.compat.v1.test.StubOutForTesting,"['parent', 'child_name', 'new_child']","['attribute', 'attribute', 'attribute']","[False, False, False]",None,651
 tf.compat.v1.test.test_src_dir_path,['relative_path'],['coreplatform'],[False],path,78
 tf.compat.v1.experimental.output_all_intermediates,['state'],['None'],[False],None,272
 tf.compat.v1.random.stateless_multinomial,"['logits', 'num_samples', 'seed', 'output_dtype', 'name']","['batch_size', 'd', 'int32', 'int32', 'name']","[False, False, False, False, True]",batch_size,369
 tf.compat.v1.distribute.get_loss_reduction,[],[],[],case,101
-tf.compat.v1.distribute.MirroredStrategy,"['devices', 'cross_device_ops']","['none', 'crossdeviceops']","[False, True]",tf.distribute.distributeddataset,6752
-tf.compat.v1.distribute.Strategy,"['dataset_fn', 'options']","['function', 'dataset']","[False, False]",tf.distribute.distributeddataset,6182
-tf.compat.v1.distribute.OneDeviceStrategy,['device'],['cpu0'],[False],tf.distribute.distributeddataset,6403
-tf.compat.v1.distribute.StrategyExtended,"['reduce_op', 'value_destination_pairs', 'options']","['allows', 'tf.distribute.strategy.reduce_to', 'constructor']","[False, False, False]",value_destination_pairs,4222
-tf.compat.v1.distribute.ReplicaContext,"['strategy', 'replica_id_in_sync_group']","['tf.distribute.strategy', 'tensor']","[False, False]",value,1189
-tf.compat.v1.distribute.experimental.MultiWorkerMirroredStrategy,"['dataset_fn', 'options']","['function', 'dataset']","[False, False]",tf.distribute.distributeddataset,6917
-tf.compat.v1.distribute.experimental.ParameterServerStrategy,['cluster_resolver'],['defaults'],[True],tf.distribute.distributeddataset,6612
-tf.compat.v1.distribute.experimental.CentralStorageStrategy,"['dataset_fn', 'options']","['function', 'dataset']","[False, False]",tf.distribute.distributeddataset,6295
-tf.compat.v1.distribute.experimental.TPUStrategy,"['tpu_cluster_resolver', 'steps_per_run', 'device_assignment']","['cluster', 'device', 'cluster']","[False, False, True]",tf.distribute.distributeddataset,5825
 tf.compat.v1.metrics.mean,"['values', 'weights', 'metrics_collections', 'updates_collections', 'name']","['tensor', 'tensor', 'mean', 'update_op', 'name']","[False, True, True, True, True]",mean,1118
 tf.compat.v1.metrics.true_positives_at_thresholds,"['labels', 'predictions', 'thresholds', 'weights', 'metrics_collections', 'updates_collections', 'name']","['tensor', 'tensor', 'float', 'tensor', 'true_positives', 'update_op', 'name']","[False, False, False, True, True, True, True]",true_positives,349
 tf.compat.v1.metrics.precision_at_top_k,"['labels', 'predictions_idx', 'k', 'class_id', 'weights', 'metrics_collections', 'updates_collections', 'name']","['int64', 'tensor', 'default', 'predictions', 'tensor', 'collections', 'collections', 'name']","[False, False, False, False, False, True, True, False]",precision,582
@@ -2992,7 +2750,6 @@ tf.compat.v1.feature_column.linear_model,"['features', 'feature_columns', 'units
 tf.compat.v1.tpu.initialize_system,"['embedding_config', 'job', 'compilation_failure_closes_chips', 'tpu_cancellation_closes_chips']","['tpuembeddingconfiguration', 'job', 'chips', 'tpu_cancellation_closes_chips']","[False, False, False, False]",topologyproto,282
 tf.compat.v1.tpu.shard,"['computation', 'inputs', 'num_shards', 'input_shard_axes', 'outputs_from_all_shards', 'output_shard_axes', 'infeed_queue', 'device_assignment', 'name', 'xla_options']","['computation', 'tensor', 'number', 'inputs', 'true', 'computation', 'none', 'none', 'nothing', 'tpu.xlaoptions']","[False, False, False, False, False, False, False, False, False, False]",tensor,738
 tf.compat.v1.tpu.shutdown_system,['job'],['job'],[False],None,113
-tf.compat.v1.tpu.CrossShardOptimizer,"['opt', 'reduction', 'name', 'group_assignment']","['optimizer', 'losses', 'crossshardoptimizer', 'lists']","[False, False, True, True]",operation,1127
 tf.compat.v1.tpu.core,['num'],['core'],[False],device,89
 tf.compat.v1.tpu.cross_replica_sum,"['x', 'group_assignment', 'name']","['tensor', 'i', 'name']","[False, True, True]",tensor,112
 tf.compat.v1.tpu.replicate,"['computation', 'inputs', 'infeed_queue', 'device_assignment', 'name', 'maximum_shapes', 'padding_spec', 'xla_options']","['computation', 'tensor', 'none', 'none', 'nothing', 'maximum_shapes', 'tpu.paddingspec', 'tpu.xlaoptions']","[False, False, False, False, False, False, False, False]",None,971
@@ -3007,72 +2764,27 @@ tf.compat.v1.tpu.experimental.FtrlParameters,"['learning_rate', 'learning_rate_p
 tf.compat.v1.tpu.experimental.AdamParameters,"['learning_rate', 'beta1', 'beta2', 'epsilon', 'lazy_adam', 'sum_inside_sqrt', 'use_gradient_accumulation', 'clip_weight_min', 'clip_weight_max', 'weight_decay_factor', 'multiply_weight_decay_factor_by_learning_rate', 'clip_gradient_min', 'clip_gradient_max']","['learning', 'float', 'float', 'constant', 'optimization_parameters.proto', 'optimization_parameters.proto', 'false', 'infinity', 'infinity', 'None', 'weight_decay_factor', 'infinity', 'infinity']","[False, False, False, False, False, False, False, False, False, False, False, False, False]",None,479
 tf.compat.v1.autograph.to_code,"['entity', 'recursive', 'arg_values', 'arg_types', 'indentation', 'experimental_optional_features']","['class', 'function', 'None', 'None', 'None', 'none']","[False, False, False, False, False, False]",code,299
 tf.compat.v1.autograph.to_graph,"['entity', 'recursive', 'arg_values', 'arg_types', 'experimental_optional_features']","['class', 'function', 'None', 'None', 'none']","[False, False, False, False, False]",entity,358
-tf.compat.v1.distributions.Categorical,"['logits', 'probs', 'dtype', 'validate_args', 'allow_nan_stats', 'name']","['tensor', 'tensor', 'default', 'bool', 'bool', 'str']","[False, False, False, False, False, False]",batch_shape,3791
 tf.compat.v1.distributions.kl_divergence,"['distribution_a', 'distribution_b', 'allow_nan_stats', 'name']","['distribution', 'distribution', 'bool', 'str']","[False, False, False, False]",distribution_a,376
-tf.compat.v1.distributions.Bernoulli,"['logits', 'probs', 'dtype', 'validate_args', 'allow_nan_stats', 'name']","['tensor', 'tensor', 'int32', 'bool', 'bool', 'str']","[False, False, False, False, False, False]",batch_shape,3185
-tf.compat.v1.distributions.Uniform,"['low', 'high', 'validate_args', 'allow_nan_stats', 'name']","['tensor', 'tensor', 'bool', 'bool', 'str']","[False, False, False, False, False]",batch_shape,3334
-tf.compat.v1.distributions.Beta,"['concentration1', 'concentration0', 'validate_args', 'allow_nan_stats', 'name']","['tensor', 'tensor', 'bool', 'bool', 'str']","[False, False, False, False, False]",batch_shape,4044
-tf.compat.v1.distributions.Normal,"['loc', 'scale', 'validate_args', 'allow_nan_stats', 'name']","['tensor', 'tensor', 'bool', 'bool', 'str']","[False, False, False, False, False]",batch_shape,3421
-tf.compat.v1.distributions.Multinomial,"['total_count', 'logits', 'probs', 'validate_args', 'allow_nan_stats', 'name']","['tensor', 'tensor', 'tensor', 'bool', 'bool', 'str']","[False, False, False, False, False, False]",batch_shape,4103
 tf.compat.v1.distributions.ReparameterizationType,['other'],['object'],[False],self,204
-tf.compat.v1.distributions.Laplace,"['loc', 'scale', 'validate_args', 'allow_nan_stats', 'name']","['tensor', 'tensor', 'bool', 'bool', 'str']","[False, False, False, False, False]",batch_shape,3156
-tf.compat.v1.distributions.StudentT,"['df', 'loc', 'scale', 'validate_args', 'allow_nan_stats', 'name']","['tensor', 'tensor', 'tensor', 'bool', 'bool', 'str']","[False, False, False, False, False, False]",batch_shape,3923
-tf.compat.v1.distributions.RegisterKL,"['dist_cls_a', 'dist_cls_b']","['argument', 'argument']","[False, False]",kl_fn,163
-tf.compat.v1.distributions.Gamma,"['concentration', 'rate', 'validate_args', 'allow_nan_stats', 'name']","['tensor', 'tensor', 'bool', 'bool', 'str']","[False, False, False, False, False]",batch_shape,3615
-tf.compat.v1.distributions.Exponential,"['rate', 'validate_args', 'allow_nan_stats', 'name']","['tensor', 'bool', 'bool', 'str']","[False, False, False, False]",batch_shape,3155
-tf.compat.v1.distributions.Dirichlet,"['concentration', 'validate_args', 'allow_nan_stats', 'name']","['tensor', 'bool', 'bool', 'str']","[False, False, False, False]",batch_shape,4135
-tf.compat.v1.distributions.DirichletMultinomial,"['total_count', 'concentration', 'validate_args', 'allow_nan_stats', 'name']","['tensor', 'tensor', 'bool', 'bool', 'str']","[False, False, False, False, False]",batch_shape,4338
-tf.compat.v1.distributions.Distribution,"['dtype', 'reparameterization_type', 'validate_args', 'allow_nan_stats', 'parameters', 'graph_parents', 'name']","['none', 'reparameterizationtype', 'bool', 'bool', 'dict', 'list', 'str']","[False, False, False, False, False, False, False]",batch_shape,4122
-tf.compat.v1.layers.Flatten,['data_format'],['channels_last'],[False],tensor,571
-tf.compat.v1.layers.SeparableConv1D,"['filters', 'kernel_size', 'strides', 'padding', 'data_format', 'dilation_rate', 'depth_multiplier', 'activation', 'use_bias', 'depthwise_initializer', 'pointwise_initializer', 'bias_initializer', 'depthwise_regularizer', 'pointwise_regularizer', 'bias_regularizer', 'activity_regularizer', 'depthwise_constraint', 'pointwise_constraint', 'bias_constraint', 'trainable', 'name']","['convolution', 'dimensions', 'stride', 'or', 'channels_last', 'dilation_rate', 'channel', 'None', 'bias', 'convolution', 'convolution', 'None', 'convolution', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'optimizer', 'true', 'layer']","[False, False, False, False, False, False, False, False, False, False, False, False, True, True, True, True, True, True, True, False, False]",tensor,1101
-tf.compat.v1.layers.BatchNormalization,"['axis', 'momentum', 'epsilon', 'center', 'scale', 'beta_initializer', 'gamma_initializer', 'moving_mean_initializer', 'moving_variance_initializer', 'beta_regularizer', 'gamma_regularizer', 'beta_constraint', 'gamma_constraint', 'renorm', 'renorm_clipping', 'renorm_momentum', 'fused', 'trainable', 'virtual_batch_size', 'adjustment', 'name']","['int', 'average', 'float', 'tensor', 'gamma', 'beta', 'gamma', 'initializer', 'initializer', 'beta', 'gamma', 'beta', 'gamma', 'batch', 'tensors', 'momentum', 'none', 'true', 'int', 'tensor', 'layer']","[False, False, False, False, False, False, False, False, False, True, True, True, True, False, False, False, False, False, False, False, False]",tensor,1971
 tf.compat.v1.layers.average_pooling3d,"['inputs', 'pool_size', 'strides', 'padding', 'data_format', 'name']","['tensor', 'dimensions', 'dimensions', 'method', 'channels_last', 'layer']","[False, False, False, False, False, False]",tensor,595
-tf.compat.v1.layers.Conv2DTranspose,"['filters', 'kernel_size', 'strides', 'padding', 'data_format', 'activation', 'use_bias', 'kernel_initializer', 'bias_initializer', 'kernel_regularizer', 'bias_regularizer', 'activity_regularizer', 'kernel_constraint', 'bias_constraint', 'trainable', 'name']","['convolution', 'dimensions', 'convolution', 'or', 'channels_last', 'None', 'bias', 'convolution', 'None', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'true', 'layer']","[False, False, False, False, False, False, False, False, False, True, True, True, True, True, False, False]",tensor,1011
-tf.compat.v1.layers.AveragePooling3D,"['pool_size', 'strides', 'padding', 'data_format', 'name']","['dimensions', 'dimensions', 'method', 'channels_last', 'layer']","[False, False, False, False, False]",tensor,625
 tf.compat.v1.layers.max_pooling3d,"['inputs', 'pool_size', 'strides', 'padding', 'data_format', 'name']","['tensor', 'dimensions', 'dimensions', 'method', 'channels_last', 'layer']","[False, False, False, False, False, False]",tensor,592
 tf.compat.v1.layers.max_pooling2d,"['inputs', 'pool_size', 'strides', 'padding', 'data_format', 'name']","['tensor', 'dimensions', 'dimensions', 'method', 'channels_last', 'layer']","[False, False, False, False, False, False]",tensor,589
 tf.compat.v1.layers.separable_conv1d,"['inputs', 'filters', 'kernel_size', 'strides', 'padding', 'data_format', 'dilation_rate', 'depth_multiplier', 'activation', 'use_bias', 'depthwise_initializer', 'pointwise_initializer', 'bias_initializer', 'depthwise_regularizer', 'pointwise_regularizer', 'bias_regularizer', 'activity_regularizer', 'depthwise_constraint', 'pointwise_constraint', 'bias_constraint', 'trainable', 'name', 'reuse']","['tensor', 'convolution', 'dimensions', 'stride', 'or', 'channels_last', 'dilation_rate', 'channel', 'None', 'bias', 'convolution', 'convolution', 'None', 'convolution', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'optimizer', 'true', 'layer', 'bool']","[False, False, False, False, False, False, False, False, False, False, False, False, False, True, True, True, True, True, True, True, False, False, False]",tensor,1086
-tf.compat.v1.layers.MaxPooling3D,"['pool_size', 'strides', 'padding', 'data_format', 'name']","['dimensions', 'dimensions', 'method', 'channels_last', 'layer']","[False, False, False, False, False]",tensor,625
 tf.compat.v1.layers.conv1d,"['inputs', 'filters', 'kernel_size', 'strides', 'padding', 'data_format', 'dilation_rate', 'activation', 'use_bias', 'kernel_initializer', 'bias_initializer', 'kernel_regularizer', 'bias_regularizer', 'activity_regularizer', 'kernel_constraint', 'bias_constraint', 'trainable', 'name', 'reuse']","['input', 'convolution', 'convolution', 'dilation_rate', 'or', 'channels_last', 'dilation_rate', 'None', 'bias', 'convolution', 'None', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'true', 'layer', 'bool']","[False, False, False, False, False, False, False, False, False, False, False, True, True, True, True, True, False, False, False]",tensor,1036
 tf.compat.v1.layers.max_pooling1d,"['inputs', 'pool_size', 'strides', 'padding', 'data_format', 'name']","['tensor', 'int', 'int', 'method', 'channels_last', 'layer']","[False, False, False, False, False, False]",tensor,543
-tf.compat.v1.layers.Conv3DTranspose,"['filters', 'kernel_size', 'strides', 'padding', 'data_format', 'activation', 'use_bias', 'kernel_initializer', 'bias_initializer', 'kernel_regularizer', 'bias_regularizer', 'activity_regularizer', 'kernel_constraint', 'bias_constraint', 'trainable', 'name']","['convolution', 'convolution', 'convolution', 'or', 'channels_last', 'none', 'bias', 'convolution', 'none', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'true', 'layer']","[False, False, False, False, False, False, False, False, False, True, True, True, True, True, False, False]",tensor,975
 tf.compat.v1.layers.conv3d,"['inputs', 'filters', 'kernel_size', 'strides', 'padding', 'data_format', 'dilation_rate', 'activation', 'use_bias', 'kernel_initializer', 'bias_initializer', 'kernel_regularizer', 'bias_regularizer', 'activity_regularizer', 'kernel_constraint', 'bias_constraint', 'trainable', 'name', 'reuse']","['input', 'convolution', 'convolution', 'dilation_rate', 'or', 'channels_last', 'dilation_rate', 'None', 'bias', 'convolution', 'None', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'true', 'layer', 'bool']","[False, False, False, False, False, False, False, False, False, False, False, True, True, True, True, True, False, False, False]",tensor,1094
-tf.compat.v1.layers.Dropout,"['rate', 'noise_shape', 'seed', 'name']","['rate0.1', 'tensor', 'behavior', 'layer']","[False, False, False, False]",tensor,603
-tf.compat.v1.layers.SeparableConv2D,"['filters', 'kernel_size', 'strides', 'padding', 'data_format', 'dilation_rate', 'depth_multiplier', 'activation', 'use_bias', 'depthwise_initializer', 'pointwise_initializer', 'bias_initializer', 'depthwise_regularizer', 'pointwise_regularizer', 'bias_regularizer', 'activity_regularizer', 'depthwise_constraint', 'pointwise_constraint', 'bias_constraint', 'trainable', 'name']","['convolution', 'dimensions', 'stride', 'or', 'channels_last', 'dilation_rate', 'channel', 'None', 'bias', 'convolution', 'convolution', 'None', 'convolution', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'optimizer', 'true', 'layer']","[False, False, False, False, False, False, False, False, False, False, False, False, True, True, True, True, True, True, True, False, False]",tensor,1173
-tf.compat.v1.layers.Conv3D,"['filters', 'kernel_size', 'strides', 'padding', 'data_format', 'dilation_rate', 'activation', 'use_bias', 'kernel_initializer', 'bias_initializer', 'kernel_regularizer', 'bias_regularizer', 'activity_regularizer', 'kernel_constraint', 'bias_constraint', 'trainable', 'name']","['convolution', 'convolution', 'dilation_rate', 'or', 'channels_last', 'dilation_rate', 'None', 'bias', 'convolution', 'None', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'true', 'layer']","[False, False, False, False, False, False, False, False, False, False, True, True, True, True, True, False, False]",tensor,1131
 tf.compat.v1.layers.batch_normalization,"['inputs', 'axis', 'momentum', 'epsilon', 'center', 'scale', 'beta_initializer', 'gamma_initializer', 'moving_mean_initializer', 'moving_variance_initializer', 'beta_regularizer', 'gamma_regularizer', 'beta_constraint', 'gamma_constraint', 'training', 'trainable', 'name', 'reuse', 'renorm', 'renorm_clipping', 'renorm_momentum', 'fused', 'virtual_batch_size', 'adjustment']","['input', 'int', 'average', 'float', 'tensor', 'gamma', 'beta', 'gamma', 'initializer', 'initializer', 'beta', 'gamma', 'beta', 'gamma', 'tensor', 'true', 'layer', 'bool', 'batch', 'tensors', 'momentum', 'none', 'int', 'tensor']","[False, False, False, False, False, False, False, False, False, False, True, True, True, True, False, False, False, False, False, False, False, False, False, False]",tensor,2025
-tf.compat.v1.layers.Dense,"['units', 'activation', 'use_bias', 'kernel_initializer', 'bias_initializer', 'kernel_regularizer', 'bias_regularizer', 'activity_regularizer', 'kernel_constraint', 'bias_constraint', 'trainable', 'name', '_reuse']","['dimensionality', 'None', 'bias', 'none', 'bias', 'function', 'bias', 'function', 'optimizer', 'optimizer', 'true', 'cases', 'bool']","[False, False, False, False, False, False, False, False, True, True, False, False, False]",tensor,945
-tf.compat.v1.layers.Conv1D,"['filters', 'kernel_size', 'strides', 'padding', 'data_format', 'dilation_rate', 'activation', 'use_bias', 'kernel_initializer', 'bias_initializer', 'kernel_regularizer', 'bias_regularizer', 'activity_regularizer', 'kernel_constraint', 'bias_constraint', 'trainable', 'name']","['convolution', 'convolution', 'dilation_rate', 'or', 'channels_last', 'dilation_rate', 'None', 'bias', 'convolution', 'None', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'true', 'layer']","[False, False, False, False, False, False, False, False, False, False, True, True, True, True, True, False, False]",tensor,1057
 tf.compat.v1.layers.dense,"['inputs', 'units', 'activation', 'use_bias', 'kernel_initializer', 'bias_initializer', 'kernel_regularizer', 'bias_regularizer', 'activity_regularizer', 'kernel_constraint', 'bias_constraint', 'trainable', 'name', 'reuse']","['input', 'dimensionality', 'None', 'bias', 'none', 'bias', 'function', 'bias', 'function', 'optimizer', 'optimizer', 'true', 'layer', 'bool']","[False, False, False, False, False, False, False, False, False, True, True, False, False, False]",inputs,766
-tf.compat.v1.layers.MaxPooling2D,"['pool_size', 'strides', 'padding', 'data_format', 'name']","['dimensions', 'dimensions', 'method', 'channels_last', 'layer']","[False, False, False, False, False]",tensor,619
 tf.compat.v1.layers.separable_conv2d,"['inputs', 'filters', 'kernel_size', 'strides', 'padding', 'data_format', 'dilation_rate', 'depth_multiplier', 'activation', 'use_bias', 'depthwise_initializer', 'pointwise_initializer', 'bias_initializer', 'depthwise_regularizer', 'pointwise_regularizer', 'bias_regularizer', 'activity_regularizer', 'depthwise_constraint', 'pointwise_constraint', 'bias_constraint', 'trainable', 'name', 'reuse']","['tensor', 'convolution', 'dimensions', 'stride', 'or', 'channels_last', 'dilation_rate', 'channel', 'None', 'bias', 'convolution', 'convolution', 'None', 'convolution', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'optimizer', 'true', 'layer', 'bool']","[False, False, False, False, False, False, False, False, False, False, False, False, False, True, True, True, True, True, True, True, False, False, False]",tensor,1158
-tf.compat.v1.layers.AveragePooling1D,"['pool_size', 'strides', 'padding', 'data_format', 'name']","['int', 'int', 'method', 'channels_last', 'layer']","[False, False, False, False, False]",tensor,568
 tf.compat.v1.layers.flatten,"['inputs', 'name', 'data_format']","['input', 'layer', 'channels_last']","[False, False, False]",tensor,535
-tf.compat.v1.layers.MaxPooling1D,"['pool_size', 'strides', 'padding', 'data_format', 'name']","['int', 'int', 'method', 'channels_last', 'layer']","[False, False, False, False, False]",tensor,568
 tf.compat.v1.layers.dropout,"['inputs', 'rate', 'noise_shape', 'seed', 'training', 'name']","['input', 'dropout', 'tensor', 'behavior', 'tensor', 'layer']","[False, False, False, False, False, False]",tensor,612
-tf.compat.v1.layers.Layer,"['trainable', 'name', 'dtype']","['bool', 'layer', 'none']","[False, False, False]",tensor,414
-tf.compat.v1.layers.AveragePooling2D,"['pool_size', 'strides', 'padding', 'data_format', 'name']","['dimensions', 'dimensions', 'method', 'channels_last', 'layer']","[False, False, False, False, False]",tensor,619
-tf.compat.v1.layers.Conv2D,"['filters', 'kernel_size', 'strides', 'padding', 'data_format', 'dilation_rate', 'activation', 'use_bias', 'kernel_initializer', 'bias_initializer', 'kernel_regularizer', 'bias_regularizer', 'activity_regularizer', 'kernel_constraint', 'bias_constraint', 'trainable', 'name']","['convolution', 'convolution', 'dilation_rate', 'or', 'channels_last', 'dilation_rate', 'None', 'bias', 'convolution', 'None', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'true', 'layer']","[False, False, False, False, False, False, False, False, False, False, True, True, True, True, True, False, False]",tensor,1119
 tf.compat.v1.layers.conv2d,"['inputs', 'filters', 'kernel_size', 'strides', 'padding', 'data_format', 'dilation_rate', 'activation', 'use_bias', 'kernel_initializer', 'bias_initializer', 'kernel_regularizer', 'bias_regularizer', 'activity_regularizer', 'kernel_constraint', 'bias_constraint', 'trainable', 'name', 'reuse']","['input', 'convolution', 'convolution', 'dilation_rate', 'or', 'channels_last', 'dilation_rate', 'None', 'bias', 'convolution', 'None', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'true', 'layer', 'bool']","[False, False, False, False, False, False, False, False, False, False, False, True, True, True, True, True, False, False, False]",tensor,1082
 tf.compat.v1.layers.average_pooling1d,"['inputs', 'pool_size', 'strides', 'padding', 'data_format', 'name']","['tensor', 'int', 'int', 'method', 'channels_last', 'layer']","[False, False, False, False, False, False]",tensor,543
 tf.compat.v1.layers.average_pooling2d,"['inputs', 'pool_size', 'strides', 'padding', 'data_format', 'name']","['tensor', 'dimensions', 'dimensions', 'method', 'channels_last', 'layer']","[False, False, False, False, False, False]",tensor,589
 tf.compat.v1.layers.conv2d_transpose,"['inputs', 'filters', 'kernel_size', 'strides', 'padding', 'data_format', 'activation', 'use_bias', 'kernel_initializer', 'bias_initializer', 'kernel_regularizer', 'bias_regularizer', 'activity_regularizer', 'kernel_constraint', 'bias_constraint', 'trainable', 'name', 'reuse']","['tensor', 'convolution', 'dimensions', 'convolution', 'or', 'channels_last', 'none', 'bias', 'convolution', 'none', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'true', 'layer', 'bool']","[False, False, False, False, False, False, False, False, False, False, True, True, True, True, True, False, False, False]",tensor,982
 tf.compat.v1.layers.conv3d_transpose,"['inputs', 'filters', 'kernel_size', 'strides', 'padding', 'data_format', 'activation', 'use_bias', 'kernel_initializer', 'bias_initializer', 'kernel_regularizer', 'bias_regularizer', 'activity_regularizer', 'kernel_constraint', 'bias_constraint', 'trainable', 'name', 'reuse']","['tensor', 'convolution', 'dimensions', 'convolution', 'or', 'channels_last', 'None', 'bias', 'convolution', 'None', 'convolution', 'bias', 'function', 'optimizer', 'optimizer', 'true', 'layer', 'bool']","[False, False, False, False, False, False, False, False, False, False, True, True, True, True, True, False, False, False]",tensor,922
-tf.compat.v1.estimator.BaselineClassifier,['name'],['tensor'],[False],contains,3937
-tf.compat.v1.estimator.DNNEstimator,['name'],['tensor'],[False],contains,4278
-tf.compat.v1.estimator.BaselineRegressor,['name'],['tensor'],[False],contains,3886
 tf.compat.v1.estimator.regressor_parse_example_spec,"['feature_columns', 'label_key', 'label_dtype', 'label_default', 'label_dimension', 'weight_column']","['_featurecolumn', 'key', 'tf.dtype', 'tf.parse_example', 'tensor', 'tensor']","[False, False, False, False, False, False]",fixedlenfeature,919
-tf.compat.v1.estimator.LinearRegressor,['name'],['tensor'],[False],contains,4187
-tf.compat.v1.estimator.DNNClassifier,['name'],['tensor'],[False],contains,4238
-tf.compat.v1.estimator.DNNLinearCombinedRegressor,['name'],['tensor'],[False],contains,4260
-tf.compat.v1.estimator.Estimator,"['model_fn', 'model_dir', 'config', 'params', 'warm_start_from']","['features', 'pathlike', 'estimator.runconfig', 'dict', 'None']","[True, False, False, False, True]",contains,4554
-tf.compat.v1.estimator.DNNRegressor,['name'],['tensor'],[False],contains,4234
-tf.compat.v1.estimator.DNNLinearCombinedClassifier,['name'],['tensor'],[False],contains,4262
-tf.compat.v1.estimator.BaselineEstimator,['name'],['tensor'],[False],contains,3900
-tf.compat.v1.estimator.LinearEstimator,"['head', 'feature_columns', 'model_dir', 'optimizer', 'config', 'partitioner', 'sparse_combiner', 'warm_start_from']","['_head', 'featurecolumn', 'checkpoints', 'tf.optimizer', 'runconfig', 'input', 'tf.feature_column.linear_model', 'warmstartsettings']","[False, False, False, False, False, True, False, False]",contains,4467
 tf.compat.v1.estimator.classifier_parse_example_spec,"['feature_columns', 'label_key', 'label_dtype', 'label_default', 'weight_column']","['featurecolumn', 'key', 'tf.dtype', 'label_key', 'tensor']","[False, False, False, False, False]",fixedlenfeature,1013
-tf.compat.v1.estimator.LinearClassifier,['name'],['tensor'],[False],contains,4183
-tf.compat.v1.estimator.DNNLinearCombinedEstimator,['name'],['tensor'],[False],contains,4233
 tf.compat.v1.graph_util.extract_sub_graph,"['graph_def', 'dest_nodes']","['graph_pb2.graphdef', 'destination']","[False, False]",graphdef,165
 tf.compat.v1.graph_util.convert_variables_to_constants,"['sess', 'input_graph_def', 'output_node_names', 'variable_names_whitelist', 'variable_names_blacklist']","['session', 'graphdef', 'graph', 'default', 'constants']","[False, False, False, False, False]",graphdef,283
 tf.compat.v1.graph_util.remove_training_nodes,"['input_graph', 'protected_nodes']","['model', 'example']","[False, True]",list,233
@@ -3082,7 +2794,6 @@ tf.compat.v1.resource_loader.get_path_to_datafile,['path'],['path'],[False],attr
 tf.compat.v1.resource_loader.load_resource,['path'],['path'],[False],contents,95
 tf.compat.v1.resource_loader.get_data_files_path,[],[],[],attribute,66
 tf.compat.v1.resource_loader.get_root_dir_with_all_resources,[],[],[],attribute,87
-tf.compat.v1.initializers.identity,"['gain', 'dtype']","['factor', 'dtype']","[False, False]",initializer,259
 tf.compat.v1.initializers.he_uniform,['seed'],['generator'],[False],initializer,154
 tf.compat.v1.initializers.lecun_normal,['seed'],['generator'],[False],initializer,199
 tf.compat.v1.initializers.he_normal,['seed'],['generator'],[False],initializer,155
@@ -3106,7 +2817,6 @@ tf.compat.v1.flags.EnumClassSerializer,['lowercase'],['member'],[False],None,92
 tf.compat.v1.flags.validator,"['flag_name', 'message', 'flag_values']","['flag', 'checker', 'flags.flagvalues']","[False, False, True]",argument,201
 tf.compat.v1.flags.DEFINE_spaceseplist,"['name', 'default', 'help', 'comma_compat', 'flag_values', 'required', 'args']","['flag', 'default', 'help', 'backwards', 'flagvalues', 'argument', 'flag.__init__']","[False, False, False, False, False, False, False]",flag,236
 tf.compat.v1.flags.mark_bool_flags_as_mutual_exclusive,"['flag_names', 'required', 'flag_values']","['flagholder', 'bool', 'flags']","[False, False, True]",None,177
-tf.compat.v1.flags.WhitespaceSeparatedListParser,['comma_compat'],['backwards'],[False],flag,181
 tf.compat.v1.flags.EnumClassFlag,['argument'],['argument'],[False],None,349
 tf.compat.v1.flags.DEFINE_multi,"['parser', 'serializer', 'name', 'default', 'help', 'flag_values', 'module_name', 'required', 'args']","['argumentparser', 'argumentserializer', 'flag', 'None', 'help', 'flagvalues', 'call', 'argument', 'flag.__init__']","[False, False, False, False, False, False, False, False, False]",flag,345
 tf.compat.v1.flags.DEFINE_list,"['name', 'default', 'help', 'flag_values', 'required', 'args']","['flag', 'default', 'help', 'flagvalues', 'argument', 'flag.__init__']","[False, False, False, False, False, False]",flag,194
@@ -3116,19 +2826,16 @@ tf.compat.v1.flags.Flag,['argument'],['argument'],[False],None,862
 tf.compat.v1.flags.MultiFlag,['arguments'],['argument'],[False],None,374
 tf.compat.v1.flags.DEFINE_multi_enum,"['name', 'default', 'enum_values', 'help', 'flag_values', 'case_sensitive', 'required', 'args']","['flag', 'define_multi', 'flag', 'help', 'flagvalues', 'enum', 'argument', 'flag.__init__']","[False, False, False, False, False, False, False, False]",flag,281
 tf.compat.v1.flags.flag_dict_to_args,"['flag_map', 'multi_flags']","['none', 'flags']","[False, False]",None,296
-tf.compat.v1.flags.EnumClassParser,"['enum_class', 'case_sensitive']","['class', 'bool']","[False, False]",class,225
 tf.compat.v1.flags.DEFINE_integer,"['name', 'default', 'help', 'lower_bound', 'upper_bound', 'flag_values', 'required', 'args']","['flag', 'default', 'help', 'flag', 'flag', 'flagvalues', 'argument', 'define']","[False, False, False, False, False, False, False, False]",flag,223
 tf.compat.v1.flags.register_multi_flags_validator,"['flag_names', 'multi_flags_checker', 'message', 'flag_values']","['flag', 'bool', 'checker', 'flags.flagvalues']","[False, False, False, True]",None,290
 tf.compat.v1.flags.set_default,"['flag_holder', 'value']","['flag', 'default']","[False, False]",None,127
 tf.compat.v1.flags.mark_flag_as_required,"['flag_name', 'flag_values']","['flag', 'absl.flags.flagvalues']","[False, True]",None,230
 tf.compat.v1.flags.DEFINE_multi_string,"['name', 'default', 'help', 'flag_values', 'required', 'args']","['flag', 'define_multi', 'help', 'flagvalues', 'argument', 'flag.__init__']","[False, False, False, False, False, False]",flag,241
 tf.compat.v1.flags.DEFINE_flag,"['flag', 'flag_values', 'module_name', 'required']","['flag', 'flagvalues', 'call', 'argument']","[False, False, False, False]",flag,238
-tf.compat.v1.flags.FlagValues,['flag_values'],['flags'],[False],default,2550
 tf.compat.v1.flags.EnumFlag,['argument'],['argument'],[False],None,346
 tf.compat.v1.flags.DEFINE_multi_integer,"['name', 'default', 'help', 'lower_bound', 'upper_bound', 'flag_values', 'required', 'args']","['flag', 'define_multi', 'help', 'flag', 'flag', 'flagvalues', 'argument', 'flag.__init__']","[False, False, False, False, False, False, False, False]",flag,268
 tf.compat.v1.flags.declare_key_flag,"['flag_name', 'flag_values']","['flagholder', 'flagvalues']","[False, False]",None,255
 tf.compat.v1.flags.adopt_module_key_flags,"['module', 'flag_values']","['flags', 'flagvalues']","[False, False]",None,157
-tf.compat.v1.flags.EnumParser,"['enum_values', 'case_sensitive']","['enum', 'bool']","[False, False]",element,194
 tf.compat.v1.flags.DEFINE_float,"['name', 'default', 'help', 'lower_bound', 'upper_bound', 'flag_values', 'required', 'args']","['flag', 'default', 'help', 'float', 'float', 'flagvalues', 'argument', 'define']","[False, False, False, False, False, False, False, False]",flag,222
 tf.compat.v1.flags.DEFINE_multi_enum_class,"['name', 'default', 'enum_class', 'flag_values', 'module_name', 'case_sensitive', 'required', 'args']","['flag', 'define_multi', 'class', 'flagvalues', 'call', 'bool', 'argument', 'flag.__init__']","[False, False, False, False, False, False, False, False]",flag,342
 tf.compat.v1.flags.DEFINE_enum_class,"['name', 'default', 'enum_class', 'help', 'flag_values', 'module_name', 'case_sensitive', 'required', 'args']","['flag', 'default', 'class', 'help', 'flagvalues', 'call', 'bool', 'argument', 'flag.__init__']","[False, False, False, False, False, False, False, False, False]",flag,258
@@ -3138,21 +2845,16 @@ tf.compat.v1.flags.text_wrap,"['text', 'length', 'indent', 'firstline_indent']",
 tf.compat.v1.flags.DEFINE_alias,"['name', 'original_name', 'flag_values', 'module_name']","['flag', 'flag', 'flagvalues', 'flag']","[False, False, False, False]",flag,184
 tf.compat.v1.flags.DEFINE_multi_float,"['name', 'default', 'help', 'lower_bound', 'upper_bound', 'flag_values', 'required', 'args']","['flag', 'define_multi', 'help', 'float', 'float', 'flagvalues', 'argument', 'flag.__init__']","[False, False, False, False, False, False, False, False]",flag,268
 tf.compat.v1.train.start_queue_runners,"['sess', 'coord', 'daemon', 'start', 'collection']","['session', 'coordinator', 'daemons', 'false', 'graphkey']","[False, True, False, False, False]",list,441
-tf.compat.v1.train.AdagradOptimizer,"['learning_rate', 'initial_accumulator_value', 'use_locking', 'name']","['tensor', 'accumulators', 'true', 'adagrad']","[False, False, False, True]",operation,2359
-tf.compat.v1.train.SessionManager,"['local_init_op', 'ready_op', 'ready_for_local_init_op', 'graph', 'recovery_wait_secs', 'local_init_run_options', 'local_init_feed_dict']","['operation', 'operation', 'operation', 'graph', 'checks', 'local_init_op', 'local_init_op']","[False, False, False, False, False, False, True]",session,1412
 tf.compat.v1.train.piecewise_constant,"['x', 'boundaries', 'values', 'name']","['tensor', 'tensor', 'tensor', 'defaults']","[False, False, False, True]",when,493
 tf.compat.v1.train.noisy_linear_cosine_decay,"['learning_rate', 'global_step', 'decay_steps', 'initial_variance', 'variance_decay', 'num_periods', 'alpha', 'beta', 'name']","['float32', 'int32', 'int32', 'computation', 'computation', 'computation', 'computation', 'computation', 'defaults']","[False, False, False, False, False, False, False, False, True]",tensor,615
-tf.compat.v1.train.GradientDescentOptimizer,"['learning_rate', 'use_locking', 'name']","['point', 'locks', 'defaults']","[False, False, True]",operation,1534
 tf.compat.v1.train.warm_start,"['ckpt_to_initialize_from', 'vars_to_warm_start', 'var_name_to_vocab_info', 'var_name_to_prev_var_name']","['a', 'variable', 'changes', 'ckpt_to_initialize_from']","[False, True, True, True]",None,504
 tf.compat.v1.train.sdca_fprint,"['input', 'name']","['tensor', 'name']","[False, True]",tensor,105
 tf.compat.v1.train.get_or_create_global_step,['graph'],['tensor'],[False],tensor,660
 tf.compat.v1.train.batch_join,"['tensors_list', 'batch_size', 'capacity', 'enqueue_many', 'shapes', 'dynamic_pad', 'allow_smaller_final_batch', 'shared_name', 'name']","['tensor', 'batch', 'elements', 'tensor', 'defaults', 'tensor', 'true', 'name', 'a']","[False, False, False, False, True, False, True, True, True]",tensor,959
 tf.compat.v1.train.shuffle_batch,"['tensors', 'batch_size', 'capacity', 'min_after_dequeue', 'num_threads', 'seed', 'enqueue_many', 'shapes', 'allow_smaller_final_batch', 'shared_name', 'name']","['tensor', 'batch', 'elements', 'dequeue', 'tensor', 'queue', 'tensor', 'tensor', 'true', 'name', 'a']","[False, False, False, False, False, False, False, True, True, True, True]",tensor,792
-tf.compat.v1.train.RMSPropOptimizer,"['learning_rate', 'decay', 'momentum', 'epsilon', 'use_locking', 'centered', 'name']","['learning', 'factor', 'tensor', 'denominator', 'locks', 'computation', 'defaults']","[False, False, False, False, False, False, True]",operation,2407
 tf.compat.v1.train.sdca_shrink_l1,"['weights', 'l1', 'l2', 'name']","['tensor', 'float', 'float', 'name']","[False, False, False, True]",operation,148
 tf.compat.v1.train.NewCheckpointReader,['filepattern'],['filename'],[False],checkpointreader,51
 tf.compat.v1.train.limit_epochs,"['tensor', 'num_epochs', 'name']","['tensor', 'tensor', 'name']","[False, True, True]",tensor,191
-tf.compat.v1.train.AdagradDAOptimizer,"['learning_rate', 'global_step', 'initial_gradient_squared_accumulator_value', 'l1_regularization_strength', 'l2_regularization_strength', 'use_locking', 'name']","['tensor', 'tensor', 'accumulators', 'float', 'float', 'true', 'adagradda']","[False, False, False, False, False, False, True]",operation,1784
 tf.compat.v1.train.export_meta_graph,"['filename', 'meta_info_def', 'graph_def', 'saver_def', 'collection_list', 'as_text', 'graph', 'export_scope', 'clear_devices', 'clear_extraneous_savers', 'strip_default_attrs', 'save_debug_info', 'kwargs']","['metagraphdef', 'metainfodef', 'graphdef', 'saverdef', 'keys', 'true', 'graph', 'string', 'operation', 'graph', 'true', 'true', 'arguments']","[True, False, False, False, False, False, False, True, False, False, False, False, True]",metagraphdef,506
 tf.compat.v1.train.cosine_decay,"['learning_rate', 'global_step', 'decay_steps', 'alpha', 'name']","['float32', 'int32', 'int32', 'float32', 'defaults']","[False, False, False, False, True]",tensor,440
 tf.compat.v1.train.cosine_decay_restarts,"['learning_rate', 'global_step', 'first_decay_steps', 't_mul', 'm_mul', 'alpha', 'name']","['float32', 'int32', 'int32', 'float32', 'float32', 'float32', 'defaults']","[False, False, False, False, False, False, True]",tensor,526
@@ -3162,48 +2864,33 @@ tf.compat.v1.train.polynomial_decay,"['learning_rate', 'global_step', 'decay_ste
 tf.compat.v1.train.maybe_batch,"['tensors', 'keep_input', 'batch_size', 'num_threads', 'capacity', 'enqueue_many', 'shapes', 'dynamic_pad', 'allow_smaller_final_batch', 'shared_name', 'name']","['tensor', 'tensor', 'batch', 'tensor', 'elements', 'tensor', 'tensor', 'tensor', 'true', 'name', 'a']","[False, False, False, False, False, False, True, False, True, True, True]",tensor,485
 tf.compat.v1.train.generate_checkpoint_state_proto,"['save_dir', 'model_checkpoint_path', 'all_model_checkpoint_paths', 'all_model_checkpoint_timestamps', 'last_preserved_timestamp']","['directory', 'checkpoint', 'checkpoints', 'checkpoint', 'keep_checkpoint_every_n_hours']","[False, False, False, False, False]",all_model_checkpoint_paths,227
 tf.compat.v1.train.checkpoint_exists,['checkpoint_prefix'],['checkpoint'],[False],checkpoint_prefix,183
-tf.compat.v1.train.AdamOptimizer,"['learning_rate', 'beta1', 'beta2', 'epsilon', 'use_locking', 'name']","['learning', 'tensor', 'tensor', 'algorithm', 'locks', 'adam']","[False, False, False, False, False, True]",operation,2384
 tf.compat.v1.train.init_from_checkpoint,"['ckpt_dir_or_file', 'assignment_map']","['checkpoints', 'checkpoint']","[False, False]",None,1191
 tf.compat.v1.train.get_checkpoint_mtimes,['checkpoint_prefixes'],['checkpoint'],[False],checkpoints,229
 tf.compat.v1.train.MonitoredTrainingSession,"['master', 'is_chief', 'checkpoint_dir', 'scaffold', 'hooks', 'chief_only_hooks', 'save_checkpoint_secs', 'save_summaries_steps', 'save_summaries_secs', 'config', 'stop_grace_period_secs', 'log_step_count_steps', 'max_wait_secs', 'save_checkpoint_steps', 'summary_dir', 'save_graph_def']","['string', 'true', 'directory', 'scaffold', 'sessionrunhook', 'sessionrunhook', 'save_checkpoint_steps', 'save_summaries_steps', 'save_summaries_steps', 'config', 'number', 'frequency', 'chief', 'save_checkpoint_steps', 'None', 'checkpoint_dir']","[False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False]",monitoredsession,942
 tf.compat.v1.train.basic_train_loop,"['supervisor', 'train_step_fn', 'args', 'kwargs', 'master']","['services', 'kwargs', 'train_step_fn', 'train_step_fn', '']","[False, False, True, True, False]",None,210
-tf.compat.v1.train.Checkpoint,['kwargs'],['arguments'],[False],initialize_or_restore,2277
 tf.compat.v1.train.natural_exp_decay,"['learning_rate', 'global_step', 'decay_steps', 'decay_rate', 'staircase', 'name']","['float32', 'computation', 'decay', 'decay', 'decay', 'defaults']","[False, False, False, False, False, True]",tensor,459
 tf.compat.v1.train.shuffle_batch_join,"['tensors_list', 'batch_size', 'capacity', 'min_after_dequeue', 'seed', 'enqueue_many', 'shapes', 'allow_smaller_final_batch', 'shared_name', 'name']","['tensor', 'batch', 'elements', 'dequeue', 'queue', 'tensor', 'defaults', 'true', 'name', 'a']","[False, False, False, False, False, False, True, True, True, True]",tensor,813
-tf.compat.v1.train.FtrlOptimizer,"['learning_rate', 'learning_rate_power', 'initial_accumulator_value', 'l1_regularization_strength', 'l2_regularization_strength', 'use_locking', 'name', 'accum_name', 'linear_name', 'l2_shrinkage_regularization_strength', 'beta']","['tensor', 'float', 'accumulators', 'float', 'float', 'true', 'defaults', 'accumulator', 'accumulator', 'float', 'float']","[False, False, False, False, False, False, True, False, False, False, False]",operation,2071
-tf.compat.v1.train.SyncReplicasOptimizer,"['opt', 'replicas_to_aggregate', 'total_num_replicas', 'variable_averages', 'variables_to_average', 'use_locking', 'name']","['classes', 'number', 'batches', 'exponentialmovingaverage', 'list', 'locks', 'name']","[False, False, False, True, False, False, True]",train_op,2081
 tf.compat.v1.train.ChiefSessionCreator,"['scaffold', 'master', 'config', 'checkpoint_dir', 'checkpoint_filename_with_path']","['scaffold', 'string', 'configproto', 'directory', 'checkpoint']","[False, False, False, True, False]",None,170
-tf.compat.v1.train.QueueRunner,"['queue', 'enqueue_ops', 'close_op', 'cancel_op', 'queue_closed_exception_types', 'queue_runner_def', 'import_scope']","['queue', 'list', 'op', 'cancel', 'case', 'queuerunnerdef', 'string']","[False, False, False, False, True, True, True]",list,963
-tf.compat.v1.train.ProximalGradientDescentOptimizer,"['learning_rate', 'l1_regularization_strength', 'l2_regularization_strength', 'use_locking', 'name']","['point', 'float', 'float', 'locks', 'defaults']","[False, False, False, False, True]",operation,1658
-tf.compat.v1.train.MomentumOptimizer,"['learning_rate', 'momentum', 'use_locking', 'name', 'use_nesterov']","['tensor', 'tensor', 'true', 'defaults', 'true']","[False, False, False, True, False]",operation,2424
 tf.compat.v1.train.update_checkpoint_state,"['save_dir', 'model_checkpoint_path', 'all_model_checkpoint_paths', 'latest_filename', 'all_model_checkpoint_timestamps', 'last_preserved_timestamp']","['directory', 'checkpoint', 'checkpoints', 'checkpoint', 'all_model_checkpoint_paths', 'keep_checkpoint_every_n_hours']","[False, False, False, True, True, False]",None,290
 tf.compat.v1.train.add_queue_runner,"['qr', 'collection']","['queuerunner', 'graphkey']","[False, False]",None,324
 tf.compat.v1.train.exponential_decay,"['learning_rate', 'global_step', 'decay_steps', 'decay_rate', 'staircase', 'name']","['float32', 'int32', 'int32', 'float32', 'true', 'defaults']","[False, False, False, False, False, True]",tensor,496
-tf.compat.v1.train.MonitoredSession,"['session_creator', 'hooks']","['chiefsessioncreator', 'iterable']","[False, False]",monitoredsession,1182
 tf.compat.v1.train.maybe_shuffle_batch_join,"['tensors_list', 'batch_size', 'capacity', 'min_after_dequeue', 'keep_input', 'seed', 'enqueue_many', 'shapes', 'allow_smaller_final_batch', 'shared_name', 'name']","['tensor', 'batch', 'elements', 'dequeue', 'tensor', 'queue', 'tensor', 'defaults', 'true', 'name', 'a']","[False, False, False, False, False, False, False, True, True, True, True]",tensor,506
 tf.compat.v1.train.get_global_step,['graph'],['default'],[False],none,753
-tf.compat.v1.train.LooperThread,"['coord', 'timer_interval_secs', 'target', 'args', 'kwargs']","['coordinator', 'None', 'object', 'target', 'target']","[False, False, True, True, True]",thread,1090
 tf.compat.v1.train.sdca_optimizer,"['sparse_example_indices', 'sparse_feature_indices', 'sparse_feature_values', 'dense_features', 'example_weights', 'example_labels', 'sparse_indices', 'sparse_weights', 'dense_weights', 'example_state_data', 'loss_type', 'l1', 'l2', 'num_loss_partitions', 'num_inner_iterations', 'adaptative', 'name']","['tensor', 'sparse_example_indices', 'tensor', 'tensor', 'tensor', 'tensor', 'sparse_example_indices', 'sparse_example_indices', 'dense_features', 'tensor', 'string', 'float', 'float', 'int', 'int', 'bool', 'name']","[False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, True]",tensor,919
 tf.compat.v1.train.inverse_time_decay,"['learning_rate', 'global_step', 'decay_steps', 'decay_rate', 'staircase', 'name']","['float32', 'computation', 'decay', 'decay', 'decay', 'defaults']","[False, False, False, False, False, True]",tensor,463
 tf.compat.v1.train.create_global_step,['graph'],['tensor'],[False],tensor,661
 tf.compat.v1.train.remove_checkpoint,"['checkpoint_prefix', 'checkpoint_format_version', 'meta_graph_suffix']","['checkpoint', 'saverdef.checkpointformatversion', 'metagraphdef']","[False, False, False]",None,170
 tf.compat.v1.train.slice_input_producer,"['tensor_list', 'num_epochs', 'shuffle', 'seed', 'capacity', 'shared_name', 'name']","['tensor', 'slice_input_producer', 'bool', 'int', 'capacity', 'name', 'name']","[False, True, False, True, False, True, True]",tensor,446
-tf.compat.v1.train.Optimizer,"['use_locking', 'name']","['bool', 'accumulators']","[False, False]",operation,2913
 tf.compat.v1.train.import_meta_graph,"['meta_graph_or_file', 'clear_devices', 'import_scope', 'kwargs']","['metagraphdef', 'operation', 'string', 'arguments']","[False, False, True, True]",saver_def,878
-tf.compat.v1.train.AdadeltaOptimizer,"['learning_rate', 'rho', 'epsilon', 'use_locking', 'name']","['tensor', 'tensor', 'tensor', 'true', 'adadelta']","[False, False, False, False, True]",operation,2361
 tf.compat.v1.train.assert_global_step,['global_step_tensor'],['tensor'],[False],None,55
 tf.compat.v1.train.linear_cosine_decay,"['learning_rate', 'global_step', 'decay_steps', 'num_periods', 'alpha', 'beta', 'name']","['float32', 'int32', 'int32', 'computation', 'computation', 'computation', 'defaults']","[False, False, False, False, False, False, True]",tensor,550
 tf.compat.v1.train.range_input_producer,"['limit', 'num_epochs', 'shuffle', 'seed', 'capacity', 'shared_name', 'name']","['tensor', 'range_input_producer', 'bool', 'int', 'capacity', 'name', 'name']","[False, True, False, True, False, True, True]",queuerunner,370
 tf.compat.v1.train.maybe_shuffle_batch,"['tensors', 'batch_size', 'capacity', 'min_after_dequeue', 'keep_input', 'num_threads', 'seed', 'enqueue_many', 'shapes', 'allow_smaller_final_batch', 'shared_name', 'name']","['tensor', 'batch', 'elements', 'dequeue', 'tensor', 'tensor', 'queue', 'tensor', 'tensor', 'true', 'name', 'a']","[False, False, False, False, False, False, False, False, True, True, True, True]",tensor,500
-tf.compat.v1.train.Saver,"['var_list', 'reshape', 'sharded', 'max_to_keep', 'keep_checkpoint_every_n_hours', 'name', 'restore_sequentially', 'saver_def', 'builder', 'defer_build', 'allow_empty', 'write_version', 'pad_step_number', 'save_relative_paths', 'filename']","['variable', 'true', 'true', 'checkpoints', 'checkpoints', 'name', 'bool', 'saverdef', 'saverbuilder', 'true', 'false', 'checkpoints', 'checkpoint', 'true', 'construction']","[False, False, False, False, False, True, False, True, True, False, False, False, False, False, False]",saverdef,3013
 tf.compat.v1.train.do_quantize_training_on_graphdef,"['input_graph', 'num_bits']","['graphdef', 'bits']","[False, False]",graph,145
 tf.compat.v1.train.string_input_producer,"['string_tensor', 'num_epochs', 'shuffle', 'seed', 'capacity', 'shared_name', 'name', 'cancel_op']","['tensor', 'tensor', 'bool', 'int', 'capacity', 'access', 'name', 'cancel']","[False, True, False, True, False, True, True, True]",queuerunner,498
-tf.compat.v1.train.Supervisor,"['graph', 'ready_op', 'ready_for_local_init_op', 'is_chief', 'init_op', 'init_feed_dict', 'local_init_op', 'logdir', 'summary_op', 'saver', 'global_step', 'save_summaries_secs', 'save_model_secs', 'recovery_wait_secs', 'stop_grace_secs', 'checkpoint_basename', 'session_manager', 'summary_writer', 'init_fn', 'local_init_run_options']","['graph', 'tensor', 'tensor', 'charge', 'operation', 'tensor', 'operation', 'directory', 'operation', 'logdir', 'none', 'computation', 'checkpoints', 'checks', 'defaults', 'basename', 'sessionmanager', 'summarywriter', 'init_op', 'local_init_run_options']","[False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, True, False]",thread,4905
 tf.compat.v1.train.global_step,"['sess', 'global_step_tensor']","['session', 'tensor']","[False, False]",step,171
-tf.compat.v1.train.ProximalAdagradOptimizer,"['learning_rate', 'initial_accumulator_value', 'l1_regularization_strength', 'l2_regularization_strength', 'use_locking', 'name']","['tensor', 'accumulators', 'float', 'float', 'true', 'adagrad']","[False, False, False, False, False, True]",operation,1755
 tf.compat.v1.train.maybe_batch_join,"['tensors_list', 'keep_input', 'batch_size', 'capacity', 'enqueue_many', 'shapes', 'dynamic_pad', 'allow_smaller_final_batch', 'shared_name', 'name']","['tensor', 'tensor', 'batch', 'elements', 'tensor', 'defaults', 'tensor', 'true', 'name', 'a']","[False, False, False, False, False, True, False, True, True, True]",tensor,486
 tf.compat.v1.train.input_producer,"['input_tensor', 'element_shape', 'num_epochs', 'shuffle', 'seed', 'capacity', 'shared_name', 'summary_name', 'name', 'cancel_op']","['tensor', 'tensor', 'tensor', 'bool', 'shuffle', 'capacity', 'name', 'name', 'name', 'cancel']","[False, True, True, True, True, True, True, True, True, True]",queuerunner,549
-tf.compat.v1.train.SingularMonitoredSession,"['hooks', 'scaffold', 'master', 'config', 'checkpoint_dir', 'stop_grace_period_secs', 'checkpoint_filename_with_path']","['iterable', 'scaffold', 'string', 'configproto', 'directory', 'number', 'checkpoint']","[False, False, False, False, True, False, True]",same,1243
 tf.compat.v1.train.WorkerSessionCreator,"['scaffold', 'master', 'config', 'max_wait_secs']","['scaffold', 'string', 'configproto', 'session']","[False, False, False, False]",None,156
 tf.compat.v1.train.summary_iterator,['path'],['summarywriter'],[False],event,359
 tf.compat.v1.train.batch,"['tensors', 'batch_size', 'num_threads', 'capacity', 'enqueue_many', 'shapes', 'dynamic_pad', 'allow_smaller_final_batch', 'shared_name', 'name']","['tensor', 'batch', 'tensor', 'elements', 'tensor', 'tensor', 'tensor', 'true', 'name', 'a']","[False, False, False, False, False, True, False, True, True, True]",tensor,881
@@ -3211,18 +2898,10 @@ tf.compat.v1.train.MonitoredSession.StepContext,"['session', 'run_with_hooks_fn'
 tf.train.CheckpointOptions,"['experimental_io_device', 'experimental_enable_async_checkpoint', 'experimental_write_callbacks', 'enable_async']","['none', 'bool', 'or', 'async']","[False, False, False, False]",None,513
 tf.train.load_variable,"['ckpt_dir_or_file', 'name']","['checkpoints', 'name']","[False, False]",ndarray,221
 tf.train.load_checkpoint,['ckpt_dir_or_file'],['checkpoints'],[False],checkpointreader,207
-tf.train.ExponentialMovingAverage,"['decay', 'num_updates', 'zero_debias', 'name']","['tensor', 'count', 'tensor', 'name']","[False, True, False, True]",averages,1916
-tf.train.Checkpoint,"['root', 'kwargs']","['root', 'kwargs']","[False, False]",restore,2739
-tf.train.ClusterSpec,['cluster'],['addresses'],[False],dictionaries,908
-tf.train.CheckpointView,['save_path'],['checkpoint'],[False],children,1390
-tf.train.TrackableView,['root'],['trackable'],[False],children,399
-tf.train.Coordinator,['clean_stop_exception_types'],['stopiteration'],[True],stop,1402
-tf.train.CheckpointManager,"['checkpoint', 'directory', 'max_to_keep', 'keep_checkpoint_every_n_hours', 'checkpoint_name', 'step_counter', 'checkpoint_interval', 'init_fn']","['checkpoints', 'checkpointmanager', 'keep_checkpoint_every_n_hours', 'keep_checkpoint_every_n_hours', 'checkpoint', 'case', 'checkpoints', 'checkpoints']","[False, False, False, False, False, False, False, False]",None,965
 tf.train.list_variables,['ckpt_dir_or_file'],['checkpoints'],[False],key,167
 tf.train.get_checkpoint_state,"['checkpoint_dir', 'latest_filename']","['checkpoints', 'checkpoint']","[False, True]",None,132
 tf.train.latest_checkpoint,"['checkpoint_dir', 'latest_filename']","['directory', 'argument']","[False, True]",none,182
 tf.train.checkpoints_iterator,"['checkpoint_dir', 'min_interval_secs', 'timeout', 'timeout_fn']","['checkpoints', 'checkpoints', 'none', 'arguments']","[False, False, False, True]",None,386
-tf.autodiff.ForwardAccumulator,"['primals', 'tangents']","['tensor', 'tensor']","[False, False]",primals,1505
 tf.bitwise.bitwise_or,"['x', 'y', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,365
 tf.bitwise.left_shift,"['x', 'y', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,479
 tf.bitwise.right_shift,"['x', 'y', 'name']","['tensor', 'tensor', 'name']","[False, False, True]",tensor,499
