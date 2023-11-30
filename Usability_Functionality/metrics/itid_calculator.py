@@ -4,7 +4,7 @@ from nltk.corpus import words
 from nltk.stem import WordNetLemmatizer
 from collections import namedtuple
 from typing import Set, List, Dict
-from utils import *
+from .utils import *
 import argparse
 import math
 from glob import glob
