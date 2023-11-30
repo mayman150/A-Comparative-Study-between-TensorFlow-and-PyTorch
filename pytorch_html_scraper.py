@@ -14,7 +14,7 @@ def validate_name(string: str):
     if not isinstance(string, str):
         return string
 
-    pattern = r"^[^a-zA-Z_\[\]]+|[^a-zA-Z_0-9\[\]]+"
+    pattern = r"^[^a-zA-Z_\[\]]+|[^a-zA-Z_0-9\[\].]+"
 
     return re.sub(pattern, "", string.strip())
 
@@ -48,6 +48,7 @@ def parse_type(raw_return_type: str):
     # match pattern for [] (e.g. "List[Tensor]")
     # in this case only the outer type is returned
     raw_return_first_type = raw_return_type.split('[')
+
     if len(raw_return_first_type) > 1:
         return validate_name(raw_return_first_type[0])
     
@@ -57,7 +58,7 @@ def parse_type(raw_return_type: str):
         return "Tensor"
 
     # check if it is "or" delimited. If so, return the first type
-    or_delimited = raw_return_type.split("or")
+    or_delimited = raw_return_type.split(" or ")
     if len(or_delimited) > 1:
         return validate_name(or_delimited[0])
 
@@ -70,6 +71,61 @@ def parse_type(raw_return_type: str):
     return validate_name(raw_return_type)
 
 
+def extract_param_from_bracket_helper(param_and_types: str, param_types: list):
+    ''' Extract the list of types in a comma separated bracket. Example: args (type1, type2 or type3) '''
+    raw_parameter_type = param_and_types[param_and_types.find("(")+1:param_and_types.find(")")]
+    raw_types = raw_parameter_type.split(',')
+    is_optional = False
+    for t in raw_types:
+        t = t.strip()
+        if t.startswith("or"):
+            t = t.lstrip("or")
+            t = t.strip()
+        if t.lower() == "optional":
+            is_optional = True
+        else:
+            ptype = parse_type(t)
+            param_types.append(ptype)
+    
+    return is_optional
+
+
+def extract_from_function_description(function_description_html: bs4.element.Tag):
+    ''' Extract parameter from a function description like this: Tensor.masked_fill(mask, value)'''
+    params = function_description_html.find_all("em", {"class": "sig-param"})
+    param_names = list()
+    param_types = list()
+    optional_list = list()
+
+    is_optional = False
+    for p in params:
+        if not hasattr(p, "text"):
+            continue
+
+        p_name = validate_name(str(p.text).strip())
+
+        param_type = 'object'
+        if '=' in p_name:
+            is_optional = True
+            p_name = p_name.split('=')[0].strip()
+
+            default_value = p_name.split('=')[1].strip()
+
+            if default_value in ("true", "false"):
+                param_type = bool
+            elif "tensor" in p_name:
+                param_type = "Tensor"
+            elif default_value.startswith('\'') or default_value.startswith('"'):
+                param_type = "string"
+
+        param_names.append(p_name)
+        param_types.append(param_type)
+        optional_list.append(is_optional)
+    
+    assert len(param_names) == len(param_types) == len(optional_list)
+    return param_names, param_types, optional_list
+
+
 def extract_parameters(parameters_html: bs4.element.Tag):
     ''' Extract the list of parameters for a function '''
     list_tags = parameters_html.find_all("li")
@@ -80,12 +136,12 @@ def extract_parameters(parameters_html: bs4.element.Tag):
     param_names = list()
     param_list_of_types = list()
     optional_list = list()
+
     for list_tag in list_tags:
         if not hasattr(list_tag, "text"):
             continue
 
         param_description = str(list_tag.text).strip()
-        
         is_optional = False
         param_types = list()
         try:
@@ -109,22 +165,16 @@ def extract_parameters(parameters_html: bs4.element.Tag):
             param_name = validate_name(param_and_types.split()[0])
 
             # find substring within bracket
-            raw_parameter_type = param_and_types[param_and_types.find("(")+1:param_and_types.find(")")]
-            raw_types = raw_parameter_type.split(',')
-            for t in raw_types:
-                t = t.strip()
-                if t.startswith("or"):
-                    t = t.lstrip("or")
-                    t = t.strip()
-                if t.lower() == "optional":
-                    is_optional = True
-                else:
-                    param_types.append(parse_type(t))
+            # if not, skip
+            if '(' in param_and_types and ')' in param_and_types:
+                is_optional = extract_param_from_bracket_helper(param_and_types, param_types)
+            else:
+                continue
 
-        param_names.append(param_names)
-        param_list_of_types.append(param_types)
+        param_names.append(param_name)
+        param_list_of_types.append(param_types.pop()) # only care about the first type detected
         optional_list.append(is_optional)
-
+    
     return param_names, param_list_of_types, optional_list
 
 
@@ -138,6 +188,8 @@ def try_find_function(section: bs4.element.Tag):
         return None, list(), None
 
     details_paragraph = section.find("dl")
+    function_description_html = section.find("dt")
+
     parameters_html = find_subsection_tag_by_text(details_paragraph, "Parameters")
     keyword_html = find_subsection_tag_by_text(details_paragraph, "Keyword Arguments")
     return_type_html = find_subsection_tag_by_text(details_paragraph, "Return type")
@@ -147,6 +199,21 @@ def try_find_function(section: bs4.element.Tag):
         param_names, param_list_of_types, optional_list = extract_parameters(parameters_html)
     else:
         param_names, param_list_of_types, optional_list = list(), list(), list()
+
+    # try to extract from function description if failed from parameters tag
+    if len(param_names) == 0 and isinstance(function_description_html, bs4.element.Tag):
+        param_names_2, param_list_of_types2, optional_list_2 = extract_from_function_description(function_description_html)
+
+        # merge with existing list
+        for p in param_names_2:
+            if p in param_names:
+                param_list_of_types2.pop()
+                optional_list_2.pop()
+                continue
+
+            param_names.append(p)
+            param_list_of_types.append(param_list_of_types2.pop())
+            optional_list.append(optional_list_2.pop())
 
     # find list of keyword arguments and its type
     # merge it with parameter list
