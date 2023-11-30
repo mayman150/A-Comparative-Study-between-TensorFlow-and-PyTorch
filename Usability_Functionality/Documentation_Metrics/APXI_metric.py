@@ -26,7 +26,7 @@ def MeasureGoodness(df):
     parameters = df.apply(lambda x: literal_eval(x['param_names']), axis=1)
     C_L = 0.0
     
-    N_d = 5 #Max Number of parameters in a method
+    N_d = 4 #Max Number of parameters in a method
 
     for i in range(len(parameters)):               
         C_L += g(N_d, len(parameters[i]))

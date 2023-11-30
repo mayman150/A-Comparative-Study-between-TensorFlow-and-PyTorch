@@ -84,11 +84,8 @@ def compute_average_AMGI(method_names):
     for i in range(len(method_names)):
         temp = method_names[i].strip('.')
         temp = temp.split('.')
-        #replace and '_' with ''
-        temp[-1] = temp[-1].replace('_','')
         try:
-            temp[-2] = temp[-2].replace('_','')
-            all = temp[-2] + temp[-1]
+            all = temp[-2] +'.'+temp[-1]
         except:
             all = temp[-1]
         api_keywords.append(all)
@@ -97,7 +94,6 @@ def compute_average_AMGI(method_names):
         run_lengths = compute_run_lengths(keyword, api_keywords)
         if(len(run_lengths) > 1):
             res +=1
-            # import pdb; pdb.set_trace()
         total_matching_methods = compute_total_matching_methods(run_lengths)
         AMGI_sj = compute_AMGI(keyword, run_lengths, total_matching_methods)
         total_AMGI += AMGI_sj

@@ -10,8 +10,8 @@ import pandas as pd
 
 def clean_and_convert_to_uppercase(input_string):
     # Remove underscores
-    cleaned_string = input_string.replace('_', '')
-
+    cleaned_string = input_string.replace('_', ' ')
+    # cleaned_string = input_string
     # Remove numerical suffix
     if cleaned_string[-1].isdigit():
         # Find the index of the last non-digit character
@@ -31,11 +31,26 @@ def AMNCI(df):
 
     # Get the set of all method names
     method_names = df['function_name'].tolist()
+    #just strip the method names and take the final two words
+    #Two strips not one because some methods have two words in the end
+    new_method_names = []
+    for method_name in method_names:
+        if len(method_name.strip('.')) > 2:
+            split_names = method_name.strip('.').split('.')
+            new_method_names.append(' '.join(split_names[-2:]))
+        else:
+            new_method_names.append(method_name.lower())
+    method_names = new_method_names
+    
     method_names = [clean_and_convert_to_uppercase(method_name) for method_name in method_names]
+
+    
     #GET CF
     C = 0
     for i in range(len(method_names)):
-        for j in range(i+1, len(method_names)):
+        for j in range(0, len(method_names)):
+            if i == j:
+                continue
             m1 = method_names[i]
             m2 = method_names[j]
             if m1 == m2:

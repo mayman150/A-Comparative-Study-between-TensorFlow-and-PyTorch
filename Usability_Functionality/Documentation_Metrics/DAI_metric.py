@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 
-def ADI_per_method(length_documentation_words, thershold=50):
+def ADI_per_method(length_documentation_words, thershold=1000):
     
     if(length_documentation_words > thershold):
         return 1
