@@ -9,3 +9,6 @@
 * Done Most of Scraping
 * Reporting Results
 * Start Writing for the Report: because it will take from us a lot of time to produce a good one.
+
+## Note
+Keras package is removed manually
