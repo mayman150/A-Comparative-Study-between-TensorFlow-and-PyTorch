@@ -2,7 +2,7 @@ import ast
 from itertools import combinations
 import argparse
 from pathlib import Path
-from .utils import *
+from utils import *
 import os
 from glob import glob
 
