@@ -1,24 +1,32 @@
 from github import Github
 from datetime import datetime, timedelta
 from utils import get_issues, write_issues_to_csv
-
+from decouple import config
+import argparse
 
 
 def __main__():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("-p", "--pytorch", action="store_true", help="Scrape for pytorch.")
+    parser.add_argument("-t", "--tensorflow", action="store_true", help="Scrape for tensorflow.")
+    parser.add_argument("-f", "--file_suffix", help="suffix of the file. Will append 'PyTorch_ / Tensorflow_' in front for corresponding file. Will always be in the same directory", default="_issues.csv")
+    args = parser.parse_args()
+
     # authenticate with the token
-    ACCESS_TOKEN = "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"
-    g = Github(ACCESS_TOKEN)
-    # set the date two years ago
+    g = Github(config("ACCESS_TOKEN", cast=str))
 
     #Pytorch
-    issues = get_issues(g, 'pytorch/pytorch', state='all')
-    # write issues to a CSV file
-    write_issues_to_csv(g, issues, 'PyTorch_issues_final2.csv', ['Issue Number', 'Issue Title',  'Time created', 'Time closed', 'Number of Assignees', 'Number of Comments', 'Tags'])
+    if args.pytorch:
+        issues = get_issues(g, 'pytorch/pytorch', state='open')
+        # write issues to a CSV file
+        write_issues_to_csv(g, issues, 'PyTorch_' + args.file_suffix, ['Issue Number', 'Issue Title',  'Time created', 'Time closed', 'Number of Assignees', 'Number of Comments', 'Tags'])
 
     #Tensorflow
-    issues = get_issues(g, 'tensorflow/tensorflow', state='all')
-    # write issues to a CSV file
-    write_issues_to_csv(g,issues, 'Tensorflow_issues_final2.csv', ['Issue Number', 'Issue Title',  'Time created','Time closed' ,  'Number of Assignees', 'Number of Comments', 'Tags'])
+    if args.tensorflow:
+        issues = get_issues(g, 'tensorflow/tensorflow', state='open')
+        # write issues to a CSV file
+        write_issues_to_csv(g,issues, 'Tensorflow_' + args.file_suffix, ['Issue Number', 'Issue Title',  'Time created','Time closed' ,  'Number of Assignees', 'Number of Comments', 'Tags'])
 
 
 if __name__ == "__main__":
