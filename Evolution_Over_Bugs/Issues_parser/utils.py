@@ -5,7 +5,7 @@ from github.GithubException import GithubException
 import time
 import calendar
 import logging
-
+from pprint import pprint
 
 
 def writing_in_file(issues, file_name):
@@ -104,7 +104,7 @@ def write_issues_to_csv(g, issues, filename, fieldnames):
         fieldnames (list): List of field names.
     """
     with open(filename, 'w', newline='') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, quoting=csv.QUOTE_MINIMAL, escapechar='\\')
         writer.writeheader()
 
         # iterate over issues
@@ -148,5 +148,20 @@ def write_issues_to_csv(g, issues, filename, fieldnames):
                 sleep_time = reset_timestamp - calendar.timegm(time.gmtime()) + 10
                 print("Rate Limit Exceeded", sleep_time)
                 time.sleep(sleep_time)
-                continue 
+                continue
+
+            except Exception as e:
+                print("Error with Issue: ")
+                pprint({'Issue Number': issue.number,
+                        'Issue Title': issue.title,
+                        'Time created': issue.created_at,
+                        'Time closed': issue.closed_at,
+                        # 'Issue response time': issue.closed_at - issue.created_at,
+                        'Number of Assignees': len(issue.assignees),
+                        'Number of Comments': issue.comments,
+                        'Tags': issue.labels,                                
+                        })
+                print("Error: ", str(e.args))
+                print("Skipping Issue")
+                continue
     
