@@ -7,7 +7,7 @@ import bs4
 from bs4 import BeautifulSoup
 from itertools import product
 from typing import Any, List
-from pytorch_html_scraper import validate_name, count_documentation_length
+from pytorch_html_scraper import validate_name, count_documentation_length, find_subsection_tag_by_text
 from nltk.tokenize import word_tokenize
 from nltk.tag import pos_tag
 import nltk
@@ -16,7 +16,6 @@ from tqdm import tqdm
 import re
 from queue import PriorityQueue
 
-nltk.download('averaged_perceptron_tagger')
 
 # from stackoverflow: https://stackoverflow.com/questions/48393253/how-to-parse-table-with-rowspan-and-colspan
 def table_to_2d(table_tag: bs4.element.Tag) -> List[List[str]]:
@@ -211,6 +210,38 @@ def find_table_of_type(soup: BeautifulSoup, type: str):
     return table
 
 
+def fallback_to_list(soup: BeautifulSoup, keyword: str):
+    ''' Fall back to list scraping. Designed for older document format'''
+    subsection = find_subsection_tag_by_text(soup, keyword)
+    
+    if not hasattr(subsection, "find_all"):
+        return list()
+
+    list_items = subsection.find_all("li")
+
+    table = list()
+    for l in list_items:
+        if not hasattr(l, "text"):
+            continue
+
+        text = str(l.text)
+        splitted = text.split(":")
+
+        if len(splitted) != 2:
+            continue
+
+        left, right = splitted
+
+        # if the first character of the left string is upper case character, it is not what we are looking for.
+        # continue
+        if str(left).strip()[0].isupper():
+            continue
+        
+        table.append([left, right])
+    
+    return table
+
+
 def load_md_file(path: Path):
     ''' Load the markdown file and convert to html for easier parsing '''
     with open(path, 'r') as f:
@@ -231,9 +262,13 @@ def get_function(content: str):
 
     # find args table:
     args = find_table_of_type(soup, "args")
+    if len(args) == 0:
+        args = fallback_to_list(soup, "args:")
 
     # find return table
     return_table = find_table_of_type(soup, "return")
+    if len(return_table) == 0:
+        return_table = fallback_to_list(soup, "return")
 
     param_names = list()
     param_types = list()
@@ -286,6 +321,8 @@ def main():
     if not path.exists():
         parser.error("Unable to locate path: " + str(path))
     
+    nltk.download('averaged_perceptron_tagger')
+
     print("Obtaining all documentation files...")
     content_list = list()
     if os.path.isfile(path):
