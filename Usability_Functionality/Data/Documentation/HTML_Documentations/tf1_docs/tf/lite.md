@@ -1,0 +1,40 @@
+<div itemscope itemtype="http://developers.google.com/ReferenceObject">
+<meta itemprop="name" content="tf.lite" />
+<meta itemprop="path" content="Stable" />
+</div>
+
+# Module: tf.lite
+
+Public API for tf.lite namespace.
+
+<!-- Placeholder for "Used in" -->
+
+
+## Modules
+
+[`constants`](../tf/lite/constants.md) module: Public API for tf.lite.constants namespace.
+
+[`experimental`](../tf/lite/experimental.md) module: Public API for tf.lite.experimental namespace.
+
+## Classes
+
+[`class Interpreter`](../tf/lite/Interpreter.md): Interpreter interface for TensorFlow Lite Models.
+
+[`class OpHint`](../tf/lite/OpHint.md): A class that helps build tflite function invocations.
+
+[`class OpsSet`](../tf/lite/OpsSet.md): Enum class defining the sets of ops available to generate TFLite models.
+
+[`class Optimize`](../tf/lite/Optimize.md): Enum defining the optimizations to apply when generating tflite graphs.
+
+[`class RepresentativeDataset`](../tf/lite/RepresentativeDataset.md): Representative dataset to evaluate optimizations.
+
+[`class TFLiteConverter`](../tf/lite/TFLiteConverter.md): Convert a TensorFlow model into `output_format`.
+
+[`class TargetSpec`](../tf/lite/TargetSpec.md): Specification of target device.
+
+[`class TocoConverter`](../tf/lite/TocoConverter.md): Convert a TensorFlow model into `output_format` using TOCO.
+
+## Functions
+
+[`toco_convert(...)`](../tf/lite/toco_convert.md): Convert a model using TOCO. (deprecated)
+
