@@ -8,23 +8,17 @@ To be able to answer the question why researchers in Aritificial intelligence wh
 
 ## Table of Contents
 
-- [Installation](#installation)
 - [Reproducing The Results](#Reproducing_The_Results)
 - [Insights](#Insights)
 - [Acknowledgments](#acknowledgments)
 
-## Installation
 
-To be able to run the scripts, just use the following command:
-```bash
-pip install -r requirements.txt
-```
 
 ## Reproducing The Results
 
 There are multiple steps to reproduce the results: 
 #### 1) You need to scrape the issues in both Pytorch and TensorFlow
-       Just Run the following command 
+Just Run the following command 
 ```bash
 python3 scraper.py --data_dir Folder_TO_SAVE_CSV_FILES --file_suffix YOUR_SUFFIX_FILE_FOR_BOTH --state TYPE_OF_ISSUE_YOU_WANT_TO_SCRAPE
 ```
