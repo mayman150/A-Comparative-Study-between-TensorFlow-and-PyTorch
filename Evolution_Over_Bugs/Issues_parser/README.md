@@ -1,4 +1,4 @@
-## Parsing Issues in TensorFlow and PyTorch
+# Parsing Issues in TensorFlow and PyTorch
 
 This code provides comprehensive information on each issue, including the following features:
 
@@ -10,14 +10,15 @@ This code provides comprehensive information on each issue, including the follow
 6. Number of Comments
 7. Tags
 
-### Execution Instructions
+## Execution Instructions
 
 To execute the script, run the following command in your terminal:
 
 ```bash
 python3 scraper.py --data_dir Folder_TO_SAVE_CSV_FILES --file_suffix YOUR_SUFFIX_FILE_FOR_BOTH --state TYPE_OF_ISSUE_YOU_WANT_TO_SCRAPE
 
-### File Splitting 
+```
+
 For splitting the files, you can just run the following command: 
 
 ```bash
