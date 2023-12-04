@@ -29,9 +29,9 @@ More detail discussed in the report.
 
 We experimented with two primary combinations: Issue Title + Issue Body + Tags and Issue Title + Tags. In the `ML_Model_Training/Mapped_Data` directory, you'll find three main sections:
 
-      A. **Data_With_Embeddings:**
-         - `GT_bert_concat_data`: BERT embeddings for Issue Title + Issue Body + Tags combination.
-         - `GT_Title_bert_concat_data`: BERT embeddings for Issue Title + Tags combination.
+   A. **Data_With_Embeddings:**
+      - `GT_bert_concat_data`: BERT embeddings for Issue Title + Issue Body + Tags combination.
+      - `GT_Title_bert_concat_data`: BERT embeddings for Issue Title + Tags combination.
 
 To reproduce the results, follow these steps:
 
@@ -40,11 +40,11 @@ To reproduce the results, follow these steps:
 ```
 Replace INPUT_FILE with the path to your input CSV file and OUTPUT_FILE with the desired path for the output CSV file. This command generates BERT embeddings for the specified combination and saves the results in the output CSV file.
    
-      B. **Manually_classified_data:**
-         - This is the data we manually calssified as explained in number 2
-      
-      C. **Final_Data:**
-         - This is the produced data after executing our two-stage bug classification model. To reproduce it, just execute the models_sklearn.ipynb
+   B. **Manually_classified_data:**
+      - This is the data we manually calssified as explained in number 2
+   
+   C. **Final_Data:**
+      - This is the produced data after executing our two-stage bug classification model. To reproduce it, just execute the models_sklearn.ipynb
 
 #### 3) Tried different models to choose the best to predict whether issues are buggy or not. 
 You can reproduce the results in this sheet (https://docs.google.com/spreadsheets/d/1cvkvzK7qmmBwF825iB4jhYmMa-C5ubVbUPCEmv1OLck/edit?usp=sharing) in models_sklearn.ipynb
