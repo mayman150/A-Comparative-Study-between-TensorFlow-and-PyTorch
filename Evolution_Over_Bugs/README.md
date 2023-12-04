@@ -42,6 +42,7 @@ Replace INPUT_FILE with the path to your input CSV file and OUTPUT_FILE with the
 
 B. **Manually_classified_data:**
    - This is the data we manually calssified as explained in number 2
+
 C. **Final_Data:**
    - This is the produced data after executing our two-stage bug classification model. To reproduce it, just execute the models_sklearn.ipynb
 
