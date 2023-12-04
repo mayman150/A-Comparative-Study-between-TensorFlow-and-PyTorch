@@ -114,8 +114,8 @@ def split_csv(source_filepath, dest_path, result_filename_prefix, row_limit):
 def main():
     parser = argparse.ArgumentParser(allow_abbrev=True)
 
-    parser.add_argument("source_filepath", help="file path of the source csv")
-    parser.add_argument("dest_folder", help="file path of the destination folder")
+    parser.add_argument("--source_filepath", help="file path of the source csv")
+    parser.add_argument("--dest_folder", help="file path of the destination folder")
     parser.add_argument("-f", "--filename_prefix", help="prefix of the generated csv file. Defaults to the original file name", required=False)
     parser.add_argument("-r", "--row_limit", help="number of rows per csv. Defaults to 1000", default=1000, type=int, required=False)
 

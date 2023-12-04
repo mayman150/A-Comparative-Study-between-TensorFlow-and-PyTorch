@@ -11,6 +11,8 @@ def __main__():
     parser.add_argument("-p", "--pytorch", action="store_true", help="Scrape for pytorch.")
     parser.add_argument("-t", "--tensorflow", action="store_true", help="Scrape for tensorflow.")
     parser.add_argument("-f", "--file_suffix", help="suffix of the file. Will append 'PyTorch_ / Tensorflow_' in front for corresponding file. Will always be in the same directory", default="_issues.csv")
+    parser.add_argument("--data_dir", help="directory to store the data", default="Scraped_Data")
+    parser.add_argument("--state", help="state of the issue. Can be 'open', 'closed', or 'all'", default="all")
     args = parser.parse_args()
 
     # authenticate with the token
@@ -18,15 +20,15 @@ def __main__():
 
     #Pytorch
     if args.pytorch:
-        issues = get_issues(g, 'pytorch/pytorch', state='open')
+        issues = get_issues(g, 'pytorch/pytorch', state=args.state)
         # write issues to a CSV file
-        write_issues_to_csv(g, issues, 'PyTorch_' + args.file_suffix, ['Issue Number', 'Issue Title',  'Time created', 'Time closed', 'Number of Assignees', 'Number of Comments', 'Tags'])
+        write_issues_to_csv(g, issues, args.data_dir + 'PyTorch_' + args.file_suffix, ['Issue Number', 'Issue Title',  'Time created', 'Time closed', 'Number of Assignees', 'Number of Comments', 'Tags'])
 
     #Tensorflow
     if args.tensorflow:
-        issues = get_issues(g, 'tensorflow/tensorflow', state='open')
+        issues = get_issues(g, 'tensorflow/tensorflow', state=args.state)
         # write issues to a CSV file
-        write_issues_to_csv(g,issues, 'Tensorflow_' + args.file_suffix, ['Issue Number', 'Issue Title',  'Time created','Time closed' ,  'Number of Assignees', 'Number of Comments', 'Tags'])
+        write_issues_to_csv(g,issues, args.data_dir + 'Tensorflow_' + args.file_suffix, ['Issue Number', 'Issue Title',  'Time created','Time closed' ,  'Number of Assignees', 'Number of Comments', 'Tags'])
 
 
 if __name__ == "__main__":
