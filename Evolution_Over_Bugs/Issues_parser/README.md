@@ -11,6 +11,7 @@ This code provides comprehensive information on each issue, including the follow
 7. Tags
 
 ## Execution Instructions
+1. Add your Github Secret in the Scraper Code. Use this link to figure out how you obtain this secret from your Github: https://docs.github.com/en/rest/overview/permissions-required-for-fine-grained-personal-access-tokens?apiVersion=2022-11-28
 
 To execute the script, run the following command in your terminal:
 
