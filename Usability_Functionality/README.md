@@ -1,0 +1,70 @@
+# Usability Functionality
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+## Overview
+
+In order to address the inquiry regarding the preference of researchers in Artificial Intelligence for PyTorch over TensorFlow, our investigative approach centers on comprehending the readability of code and the seamless usability of APIs within each framework. 
+We measured the API density of six models implemented by TensorFlow and Pytorch (client code), API Usability of Documentation of both PyTorch and TensorFlow, and Code Readability of the 6 six models implemented by TensorFlow and Pytorch (client code). 
+
+
+- Usability Functionality
+  ├─ Data 
+  │  ├─ Documentation : This contains the HTML and the produced CSV file 
+  │  ├─ Models        : This contains the seven models that are implemented in both PyTorch and TensorFlow
+  |  └─ json_packages : This will be the most popular **substring** terms in APIs of both PyTorch and TensorFlow used for our code to count number of APIs
+  ├─ API_Density_Metrics: This contains the automated script for collecting the **uniquie** number of API calls in each model. For all number of API calls, we did it manually.
+  │  └─ Final_Results   : These results were produced from the produced CSV File from collect_Unique_API_Call.py. 
+  ├─ API_Usability_Metrics: It cointains all implemented metrics we used for comparing the results quantatively.
+  ├─ Code_Readability_Metrics: It contains the metrics on the six models.
+  |  ├─ results: This is the metric results for each file  
+  |  └─ concatenated_Results: Using Geometric Mean to average all files for each model if applicable  
+  ├─ generating_resultGraphs.ipynb : This is responsible for generating all graphs of this section of the paper.
+  ├─ pytorch_html_scraper.py : Responsible for producing the produced pytorch CSV file of APIs of the documentation
+  └─ pytorch_html_scraper.py : Responsible for producing the produced TensorFlow CSV file of APIs of the documentation
+
+
+
+## Reproducing The Results
+
+There are multiple steps to reproduce the results: 
+#### 1) You need to scrape the issues in both Pytorch and TensorFlow
+Just Run the following command 
+```bash
+python3 scraper.py --data_dir Folder_TO_SAVE_CSV_FILES --file_suffix YOUR_SUFFIX_FILE_FOR_BOTH --state TYPE_OF_ISSUE_YOU_WANT_TO_SCRAPE
+```
+And you are expecting to have the files for Scraped_Data. We splitted the Data to be able to add it in the github. 
+
+#### 2) Manually Classifying whether the issue is buggy or not, you will find the data in Issue_classifier/ML_Model_Training/Mapped_Data/Manually_classified_data. 
+Check more in the **prepare_data** notebook for more details and insights about the data. We found out that the format for TensorFlow issue is somehow different from PyTorch Issue, which directed us to do a classification for each one alone.
+Generally, we balanced data such that we have 171 buggy TensorFlow issues, and 171 not buggy TensorFlow issues. 
+**For PyTorch**
+   - we have 194 buggy pytorch issues + 194 unbuggy Pyotrch Issues
+   - 171 buggy tensorflow issues + 171 unbuggy PyTorch Issues.
+More detail discussed in the report.
+
+
+#### 3) Obtaining Bert Embeddings for Issue Title and Issue Body for Ground Truth (Manually Classified Issues from Section 2)
+
+We experimented with two primary combinations: Issue Title + Issue Body + Tags and Issue Title + Tags. In the `ML_Model_Training/Mapped_Data` directory, you'll find three main sections:
+
+   **A. Data_With_Embeddings:**
+      - `GT_bert_concat_data`: BERT embeddings for Issue Title + Issue Body + Tags combination.
+      - `GT_Title_bert_concat_data`: BERT embeddings for Issue Title + Tags combination.
+
+To reproduce the results, follow these steps:
+
+```bash
+        python3 textual_mapper.py --csv_file INPUT_FILE --output_csv OUTPUT_FILE
+```
+Replace INPUT_FILE with the path to your input CSV file and OUTPUT_FILE with the desired path for the output CSV file. This command generates BERT embeddings for the specified combination and saves the results in the output CSV file.
+   
+   **B. Manually_classified_data:**
+      - This is the data we manually calssified as explained in number 2
+   
+   **C. Final_Data:**
+      - This is the produced data after executing our two-stage bug classification model. To reproduce it, just execute the models_sklearn.ipynb
+
+#### 3) Tried different models to choose the best to predict whether issues are buggy or not. 
+You can reproduce the results in this sheet (https://docs.google.com/spreadsheets/d/1cvkvzK7qmmBwF825iB4jhYmMa-C5ubVbUPCEmv1OLck/edit?usp=sharing) in models_sklearn.ipynb
+#### 4) For the analysis, check evolution_over_bugs_analysis.ipynb 
