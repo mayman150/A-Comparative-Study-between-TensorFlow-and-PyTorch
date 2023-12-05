@@ -7,8 +7,8 @@ This repository hosts a comprehensive comparative study between two popular deep
 
 ## Code-Dependencies
 ```bash
-1.**Python 3.x** with numpy, pandas, matplotlib
-2. **Pytorch 2.x**
+1. Python 3.x with numpy, pandas, matplotlib
+2. Pytorch 2.x
 ```
 We reproduced the results with Python 3.10.13 on Ubuntu 22.04.
 
