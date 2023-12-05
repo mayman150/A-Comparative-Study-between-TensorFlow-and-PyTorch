@@ -3,19 +3,21 @@ from itertools import combinations
 import argparse
 from pathlib import Path
 from utils import *
+import re
+from typing import List, Dict
 import os
 from glob import glob
 
 
-def get_if_blocks(block: ast.If, syntax_blocks: set):
+def get_statement_blocks(block: ast.stmt, syntax_blocks: set):
     syntax_blocks.add(block)
     for b in block.body:
-        if isinstance(b, ast.If):
-            get_if_blocks(b, syntax_blocks)
-    
-    for b in block.orelse:
-        if isinstance(b, ast.If):
-            get_if_blocks(b, syntax_blocks)
+        if check_is_control_flow_statement(b):
+            get_statement_blocks(b, syntax_blocks)
+
+    for b in getattr(block, "orelse", list()):
+        if check_is_control_flow_statement(b):
+            get_statement_blocks(b, syntax_blocks)
 
 
 def add_to_vocabs(token: str, vocabs: set):
@@ -29,7 +31,7 @@ def add_to_vocabs(token: str, vocabs: set):
             vocabs.add(c)
 
 
-def get_vocabs(block: ast.If, vocabs: set):
+def get_vocabs(block: ast.stmt, vocabs: set):
     # dump ast and extract string block
     tree_dump = ast.dump(block)
     extracted_strings = re.findall(r'[\'"](.*?)[\'"]', tree_dump)
@@ -37,6 +39,26 @@ def get_vocabs(block: ast.If, vocabs: set):
         if ' ' in str(string):
             continue
         add_to_vocabs(string, vocabs)
+    
+
+def check_is_control_flow_statement(node: ast.AST):
+    valid_instances = [
+        ast.For,
+        ast.While,
+        ast.If,
+        ast.With,
+        ast.AsyncWith,
+        ast.AsyncFor,
+        ast.Try,
+        ast.ClassDef,
+        ast.FunctionDef
+    ]
+
+    for instance in valid_instances:
+        if isinstance(node, instance):
+            return True
+    else:
+        return False
 
 
 def compute_textual_coherence(code_snippet):
@@ -45,8 +67,8 @@ def compute_textual_coherence(code_snippet):
     # Extract all syntactic blocks (All branching statements)
     syntactic_blocks = set()
     for node in ast.walk(tree):
-        if isinstance(node, ast.If):
-            get_if_blocks(node, syntactic_blocks)
+        if check_is_control_flow_statement(node):
+            get_statement_blocks(node, syntactic_blocks)
 
     # get vocabs
     vocab_list = list()
