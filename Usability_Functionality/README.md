@@ -47,14 +47,8 @@ To produce the documentation results, run the code two times, each time you send
 
 ### 3. Code Readability
 
-
-
-#### 1) You need to scrape the issues in both Pytorch and TensorFlow
-Just Run the following command: one time for pytorch API CSV and other time for TensorFLow API. 
-```bash
-python3 report_results.py --data_dir API_CSV_FILE
-```
+TODO
 
 
 #### 3) Tried different models to choose the best to predict whether issues are buggy or not. 
-You can reproduce the results in this sheet (https://docs.google.com/spreadsheets/d/1cvkvzK7qmmBwF825iB4jhYmMa-C5ubVbUPCEmv1OLck/edit?usp=sharing) in sheet 2
+You can reproduce the results in this sheet (https://docs.google.com/spreadsheets/d/1cvkvzK7qmmBwF825iB4jhYmMa-C5ubVbUPCEmv1OLck/edit?usp=sharing) in sheet 2, 3, and 4
