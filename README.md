@@ -42,7 +42,8 @@ To replicate our results, detailed instructions are available in the **Usability
 
 Understanding the evolution of bugs provides valuable insights into the temporal trends of issues within the source code of PyTorch and TensorFlow. Additionally, analyzing closed issues offers insights into the size and activity of the community, potentially influencing researchers' preference for PyTorch over TensorFlow.
 
-To delve into these insights and reproduce our findings, you will find in the README.me of **Evolution_Over_Bugs** folder
+To delve into these insights and reproduce our findings, you will find in the README.me of **Evolution_Over_Bugs** folder.
+
 
 **Our results** can be found in the following sheet: https://docs.google.com/spreadsheets/d/1cvkvzK7qmmBwF825iB4jhYmMa-C5ubVbUPCEmv1OLck/edit?usp=sharing
 
