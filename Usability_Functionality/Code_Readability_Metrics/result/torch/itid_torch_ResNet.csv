@@ -1,0 +1,2 @@
+filename,line_count,itid_min,itid_max,itid_macro_avg,itid_micro_avg
+../Data/Models/PyTorch/CV/ResNet.py,248,0.1069230769230769,0.9761538461538461,0.6916665172434402,0.7379967446346756

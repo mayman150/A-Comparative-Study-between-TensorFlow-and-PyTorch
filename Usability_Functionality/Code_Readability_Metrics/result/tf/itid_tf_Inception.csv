@@ -1,0 +1,2 @@
+filename,line_count,itid_min,itid_max,itid_macro_avg,itid_micro_avg
+../Data/Models/TensorFlow/CV/Inception.py,382,0.02150537634408603,1.0,0.7793187625291663,0.7361143674598684

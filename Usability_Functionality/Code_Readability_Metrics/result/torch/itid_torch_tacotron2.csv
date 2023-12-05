@@ -1,0 +1,6 @@
+filename,line_count,itid_min,itid_max,itid_macro_avg,itid_micro_avg
+../Data/Models/PyTorch/SR/tacotron2/arg_parse.py,63,0.0,1.0,0.9666666666666668,0.9924812030075187
+../Data/Models/PyTorch/SR/tacotron2/model.py,544,0.28062015503875964,1.0,0.7352593917710196,0.729076151390789
+../Data/Models/PyTorch/SR/tacotron2/entrypoint.py,115,0.19259259259259257,1.0,0.7933682504052874,0.7971225071225071
+../Data/Models/PyTorch/SR/tacotron2/data_function.py,103,0.06962025316455697,0.949367088607595,0.7133752323625743,0.7434854877892855
+../Data/Models/PyTorch/SR/tacotron2/loss_function.py,15,0.4230769230769231,1.0,0.6057692307692308,0.5470085470085471
