@@ -6,8 +6,10 @@
 This repository hosts a comprehensive comparative study between two popular deep learning frameworks, TensorFlow and PyTorch. The investigation spans across two key dimensions: (1) Usability Functionality and (2) Understanding Pytorch and TensorFlow bugs overtime.
 
 ## Code-Dependencies
+```bash
 1.**Python 3.x** with numpy, pandas, matplotlib
 2. **Pytorch 2.x**
+```
 We reproduced the results with Python 3.10.13 on Ubuntu 22.04.
 
 ## Installation 
