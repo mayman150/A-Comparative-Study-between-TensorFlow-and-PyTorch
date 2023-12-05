@@ -44,7 +44,7 @@ Understanding the evolution of bugs provides valuable insights into the temporal
 
 To delve into these insights and reproduce our findings, you will find in the README.me of **Evolution_Over_Bugs** folder
 
-Our results can be found in the following sheet: https://docs.google.com/spreadsheets/d/1cvkvzK7qmmBwF825iB4jhYmMa-C5ubVbUPCEmv1OLck/edit?usp=sharing
+**Our results** can be found in the following sheet: https://docs.google.com/spreadsheets/d/1cvkvzK7qmmBwF825iB4jhYmMa-C5ubVbUPCEmv1OLck/edit?usp=sharing
 
 
 
