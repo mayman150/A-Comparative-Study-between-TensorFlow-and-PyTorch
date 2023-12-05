@@ -89,7 +89,7 @@ def bertEmbeddingMapper(Issues):
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("csv_file", help="location of the ground truth CSV file")
+    parser.add_argument("--csv_file", help="location of the ground truth CSV file")
     parser.add_argument("-o", "--output_csv", help="output file location", default="GT_bert_data.csv")
 
     args = parser.parse_args()
