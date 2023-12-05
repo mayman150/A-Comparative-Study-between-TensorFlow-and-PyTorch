@@ -12,24 +12,22 @@ from ast import literal_eval
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Report the results of the metrics')
-    parser.add_argument('--data_path', help='The path to the data file', default='../Data/Documentation/')
+    parser.add_argument('--data_path', help='The path to the data file', default='../Data/Documentation/output_init_torch.csv')
     return parser.parse_args()
 
 def main():
     
     args = parse_args()
-    tf_path = args.data_path + 'output_init_tf.csv'
-    torch_path = args.data_path + 'output_init_torch.csv'
-    df_tf = pd.read_csv(tf_path)
-    df_torch= pd.read_csv(torch_path)
-    method_names_tf = df_tf['function_name'].tolist()
+    csv_path = args.data_path
+    df = pd.read_csv(csv_path)
+    method_names = df['function_name'].tolist()
 
 
-    AMGI_result = compute_average_AMGI(method_names_tf)
-    AMNCI_result = AMNCI(df_tf)
-    AMONI_result = AMONI(df_tf)
-    APXI_result = APXI(df_tf)
-    DAI_result = ADI_Methods(df_tf)
+    AMGI_result = compute_average_AMGI(method_names)
+    AMNCI_result = AMNCI(df)
+    AMONI_result = AMONI(df)
+    APXI_result = APXI(df)
+    DAI_result = ADI_Methods(df)
     
     print("Tensorflow Documentation Metrics Results")
     # Report the results in a good way with colors
