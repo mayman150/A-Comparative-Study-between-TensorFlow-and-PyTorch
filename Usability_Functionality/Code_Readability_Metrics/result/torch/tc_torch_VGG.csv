@@ -1,0 +1,2 @@
+filename,line_count,tc_min,tc_max,tc_avg
+../Data/Models/PyTorch/CV/VGG.py,99,0.0,0.9545454545454545,0.1793910381456324

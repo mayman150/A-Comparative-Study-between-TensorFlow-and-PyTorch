@@ -1,0 +1,2 @@
+filename,line_count,tc_min,tc_max,tc_avg
+../Data/Models/PyTorch/CV/ResNet.py,248,0.0,1.0,0.10925016199485471

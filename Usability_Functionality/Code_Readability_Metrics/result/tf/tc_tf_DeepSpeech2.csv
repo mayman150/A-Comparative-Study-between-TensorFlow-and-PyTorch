@@ -1,0 +1,4 @@
+filename,line_count,tc_min,tc_max,tc_avg
+../Data/Models/TensorFlow/SR/DeepSpeech2/deep_speech.py,78,0.0,0.4,0.1128662394645171
+../Data/Models/TensorFlow/SR/DeepSpeech2/deep_speech_model.py,70,0.04347826086956522,0.9130434782608695,0.27899374362929596
+../Data/Models/TensorFlow/SR/DeepSpeech2/decoder.py,30,0.041666666666666664,1.0,0.1941581499749658

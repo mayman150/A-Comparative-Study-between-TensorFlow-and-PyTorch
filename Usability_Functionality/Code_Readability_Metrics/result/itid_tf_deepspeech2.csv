@@ -1,4 +1,0 @@
-filename,line_count,itid_min,itid_max,itid_macro_avg,itid_micro_avg
-..\Data\Models\TensorFlow\SR\DeepSpeech2\decoder.py,56,0.2765957446808511,1.0,0.744984802431611,0.7606382978723404
-..\Data\Models\TensorFlow\SR\DeepSpeech2\deep_speech.py,301,0.24028268551236745,0.98390263054574,0.73548800572873,0.7523092492406235
-..\Data\Models\TensorFlow\SR\DeepSpeech2\deep_speech_model.py,121,0.32380952380952377,0.838095238095238,0.6718672438672437,0.6932664995822889

@@ -1,0 +1,2 @@
+filename,line_count,tc_min,tc_max,tc_avg
+../Data/Models/TensorFlow/NLP/BERT/bert_model.py,647,0.0,1.0,0.13218200014862533

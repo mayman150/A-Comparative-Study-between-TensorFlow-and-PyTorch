@@ -1,0 +1,6 @@
+filename,line_count,tc_min,tc_max,tc_avg
+../Data/Models/PyTorch/SR/tacotron2/arg_parse.py,63,0.0,0.0,0.0
+../Data/Models/PyTorch/SR/tacotron2/model.py,544,0.0,0.9411764705882351,0.14352289672822602
+../Data/Models/PyTorch/SR/tacotron2/entrypoint.py,115,0.0,0.9285714285714286,0.07811060897151112
+../Data/Models/PyTorch/SR/tacotron2/data_function.py,103,0.0,0.9375000000000002,0.13951447712562634
+../Data/Models/PyTorch/SR/tacotron2/loss_function.py,15,0.045454545454545456,0.8260869565217391,0.34848484848484845

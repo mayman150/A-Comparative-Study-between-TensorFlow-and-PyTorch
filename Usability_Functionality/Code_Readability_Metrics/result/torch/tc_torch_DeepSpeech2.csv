@@ -1,0 +1,6 @@
+filename,line_count,tc_min,tc_max,tc_avg
+../Data/Models/PyTorch/SR/DeepSpeech2/validation.py,143,0.0,0.8461538461538461,0.14554704264007653
+../Data/Models/PyTorch/SR/DeepSpeech2/utils.py,55,0.0,0.9310344827586208,0.15854670151907502
+../Data/Models/PyTorch/SR/DeepSpeech2/model.py,243,0.0,0.9499999999999998,0.10257215994887982
+../Data/Models/PyTorch/SR/DeepSpeech2/training.py,38,0.06666666666666667,0.7142857142857143,0.2809954590493146
+../Data/Models/PyTorch/SR/DeepSpeech2/decoder.py,109,0.0,0.9374999999999999,0.1779775214108897
