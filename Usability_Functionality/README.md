@@ -8,7 +8,7 @@ In our pursuit to understand why researchers in Artificial Intelligence may pref
 
 ### Project Structure
 
-```plaintext
+```bash
 Usability Functionality
 ├─ Data 
 │  ├─ Documentation : Contains HTML and produced CSV files.
