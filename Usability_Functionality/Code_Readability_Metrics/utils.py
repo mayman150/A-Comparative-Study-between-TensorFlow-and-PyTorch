@@ -4,6 +4,7 @@ import ast
 import re
 import pandas as pd
 from pathlib import Path
+import os
 
 
 START_END = namedtuple("START_END", ["start", "end"])
@@ -165,4 +166,8 @@ def write_to_csv(current_filepath: str, output_filepath: str, line_count: int, r
 
     file.loc[current_filepath] = row
     
+    parent = Path(output_filepath).parent.absolute()
+    if not parent.exists():
+        os.mkdir(parent)
+
     file.to_csv(output_filepath, header=not file_exists)
