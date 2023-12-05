@@ -1,0 +1,2 @@
+filename,line_count,itid_min,itid_max,itid_macro_avg,itid_micro_avg
+../Data/Models/TensorFlow/NLP/BERT/bert_model.py,647,0.18906250000000005,0.9125000000000003,0.7444146478521481,0.7757780934343438

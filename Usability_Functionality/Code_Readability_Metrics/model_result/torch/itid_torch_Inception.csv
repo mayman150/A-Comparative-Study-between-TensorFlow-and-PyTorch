@@ -1,0 +1,2 @@
+filename,line_count,itid_min,itid_max,itid_macro_avg,itid_micro_avg
+../Data/Models/PyTorch/CV/Inception.py,343,0.09090909090909091,0.9272727272727274,0.45858585858585865,0.47103496503496506

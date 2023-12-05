@@ -1,0 +1,2 @@
+filename,line_count,itid_min,itid_max,itid_macro_avg,itid_micro_avg
+../Data/Models/TensorFlow/CV/VGG.py,148,0.3417874396135265,0.9830917874396135,0.7263263457556934,0.7127264492753622

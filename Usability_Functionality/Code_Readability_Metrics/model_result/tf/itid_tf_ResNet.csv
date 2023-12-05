@@ -1,0 +1,2 @@
+filename,line_count,itid_min,itid_max,itid_macro_avg,itid_micro_avg
+../Data/Models/TensorFlow/CV/ResNet.py,339,0.26101694915254237,0.9417746759720834,0.6596328278456892,0.7256383392196291

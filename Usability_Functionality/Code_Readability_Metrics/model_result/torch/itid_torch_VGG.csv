@@ -1,0 +1,2 @@
+filename,line_count,itid_min,itid_max,itid_macro_avg,itid_micro_avg
+../Data/Models/PyTorch/CV/VGG.py,99,0.08620689655172413,1.0,0.6812397372742199,0.6682235507633181
