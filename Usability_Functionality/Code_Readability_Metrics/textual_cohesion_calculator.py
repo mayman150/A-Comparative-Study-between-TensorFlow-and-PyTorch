@@ -155,7 +155,8 @@ def main():
             try:
                 process_file(filepath, args.output)
             except:
-                print("Unable to process file: " + str(filepath))
+                print("WARNING: Unable to process file: " + str(filepath))
+                print("Possibly Syntax Error in File")
     else:
         parser.error("Source must be a file or a directory")
     
