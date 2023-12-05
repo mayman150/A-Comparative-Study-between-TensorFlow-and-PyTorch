@@ -161,11 +161,12 @@ class _BaseAttentionMechanism(AttentionMechanism):
   @property
   def state_size(self):
     return self._alignments_size
-#1
+
+  #1
   def initial_alignments(self, batch_size, dtype):
     max_time = self._alignments_size
     return _zero_state_tensors(max_time, batch_size, dtype) 
-#1
+  #1
   def initial_state(self, batch_size, dtype):
     return self.initial_alignments(batch_size, dtype)
 
@@ -228,7 +229,7 @@ def _bahdanau_score(processed_query, keys, normalize, v, g, b):
     return fn(keys, processed_query, v)
 
 #114+8 = 122
-class BahdanauAttention(_BaseAttentionMechanism):\
+class BahdanauAttention(_BaseAttentionMechanism):
   #8
   def __init__(self,
                num_units,
