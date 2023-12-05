@@ -23,6 +23,9 @@ pip install -r requirements.txt
 
 To facilitate the replication of our findings and encourage contributions for further research, we provide detailed steps on how to reproduce the results for both dimensions explored in our study.
 
+**Note that** our data can be found in our github repos. For each dimension of the project folder, you will find the needed data. 
+
+
 ### Usability Functionality
 
 In exploring the usability functionality for client code and API documentation, we aim to gain insights through quantitative comparisons between PyTorch and TensorFlow. The following dimensions are considered:
