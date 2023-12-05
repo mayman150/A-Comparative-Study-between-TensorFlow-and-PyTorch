@@ -8,7 +8,7 @@ In order to address the inquiry regarding the preference of researchers in Artif
 We measured the API density of six models implemented by TensorFlow and Pytorch (client code), API Usability of Documentation of both PyTorch and TensorFlow, and Code Readability of the 6 six models implemented by TensorFlow and Pytorch (client code). 
 
 
-- Usability Functionality
+  Usability Functionality
   ├─ Data 
   │  ├─ Documentation : This contains the HTML and the produced CSV file 
   │  ├─ Models        : This contains the seven models that are implemented in both PyTorch and TensorFlow
