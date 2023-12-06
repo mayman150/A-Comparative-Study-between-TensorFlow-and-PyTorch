@@ -28,12 +28,13 @@ Usability Functionality
 ## How could we Scrape the Documentation for API Usability? 
 
 Scraping PyTorch documentation is relatively straightforward. This is because all parameter documentations follow the format:
-
-**parameter_name** (*parameter_type(s)*) - parameter descriptions
-
-The return type is either specified in the function description like this: <br>
 ```bash
-_function_name(parameters) → return_type_<br>
+parameter_name (parameter_type(s)) - parameter descriptions
+```
+
+The **return** type is either specified in the function description like this: <br>
+```bash
+_function_name(parameters) → return_type
 ```
 Or it is specified in the **Returns** section of the documentation [torchdoc](link-to-torchdoc). <br>
 
