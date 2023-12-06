@@ -31,8 +31,8 @@ Scraping PyTorch documentation is relatively straightforward. This is because al
 
 **parameter_name** (*parameter_type(s)*) - parameter descriptions
 
-The return type is either specified in the function description like this:
-_function_name(parameters) → return_type_
+The return type is either specified in the function description like this: <br>
+_function_name(parameters) → return_type_<br>
 
 
 Or it is specified in the **Returns** section of the documentation [torchdoc](link-to-torchdoc).
