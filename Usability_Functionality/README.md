@@ -47,9 +47,7 @@ Once we have extracted all the relevant tokens, we score each token based on the
 - If the token is the word "tensor," it has a score of 4 (highly likely).
 - If the token is back-tick quoted, it has a score of 3. 1 bonus point if it is the first occurrence.
 - If the token is a Python or TensorFlow built-in type [pythondatatypes](link-to-pythondatatypes) [tftypes](link-to-tftypes), or it can be translated into such (e.g., the word "string" represents the type "str"), it has 2 points.
-- If the token is a valid Python identifier, it has a score of 1.
-- <br>
-
+- If the token is a valid Python identifier, it has a score of 1. <br>
 Once each token is scored, we will return the token of the highest score, and that token will be presumed to be the parameter type or the return type of the API.<br>
 
 We **evaluated** this method by randomly selecting 25 API Documentations and compared its type identification result to our manual type identification. We discovered that it is able to achieve** 89.43%** accuracy when compared to our manual tagging result. Given our time and resource constraints, we believe this method does a satisfactory job in identifying the parameter and return types of TensorFlow APIs.
