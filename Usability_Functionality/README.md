@@ -25,6 +25,34 @@ Usability Functionality
 └─ tensorflow_html_scraper.py : Produces the TensorFlow CSV file of APIs from the documentation.
 ```
 
+## How could we Scrape the Documentation for API Usability? 
+
+Scraping PyTorch documentation is relatively straightforward. This is because all parameter documentations follow the format:
+
+**parameter_name** (*parameter_type(s)*) - parameter descriptions
+
+The return type is either specified in the function description like this:
+_function_name(parameters) → return_type_
+
+
+Or it is specified in the **Returns** section of the documentation [torchdoc](link-to-torchdoc).
+
+However, scraping TensorFlow has proven to be challenging. While TensorFlow documentation does provide an "**Args**" and "**Returns**" table that specifies the parameters, the parameter types and return types, it does so in a natural language way. For example, consider a parameter that is expected to be the type "tensor"; TensorFlow documentation will describe it as "A `tensor` of any type and shape" [tfdoc](link-to-tfdoc). While this may improve readability and human understandability, it is an obstacle in obtaining the correct types for the given method. After testing out a variety of methods, including relying on external services such as OpenAI, we have developed our own method that is quick to execute and fairly accurate.
+
+First, we tokenize the type description using nltk's word tokenize [nltkdoc](link-to-nltkdoc). Next, we perform Part of Speech (POS) Tagging on the tokenized words. POS Tagging allows us to identify nouns within the type description, as most Python types are nouns [pythondatatypes](link-to-pythondatatypes). We then extract the tokens that are either tagged as a noun or are quoted in back-tick (`). The justification for extracting back-tick quoted tokens is that we discovered that most parameter and return types are quoted in back-tick in TensorFlow's Documentation [tfdoc](link-to-tfdoc). This is so that the type will be rendered in code-like font when displayed on the website. However, this is not true for all types.
+
+Once we have extracted all the relevant tokens, we score each token based on the following criteria:
+
+- If the token is the word "tensor," it has a score of 4 (highly likely).
+- If the token is back-tick quoted, it has a score of 3. 1 bonus point if it is the first occurrence.
+- If the token is a Python or TensorFlow built-in type [pythondatatypes](link-to-pythondatatypes) [tftypes](link-to-tftypes), or it can be translated into such (e.g., the word "string" represents the type "str"), it has 2 points.
+- If the token is a valid Python identifier, it has a score of 1.
+
+Once each token is scored, we will return the token of the highest score, and that token will be presumed to be the parameter type or the return type of the API.
+
+We evaluated this method by randomly selecting 25 API Documentations and compared its type identification result to our manual type identification. We discovered that it is able to achieve 89.43% accuracy when compared to our manual tagging result. Given our time and resource constraints, we believe this method does a satisfactory job in identifying the parameter and return types of TensorFlow APIs.
+
+
 
 
 ## Reproducing The Results
