@@ -31,6 +31,9 @@ def gather_asts(directory):
     Returns:
         list: List of ASTs.
     """
+    if os.path.isfile(directory):
+        return [parse_file(directory)]
+    
     asts = []
     for filename in os.listdir(directory):
         if filename.endswith(".py"):
@@ -142,5 +145,9 @@ def get_unique_calls(dct_class, dct_func, LIST):
     unique_calls = set()
     unique_calls.update(unique_calls_set_class)
     unique_calls.update(unique_calls_set_Func)
-    return unique_calls, len(unique_calls)
+    final_unique_calls = set()
+    for i in unique_calls:
+        i = i.lower().replace('_', '').replace(',', '')
+        final_unique_calls.add(i)
+    return final_unique_calls, len(final_unique_calls)
 

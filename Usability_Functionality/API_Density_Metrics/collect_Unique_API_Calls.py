@@ -169,7 +169,7 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_paths', nargs='+', type=str, default='../Data/Models/TensorFlow/NLP/GNMT/')
+    parser.add_argument('--data_paths', nargs='+', type=str, default='../Data/Models/TensorFlow/CV/Inception.py')
     parser.add_argument('--json_paths', type=str, default='../Data/json_packages/')
     parser.add_argument('--type', type=str, default='tf')
     args = parser.parse_args()
