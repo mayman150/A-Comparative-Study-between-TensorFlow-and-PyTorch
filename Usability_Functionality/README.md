@@ -102,5 +102,11 @@ To tabluate the total score for each framework, run the result tabulator again, 
 ```bash
 python3 Code_Readability_Metrics/result_tabulator.py -m [tc, itid] -l [tf, torch] Code_Readability_Metrics/model_results/summerized_permodel_result
 ```
+
+To generate result for Cognitive Complexity, SonarQube is used to generate the result. Follow the instruction to generate a report on a project:
+
+https://docs.sonarsource.com/sonarqube/9.9/try-out-sonarqube/
+
+Set the project location to be `Data/Models/PyTorch/` and `Data/Models/TensorFlow/` respectively.
 #### Additional Information.
 You can reproduce the results in this sheet (https://docs.google.com/spreadsheets/d/1cvkvzK7qmmBwF825iB4jhYmMa-C5ubVbUPCEmv1OLck/edit?usp=sharing) in sheet 2, 3, and 4
