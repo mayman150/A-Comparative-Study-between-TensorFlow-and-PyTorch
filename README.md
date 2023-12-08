@@ -14,6 +14,8 @@ We reproduced the results with Python 3.10.13 on Ubuntu 22.04.
 
 ## Installation 
 
+We recommend using Anaconda and create an isolated Python environment.
+
 ```bash
 conda create -n proj_663 python=3.10.13
 conda activate proj_663
