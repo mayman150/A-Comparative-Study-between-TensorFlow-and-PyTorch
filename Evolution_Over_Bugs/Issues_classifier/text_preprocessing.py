@@ -302,22 +302,6 @@ def preprocess_text(input_text: str, processing_function_list: Optional[List[Cal
     """ Preprocess an input text by executing a series of preprocessing functions specified in functions list """
     if processing_function_list is None:
         processing_function_list = [to_lower, remove_email, remove_url, remove_punctuation,remove_special_character, check_spelling,  normalize_unicode, remove_stopword, lemmatize_word]
-        # processing_function_list = [to_lower,
-        #                             remove_url,
-        #                             remove_email,
-        #                             remove_phone_number,
-        #                             remove_itemized_bullet_and_numbering,
-        #                             expand_contraction,
-        #                             check_spelling,
-        #                             remove_special_character,
-        #                             remove_punctuation,
-        #                             remove_whitespace,
-        #                             normalize_unicode,
-        #                             remove_stopword,
-        #                             remove_name,
-        #                             substitute_token,
-        #                             lemmatize_word]
-
     for func in processing_function_list:
         input_text = func(input_text)
     if isinstance(input_text, str):

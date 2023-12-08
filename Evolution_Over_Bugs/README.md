@@ -30,10 +30,10 @@ We experimented with two primary combinations: Issue Title + Issue Body + Tags a
       - `GT_bert_concat_data`: BERT embeddings for Issue Title + Issue Body + Tags combination.
       - `GT_Title_bert_concat_data`: BERT embeddings for Issue Title + Tags combination.
 
-To reproduce the results, follow these steps:
+To reproduce the bert embedding mapper, follow these steps:
 
 ```bash
-        python3 textual_mapper.py --csv_file INPUT_FILE --output_csv OUTPUT_FILE
+        python3 bert_embedding_mapper.py --csv_file INPUT_FILE --output_csv OUTPUT_FILE
 ```
 Replace INPUT_FILE with the path to your input CSV file and OUTPUT_FILE with the desired path for the output CSV file. This command generates BERT embeddings for the specified combination and saves the results in the output CSV file.
    
