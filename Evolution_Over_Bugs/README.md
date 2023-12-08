@@ -27,7 +27,7 @@ Generally, we balanced data such that we have 171 buggy TensorFlow issues, and 1
 More detail discussed in the report.
 
 
-#### 3) Obtaining Bert Embeddings for Issue Title and Issue Body for Ground Truth (Manually Classified Issues from Section 2)
+#### 3) Obtaining Bert Embeddings for Issue Title and Issue Body for Ground Truth
 
 We experimented with two primary combinations: Issue Title + Issue Body + Tags and Issue Title + Tags. In the `ML_Model_Training/Mapped_Data` directory, you'll find three main sections:
 
@@ -40,7 +40,8 @@ To reproduce the bert embedding mapper, follow these steps:
 ```bash
         python3 bert_embedding_mapper.py --csv_file INPUT_FILE --output_csv OUTPUT_FILE --option YOUR_OPTION
 ```
-* INPUT_FILE: Your scraped issue CSV file path. We accept only one File.
+* INPUT_FILE: Your Input File written correctly **Issue Title**, **Issue Body**, and **Tags.**
+  * **Note that** we used this embedding for manually classified data to be able to fit our model in this data. 
 * OUTPUT_FILE: The path you want to add your file. We add it in the following path 
 ```bash
    ./ML_Model_Training/Mapped_Data/Data_with_Embeddings/YOUR_CSV_FILE_NAME.csv
@@ -48,8 +49,6 @@ To reproduce the bert embedding mapper, follow these steps:
 * YOUR_OPTION:  DO you want to encode your text as (title + tag) or (title+tag+body). Choose one of the following options 
    * Title_Only
    * all 
-
-Replace INPUT_FILE with the path to your input CSV file and OUTPUT_FILE with the desired path for the output CSV file. This command generates BERT embeddings for the specified combination and saves the results in the output CSV file.
    
    **B. Manually_classified_data:**
       - This is the data we manually calssified as explained in number 2
