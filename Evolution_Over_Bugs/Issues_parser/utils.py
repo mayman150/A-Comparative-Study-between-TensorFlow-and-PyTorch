@@ -6,6 +6,7 @@ import time
 import calendar
 import logging
 from pprint import pprint
+from pathlib import Path
 
 
 def writing_in_file(issues, file_name):
@@ -29,50 +30,11 @@ def writing_in_file(issues, file_name):
     return states
 
 
-
-# def set_labels(issue):
-#     """Set labels of an issue.
-#     Args:
-#         issue (Issue): Issue object.
-#     Returns:
-#         list: List of labels.
-#     """
-#     # label Classifications are ["Bug", "Critical", "Question", "Documentation", "critical", "enhancement", "Minor", "Other"]
-#     labels = []
-#     label_mapper = {"bug":"Bug",
-#                     "critical":"Critical",
-#                     "documentation":"Documentation",
-#                     "enhancement":"enhancement",
-#                     "feature": "enhancement",
-#                     "enhanc": "enhancement",
-#                     "question": "Question",
-#                     "high priority": "Critical",
-#                     "high-priority": "Critical",
-#                     "vulnerab": "Critical",
-#                     "low priority": "Minor",
-#                     "low-priority": "Minor",
-#                     "minor": "Minor",
-#                     "segfault": "Bug",
-#                     "error": "Bug",
-#                     "crash": "Critical",
-#                     }
-    
-#     for label in issue.labels:
-#         for key in label_mapper:
-#             if key in label.name.lower() or key in issue.title.lower():
-#                 #Check if the label is already in the list
-#                 if label_mapper[key] not in labels:
-#                     labels.append(label_mapper[key])
-#     return labels
-
-
-
-def get_issues(g, repo_name, state, since=None):
+def get_issues(g, repo_name, state):
     """Get issues of a repository.
     Args:
         repo_name (str): Name of the repository.
         state (str): State of the issues. Can be 'open', 'closed' or 'all'.
-        since (datetime): Only issues updated at or after this time are returned.
     Returns:
         list: List of issues.
     """
@@ -103,7 +65,12 @@ def write_issues_to_csv(g, issues, filename, fieldnames):
         filename (str): Name of the CSV file.
         fieldnames (list): List of field names.
     """
-    with open(filename, 'w', newline='') as csvfile:
+    output_file_path = Path(filename)
+
+    # create output folder if not exists
+    output_file_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(output_file_path, 'w', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, quoting=csv.QUOTE_MINIMAL, escapechar='\\')
         writer.writeheader()
 
