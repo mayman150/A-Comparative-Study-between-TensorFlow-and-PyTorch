@@ -77,7 +77,30 @@ To produce the documentation results, run the code two times, each time you send
 
 ### 3. Code Readability
 
-**TODO: Add instructions for reproducing code readability results.**
+To generate result for Identifier Terms in Dictionary or Textual Coherance, run the `metric_runner.py` in `Code_Readability_Metrics`.
 
-#### 3) Additional Information.
+```bash
+python3 Code_Readability_Metrics/metric_runner.py -m [tc, itid] -l [tf, torch] MODEL_DATA_LOCATION
+```
+Where:
+* `MODEL_DATA_LOCATION` is the location of the raw Models. It is located in `Data/Models`.
+* `-m` specify the type of metric. Can be either `itid` for Identifier Terms in Dictionary, or `tc` for Textual Coherance.
+* `l` specify the library type. Can be either `tf` for Tensorflow or `torch` for PyTorch.
+ 
+For example, to run ITID on PyTorch:
+```bash
+python3 Code_Readability_Metrics/metric_runner.py -m itid -l torch -o Code_Readability_Metrics/model_results/torch/ Data/Models/
+```
+
+To calculate the geometric mean for each model, depending on the metric / model, run:
+```bash
+python3 Code_Readability_Metrics/result_tabulator.py -m [tc, itid] -l [tf, torch] Code_Readability_Metrics/model_results/[torch/, tf/] -o Code_Readability_Metrics/model_results/summerized_permodel_result
+```
+The tabulator is able to auto-detect the relevant result csv.
+
+To tabluate the total score for each framework, run the result tabulator again, and replace with the summerized permodel result:
+```bash
+python3 Code_Readability_Metrics/result_tabulator.py -m [tc, itid] -l [tf, torch] Code_Readability_Metrics/model_results/summerized_permodel_result
+```
+#### Additional Information.
 You can reproduce the results in this sheet (https://docs.google.com/spreadsheets/d/1cvkvzK7qmmBwF825iB4jhYmMa-C5ubVbUPCEmv1OLck/edit?usp=sharing) in sheet 2, 3, and 4

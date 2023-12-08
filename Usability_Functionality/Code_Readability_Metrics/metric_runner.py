@@ -50,7 +50,11 @@ def main():
     assert metric_calculator_path.exists()
 
     for model_path in list_of_models:
-        source_model_path = args.model_root_path / Path(model_path)
+        if args.library_type == "torch":
+            source_model_path = args.model_root_path / Path("PyTorch/") / Path(model_path)
+        elif args.library_type == "tf":
+            source_model_path = args.model_root_path / Path("TensorFlow/") / Path(model_path)
+
         output_csv_name = get_output_file_name(output_file_prefix, source_model_path, args.output_dir)
         print("Currently processing model: " + Path(model_path).stem)
         subprocess.call(["/usr/bin/env", "python3", metric_calculator_path, source_model_path, output_csv_name], stdout=sys.stdout)
