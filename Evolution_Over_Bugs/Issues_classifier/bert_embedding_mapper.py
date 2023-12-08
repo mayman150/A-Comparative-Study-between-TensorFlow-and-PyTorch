@@ -13,7 +13,7 @@ from nltk.stem import PorterStemmer
 from tqdm import tqdm
 import argparse
 
-from text_preprocessing import preprocess_text
+# from text_preprocessing import preprocess_text
 from sklearn.feature_extraction.text import CountVectorizer
 
 
