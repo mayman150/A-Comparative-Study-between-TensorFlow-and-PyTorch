@@ -121,6 +121,6 @@ transformers==4.35.2
 triton==2.1.0
 typing_extensions==4.8.0
 tzdata==2023.3
-urllib3==1.26.13
+urllib3==1.26.18
 Werkzeug==3.0.1
 wrapt==1.16.0
