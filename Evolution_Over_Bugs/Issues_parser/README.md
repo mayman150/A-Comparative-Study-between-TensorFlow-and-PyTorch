@@ -12,12 +12,16 @@ This code provides comprehensive information on each issue, including the follow
 
 ## Execution Instructions
 1. Add your Github Secret in the Scraper Code. Use this link to figure out how you obtain this secret from your Github: https://docs.github.com/en/rest/overview/permissions-required-for-fine-grained-personal-access-tokens?apiVersion=2022-11-28
+2. create .env file and add your ACCESS_TOKEN = "Your Github Access Token".
 
 To execute the script, run the following command in your terminal:
 
 ```bash
-python3 scraper.py --data_dir Folder_TO_SAVE_CSV_FILES --file_suffix YOUR_SUFFIX_FILE_FOR_BOTH --state TYPE_OF_ISSUE_YOU_WANT_TO_SCRAPE
+Pytorch: 
+python3 scraper.py -p --data_dir Folder_TO_SAVE_CSV_FILES --file_suffix YOUR_SUFFIX_FILE_FOR_BOTH --state TYPE_OF_ISSUE_YOU_WANT_TO_SCRAPE
 
+TensorFlow:
+python3 scraper.py -f --data_dir Folder_TO_SAVE_CSV_FILES --file_suffix YOUR_SUFFIX_FILE_FOR_BOTH --state TYPE_OF_ISSUE_YOU_WANT_TO_SCRAPE
 ```
 
 For splitting the files, you can just run the following command: 
