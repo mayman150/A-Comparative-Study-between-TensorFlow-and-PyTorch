@@ -13,7 +13,7 @@ click==8.1.7
 colorama==0.4.6
 contourpy==1.2.0
 contractions==0.1.73
-cryptography==41.0.5
+cryptography==41.0.6
 cycler==0.12.1
 Deprecated==1.2.14
 distro==1.8.0
