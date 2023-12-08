@@ -664,8 +664,8 @@ class BertLMPredictionHead(nn.Module):
         self.decoder.bias = self.bias
 
     def forward(self, hidden_states):
-        hidden_states = self.transform(hidden_states)
-        hidden_states = self.decoder(hidden_states)
+        hidden_states = self.transform(hidden_states) #Just nn.transform(config)
+        hidden_states = self.decoder(hidden_states)  # nn.Linear
         return hidden_states
 
 #30
