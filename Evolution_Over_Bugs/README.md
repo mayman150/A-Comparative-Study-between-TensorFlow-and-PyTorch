@@ -10,11 +10,8 @@ To be able to answer the question why researchers in Aritificial intelligence wh
 
 There are multiple steps to reproduce the results: 
 #### 1) You need to scrape the issues in both Pytorch and TensorFlow
-Just Run the following command 
-```bash
-python3 scraper.py --data_dir Folder_TO_SAVE_CSV_FILES --file_suffix YOUR_SUFFIX_FILE_FOR_BOTH --state TYPE_OF_ISSUE_YOU_WANT_TO_SCRAPE
-```
-And you are expecting to have the files for Scraped_Data. We splitted the Data to be able to add it in the github. 
+
+Follow the instructions in README found in `Issue_parser`
 
 #### 2) Manually Classifying whether the issue is buggy or not, you will find the data in Issue_classifier/ML_Model_Training/Mapped_Data/Manually_classified_data. 
 Check more in the **prepare_data** notebook for more details and insights about the data. We found out that the format for TensorFlow issue is somehow different from PyTorch Issue, which directed us to do a classification for each one alone.
