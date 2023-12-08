@@ -51,6 +51,7 @@ def main():
 
     parser.add_argument("--csv_file", help="location of the ground truth CSV file")
     parser.add_argument("-o", "--output_csv", help="output file location", default="GT_bert_data.csv")
+    parser.add_argument("--option", help="BERT Embedding", default="Title_Only")
 
     args = parser.parse_args()
 
@@ -59,13 +60,19 @@ def main():
     df_result = df.copy()
     #Have a numpy array of all the issue titles and issue bodies
     IssueTitles = df['Issue Title'].to_numpy()
+    Tags = df['Tags'].to_numpy()
     IssueBodies = df['Issue Body'].to_numpy()
+    
     embeddings  = []
-    for i in tqdm(range(len(IssueTitles))):
-        all_issues = str(IssueTitles[i]) + ' ' + str(IssueBodies[i])
-       
-        res_embedding = bertEmbeddingMapper(all_issues)
-        embeddings.append(res_embedding)
+    if args.option == "Title_Only":
+        for i in tqdm(range(len(IssueTitles))):
+            res_embedding = bertEmbeddingMapper(str(IssueTitles[i]) + ' ' + str(Tags[i]))
+            embeddings.append(res_embedding)
+    elif args.option == "all":
+        for i in tqdm(range(len(IssueTitles))):
+            all_issues = str(IssueTitles[i]) + ' ' +str(Tags[i]) + ' ' +str(IssueBodies[i])
+            res_embedding = bertEmbeddingMapper(all_issues)
+            embeddings.append(res_embedding)
     
     #add the list in the dataframe
     df_result['BERT Embedding'] = embeddings

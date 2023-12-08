@@ -121,6 +121,7 @@ def write_issues_to_csv(g, issues, filename, fieldnames):
                 print("Error with Issue: ")
                 pprint({'Issue Number': issue.number,
                         'Issue Title': issue.title,
+                        'Issue Body': issue.body,
                         'Time created': issue.created_at,
                         'Time closed': issue.closed_at,
                         # 'Issue response time': issue.closed_at - issue.created_at,

@@ -33,8 +33,17 @@ We experimented with two primary combinations: Issue Title + Issue Body + Tags a
 To reproduce the bert embedding mapper, follow these steps:
 
 ```bash
-        python3 bert_embedding_mapper.py --csv_file INPUT_FILE --output_csv OUTPUT_FILE
+        python3 bert_embedding_mapper.py --csv_file INPUT_FILE --output_csv OUTPUT_FILE --option YOUR_OPTION
 ```
+* INPUT_FILE: Your scraped issue CSV file path. We accept only one File.
+* OUTPUT_FILE: The path you want to add your file. We add it in the following path 
+```bash
+   ./ML_Model_Training/Mapped_Data/Data_with_Embeddings/YOUR_CSV_FILE_NAME.csv
+```     
+* YOUR_OPTION:  DO you want to encode your text as (title + tag) or (title+tag+body). Choose one of the following options 
+   * Title_Only
+   * all 
+
 Replace INPUT_FILE with the path to your input CSV file and OUTPUT_FILE with the desired path for the output CSV file. This command generates BERT embeddings for the specified combination and saves the results in the output CSV file.
    
    **B. Manually_classified_data:**
