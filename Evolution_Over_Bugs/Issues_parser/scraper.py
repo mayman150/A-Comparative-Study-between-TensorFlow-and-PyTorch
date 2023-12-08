@@ -25,13 +25,13 @@ def __main__():
     if args.pytorch:
         issues = get_issues(g, 'pytorch/pytorch', state=args.state)
         # write issues to a CSV file
-        write_issues_to_csv(g, issues, args.data_dir + 'PyTorch_' + args.file_suffix, ['Issue Number', 'Issue Title',  'Time created', 'Time closed', 'Number of Assignees', 'Number of Comments', 'Tags'])
+        write_issues_to_csv(g, issues, 'PyTorch_' + args.file_suffix, ['Issue Number', 'Issue Title',  'Time created', 'Time closed', 'Number of Assignees', 'Number of Comments', 'Tags'])
 
     #Tensorflow
     if args.tensorflow:
         issues = get_issues(g, 'tensorflow/tensorflow', state=args.state)
         # write issues to a CSV file
-        write_issues_to_csv(g,issues, args.data_dir + 'Tensorflow_' + args.file_suffix, ['Issue Number', 'Issue Title',  'Time created','Time closed' ,  'Number of Assignees', 'Number of Comments', 'Tags'])
+        write_issues_to_csv(g,issues, 'Tensorflow_' + args.file_suffix, ['Issue Number', 'Issue Title',  'Time created','Time closed' ,  'Number of Assignees', 'Number of Comments', 'Tags'])
 
 if __name__ == "__main__":
     __main__()
