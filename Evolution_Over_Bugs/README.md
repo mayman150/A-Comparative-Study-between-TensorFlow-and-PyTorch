@@ -19,7 +19,6 @@ you will **find the data** in
 ```bash
 Issue_classifier/ML_Model_Training/Mapped_Data/Manually_classified_data.
 ```
-Check more in the **prepare_data** notebook for more details and insights about the data. We found out that the format for TensorFlow issue is somehow different from PyTorch Issue, which directed us to do a classification for each one alone.
 Generally, we balanced data such that we have 171 buggy TensorFlow issues, and 171 not buggy TensorFlow issues. 
 **For PyTorch**
    - we have 194 buggy pytorch issues + 194 unbuggy Pyotrch Issues
