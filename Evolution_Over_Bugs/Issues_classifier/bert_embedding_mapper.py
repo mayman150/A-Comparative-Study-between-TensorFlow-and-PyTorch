@@ -5,21 +5,9 @@ Three Options:
 (3): BERT Embedding
 '''
 import pandas as pd
-import numpy as np
-import nltk
-from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
 
 from tqdm import tqdm
 import argparse
-
-# from text_preprocessing import preprocess_text
-from sklearn.feature_extraction.text import CountVectorizer
-
-
-from gensim.models import Word2Vec
-from nltk.tokenize import word_tokenize
-
 
 from sentence_transformers import SentenceTransformer
 
@@ -49,7 +37,7 @@ def bertEmbeddingMapper(Issues):
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--csv_file", help="location of the ground truth CSV file")
+    parser.add_argument("-c", "--csv_file", help="location of the ground truth CSV file", required=True)
     parser.add_argument("-o", "--output_csv", help="output file location", default="GT_bert_data.csv")
     parser.add_argument("--option", help="BERT Embedding", default="Title_Only")
 
