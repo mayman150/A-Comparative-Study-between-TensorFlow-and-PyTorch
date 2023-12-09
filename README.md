@@ -21,6 +21,8 @@ conda create -n proj_663 python=3.10.13
 conda activate proj_663
 pip install -r requirements.txt
 ```
+
+Using Python virtualenv (https://virtualenv.pypa.io/en/latest/) may work, but it is untested. 
 ## Reproducing the Results 
 
 To facilitate the replication of our findings and encourage contributions for further research, we provide detailed steps on how to reproduce the results for both dimensions explored in our study.
